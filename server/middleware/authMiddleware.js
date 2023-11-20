@@ -255,6 +255,5 @@ module.exports = {
   isActive,
   admin_OR_manager,
   refreshAccToken,
-module.exports = {  };
-
+  checkValidationResult
 };
