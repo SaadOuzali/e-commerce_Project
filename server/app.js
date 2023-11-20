@@ -4,7 +4,10 @@ const app=express();
 const session=require('express-session');
 const bodyParser=require('body-parser')
 const cookieParser=require('cookie-parser');
+const jsonwebtoken=require('jsonwebtoken');
 const { userRouter } = require('./routes/userRoutes');
+const { productsRouter } = require('./routes/productRoutes');
+const { categorieRouter } = require('./routes/categoriesRoutes');
 require('dotenv').config()
 
 
@@ -31,9 +34,37 @@ connect_to_DB()
 console.log(err);
 })
 
+// const transporter=nodemailer.createTransport({
+//     service:"gmail",
+//     auth:{
+//         user:process.env.USER_MAIL,
+//         pass:process.env.USER_PASSWORD
+//     }
+// })
+
+// const mailoptions={
+//     from:process.env.USER_MAIL,
+//     to:"saadouzali@gmail.com",
+//     subject:"resest password",
+//     html:`<h1> wa3 </h1>`
+// }
+
+// async function main(){
+//     const info= await transporter.sendMail(mailoptions);
+//     console.log("Message sent: %s", info.messageId)
+// }
+
+// main().catch(console.error)
+
+
+app.use((req, res, next) => {
+    console.log(req.body);
+    next()
+})
 
 app.use('/v1/users',userRouter)
-
+app.use('/v1/products',productsRouter)
+app.use('/v1/categories',categorieRouter)
 
 app.use((req,res,next)=>{
     res.status(404).json({

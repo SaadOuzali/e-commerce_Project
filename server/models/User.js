@@ -38,10 +38,10 @@ const userschema = new Schema({
 		default: new Date(),
 	},
 	last_login: {
-		type: Number,
+		type: String,
 	},
 	last_update: {
-		type: Number,
+		type: String,
 	},
 	active: {
 		type: Boolean,
