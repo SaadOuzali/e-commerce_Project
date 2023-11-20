@@ -1,23 +1,14 @@
-// import mongoose from "mongoose";
-// import dotenv from "dotenv";
-const dotenv = require("dotenv");
-const mongoose = require("mongoose");
+const { connect } = require("mongoose");
 
-dotenv.config();
+async function connect_to_DB() {
+  try {
+    await connect(
+      "mongodb+srv://saad-bouchra-amine:saad-bouchra-amine@cluster0.ucym5uu.mongodb.net/?retryWrites=true&w=majority",
+      { dbName: "e-commerceDB" }
+    );
+  } catch (error) {
+    throw new Error("can not connect to db");
+  }
+}
 
-const uri =
-  "mongodb+srv://saad-bouchra-amine:saad-bouchra-amine@cluster0.ucym5uu.mongodb.net/?retryWrites=true&w=majority";
-
-const connecting = () => {
-  let DB_NAME = process.env.DB_NAME;
-  mongoose
-    .connect(uri, { dbName: `${DB_NAME}` })
-    .then(() => {
-      console.log("DB CONNECTED !!!");
-    })
-    .catch((err) => {
-      console.log("CAN NOT CONNECT TO DB : ", err);
-    });
-};
-
-module.exports = connecting;
+module.exports = { connect_to_DB };
