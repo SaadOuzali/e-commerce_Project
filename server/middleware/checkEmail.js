@@ -29,17 +29,19 @@ async function createCustomer(req, res, next) {
       email,
       password,
     });
-    if (!createCustomer) {
-      res.status(400).json({
-        status: 400,
-        message: "cannot create customer",
-      });
-      return;
-    }
+    // if (!createCustomer) {
+    //   res.status(400).json({
+    //     status: 400,
+    //     message: "cannot create customer",
+    //   });
+    //   return;
+    // }
     req.customer = createCustomer;
     next();
   } catch (err) {
-    console.log("UGH: ", err);
+    const error=new Error(err.message);
+    error.status=500;
+    next(error);
   }
 }
 

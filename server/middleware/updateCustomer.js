@@ -24,22 +24,25 @@ async function updateCustomer(req, res, next) {
 
 async function updateDataCustomer(req, res, next) {
   try {
-    const customerId = req.customer._id;
+    console.log('hna 3');
+    const customerId = req.payload._id;
     const customerData = req.body;
     const customer = await Customer.findOneAndUpdate(
       { _id: customerId },
-      customerData
+      customerData,{new :true}
     );
     if (!customer) {
       const error = new Error("Customer not found");
-      res.send(404).json({ status: 404, message: "invalid data id" });
+      error.status=404;
+      next(error)
       return;
     }
     req.customer = customer;
     next();
   } catch (err) {
-    console.log("ERROR UGH: ", err);
-    res.status(500).json({ message: "SERVER ERROR UGH" });
+    const error=new Error(err.message);
+    error.status=500;
+    next(error)
   }
 }
 

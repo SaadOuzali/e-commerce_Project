@@ -1,4 +1,4 @@
-const { body } = require("express-validator");
+const { body, query } = require("express-validator");
 const { Router } = require("express");
 const jwt = require("jsonwebtoken");
 
@@ -41,7 +41,14 @@ const {
   searchCustomer,
   listCustomers,
 } = require("../middleware/searchCustomer");
-const { checkValidationResult } = require("../middleware/authMiddleware");
+const {
+  checkValidationResult,
+  isCustomer,
+  CheckJWT,
+  refreshAccToken,
+  admin_OR_manager,
+  ValidatFields,
+} = require("../middleware/authMiddleware");
 const Customer = require("../models/Customer");
 const { sendEmail } = require("../middleware/email");
 
@@ -72,7 +79,7 @@ customerRouter.post(
 
 //signup DONE
 customerRouter.post(
-  "/signup",
+  "/",
   [
     body("first_name").notEmpty().withMessage("Please enter your first name"),
     body("last_name").notEmpty().withMessage("Please enter your last name"),
@@ -89,10 +96,11 @@ customerRouter.post(
       .withMessage("It is not strong password"),
   ],
   checkValidationResult,
+  isCustomer,
   checkEmailExists,
   createCustomer,
   generateTokenEmail,
-  sendEmail,
+  // sendEmail,
   signupController
 );
 
@@ -100,53 +108,23 @@ customerRouter.post(
 //search DONE except privileges
 customerRouter.get(
   "/search",
-  verifyJWT,
-  // checkPrivileges,
+  CheckJWT,
+  refreshAccToken,
+  admin_OR_manager,
   searchCustomer,
   searchCustomerController
 );
 
 // http://localhost:0000/v1/customers?page=1&sort=DESC
 // get list DONE except privileges
-customerRouter.get("/", verifyJWT, listCustomers, listCustomersController);
-
-//email validation DONE
-customerRouter.get("/email/validation", async (req, res, next) => {
-  const secret_key_jwt = process.env.JWT_SECRET;
-  const { token } = req.query;
-  if (!token) {
-    next({ status: 400, message: "no token" });
-    return;
-  }
-  try {
-    const decodedToken = await jwt.verify(token, secret_key_jwt);
-    const customer = await Customer.findOne({
-      _id: decodedToken._id,
-    });
-    if (!customer._id) {
-      res.status(400).json({ message: "customer not found" });
-      // next({ status: 400, message: "customer not found" });
-      return;
-    }
-    if (customer.valid_account) {
-      console.log("account already validated");
-      res.status(400).json({ message: "account already validated" });
-      // next({ status: 400, message: "account already validated" });
-      return;
-    }
-    const updatedCustomer = await Customer.updateOne(
-      { _id: customer._id },
-      { valid_account: true }
-    );
-    if (updatedCustomer.modifiedCount == 0) {
-      res.status(422).json({ message: "Customer not found" });
-      return;
-    }
-    res.status(200).json({ message: "token validated successfully" });
-  } catch (error) {
-    return res.status(401).json({ message: "Expired token" });
-  }
-});
+customerRouter.get(
+  "/",
+  CheckJWT,
+  refreshAccToken,
+  admin_OR_manager,
+  listCustomers,
+  listCustomersController
+);
 
 //get profile DONE EXCEPT privileges : customer
 customerRouter.get(
@@ -157,11 +135,66 @@ customerRouter.get(
   getProfileCustomerController
 );
 
+//email validation DONE
+customerRouter.get(
+  "/email/validation/",
+  [
+    query("token")
+      .notEmpty()
+      .withMessage("must value in token query")
+      .isJWT()
+      .withMessage("this is not a JWT token"),
+  ],ValidatFields,
+  async (req, res, next) => {
+    const secret_key_jwt = process.env.JWT_SECRET;
+    const { token } = req.query;
+    if (!token) {
+      const error = new Error("missing token in query");
+      error.status = 404;
+      next(error);
+      return;
+    }
+    try {
+      const decodedToken = jwt.verify(token, secret_key_jwt);
+      const customer = await Customer.findOne({
+        _id: decodedToken._id,
+      });
+      if (!customer) {
+        res.status(400).json({ message: "customer not found" });
+        return;
+      }
+      if (customer.valid_account) {
+        console.log("account already validated");
+        res.status(400).json({ message: "account already validated" });
+        return;
+      }
+      const updatedCustomer = await Customer.updateOne(
+        { _id: customer._id },
+        { valid_account: true }
+      );
+      if (updatedCustomer.modifiedCount == 0) {
+        res.status(422).json({ message: "Customer not found" });
+        return;
+      }
+      res.status(200).json({
+        status: "success",
+        message: "your compte validated successfully",
+      });
+    } catch (error) {
+      const err = new Error("invalid token");
+      err.status = 401;
+      next(err);
+      return;
+    }
+  }
+);
+
 //get by id DONE EXCEPT privileges : admin, manager
 customerRouter.get(
   "/:id",
-  verifyJWT,
-  // checkPrivileges,
+  CheckJWT,
+  refreshAccToken,
+  admin_OR_manager,
   getCustomerById,
   getCustomerByIdController
 );
@@ -169,8 +202,9 @@ customerRouter.get(
 //update DONE EXCEPT privileges : admin, manager
 customerRouter.put(
   "/:id",
-  verifyJWT,
-  // checkPrivileges,
+  CheckJWT,
+  refreshAccToken,
+  admin_OR_manager,
   updateCustomer,
   updateCustomerController
 );
@@ -179,7 +213,7 @@ customerRouter.put(
 customerRouter.patch(
   "/profile/update",
   verifyJWT,
-  // checkPrivileges,
+  verifyRefreshToken,
   updateDataCustomer,
   updateCustomerDataController
 );
@@ -188,7 +222,7 @@ customerRouter.patch(
 customerRouter.delete(
   "/delete",
   verifyJWT,
-  // checkPrivileges,
+  verifyRefreshToken,
   deleteCustomer,
   deleteCustomerController
 );

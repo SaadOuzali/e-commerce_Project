@@ -2,7 +2,7 @@ const Customer = require("../models/Customer");
 
 async function deleteCustomer(req, res, next) {
   try {
-    const customerId = req.customer._id;
+    const customerId = req.payload._id;
     const customer = await Customer.findOneAndDelete(customerId);
     if (!customer) {
       const err = new Error("invalid customer id");

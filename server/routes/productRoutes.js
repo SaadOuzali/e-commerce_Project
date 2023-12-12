@@ -71,33 +71,33 @@ productsRouter.post(
       .withMessage("field must a Mongo Id  value"),
   ],
   ValidatFields,
-  // upload.single("file"),async (req,res,next)=>{
+  upload.single("file"),async (req,res,next)=>{
 
-  //   const img=Buffer.from(req.file.buffer).toString("base64");
-  //   let dataUrl="data:"+req.file.mimetype+";base64,"+img;
-  //   try {
-  //     const uploadimg=await cloudinary_Upload_Img(dataUrl);
-  //     console.log(uploadimg);
-  //     req.image=uploadimg.url;
-  //     next()
-  //   } catch (error) {
-  //     next(error)
-  //   }
-  // },
+    const img=Buffer.from(req.file.buffer).toString("base64");
+    let dataUrl="data:"+req.file.mimetype+";base64,"+img;
+    try {
+      const uploadimg=await cloudinary_Upload_Img(dataUrl);
+      console.log(uploadimg);
+      req.image=uploadimg.url;
+      next()
+    } catch (error) {
+      next(error)
+    }
+  },
   create_product_controller
 );
 
 //get all products 10 per page
 productsRouter.get(
   "/",
-  [
-    query("page")
-      .notEmpty()
-      .withMessage("must page param")
-      .isString()
-      .withMessage("must a string value"),
-  ],
-  ValidatFields,
+  // [
+  //   query("page")
+  //     .notEmpty()
+  //     .withMessage("must page param")
+  //     .isString()
+  //     .withMessage("must a string value"),
+  // ],
+  // ValidatFields,
   get_product_controller
 );
 

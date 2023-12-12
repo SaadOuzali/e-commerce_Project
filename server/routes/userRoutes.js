@@ -12,6 +12,8 @@ const {
   isActive,
   admin_OR_manager,
   refreshAccToken,
+  verifytoken_for_front_end,
+  verifyrefreshtoken_for_front_end,
 } = require("../middleware/authMiddleware");
 const {
   CheckSignInController,
@@ -134,22 +136,20 @@ userRouter.get(
   CheckJWT,
   refreshAccToken,
   admin_OR_manager,
-  [
-    query("page")
-      .notEmpty()
-      .withMessage("must page query")
-      .isNumeric()
-      .withMessage("must a number "),
-  ],
-  ValidatFields,
+  // [
+  //   query("page")
+  //     .notEmpty()
+  //     .withMessage("must page query")
+  //     .isNumeric()
+  //     .withMessage("must a number "),
+  // ],
+  // ValidatFields,
   Get_AllUsers_ScipingController
 );
 
 
-//search for a user controller
 
 // search for a user
-
 userRouter.get(
   "/search",
   CheckJWT,
@@ -191,13 +191,9 @@ userRouter.put(
   VerifyRole,
   [
     param("_id")
-      .notEmpty()
-      .withMessage("must a Mongo id param")
       .isMongoId()
       .withMessage("this is not a mongo Id"),
     body("first_name")
-      .notEmpty()
-      .withMessage("field first_name required")
       .isString()
       .withMessage("must a string value")
       .isLength({ min: 2 })
@@ -205,8 +201,6 @@ userRouter.put(
       .isLength({ max: 15 })
       .withMessage("maximum 15 charactere"),
     body("last_name")
-      .notEmpty()
-      .withMessage("field last_name required")
       .isString()
       .withMessage("must a string value")
       .isLength({ min: 2 })
@@ -214,17 +208,13 @@ userRouter.put(
       .isLength({ max: 15 })
       .withMessage("maximum 15 charactere"),
     body("email")
-      .notEmpty()
-      .withMessage("email field required!")
       .isEmail()
       .withMessage("this is not email")
       .normalizeEmail(),
     body("role")
-      .notEmpty()
-      .withMessage("role field required")
       .isString()
       .withMessage("must a string value"),
-    body("active").isBoolean().withMessage("password field required!"),
+    body("active").isBoolean().withMessage("active field required!"),
   ],
   ValidatFields,
   modify_ById_Controller
@@ -246,6 +236,27 @@ userRouter.delete(
   ValidatFields,
   delete_UserById_Controller
 );
+
+
+// to verify token for front-end
+userRouter.post('/token',
+  verifytoken_for_front_end
+,verifyrefreshtoken_for_front_end,(req,res,next)=>{
+  res.status(200).json({
+    status:'success',
+    data:{
+      id:req.payload.id,
+      first_name:req.payload.first_name,
+      last_name:req.payload.last_name,
+      user_name:req.payload.user_name,
+      role:req.payload.role,
+      active:req.payload.active
+    }
+  })
+
+})
+
+
 
 module.exports = {
   userRouter,

@@ -1,4 +1,4 @@
-const { validationResult } = require("express-validator");
+const { validationResult, param } = require("express-validator");
 const { sign, verify } = require("jsonwebtoken");
 const nodemailer = require("nodemailer");
 const { Users } = require("../models/User");
@@ -29,21 +29,28 @@ const refreshAccToken = async (req, res, next) => {
         req.cookies.refreshToken,
         process.env.JWT_REFRESH_SECRET
       );
-      console.log("dial refreacc", userdata);
+      
       const { _id } = userdata;
+      
       const newAccToken = sign({ _id: userdata._id }, process.env.JWT_SECRET, {
         expiresIn: "20s",
       });
-      res.cookie("accessToken", newAccToken);
+      
+      res.cookie("accessToken", newAccToken,{
+        // secure:false,
+        httpOnly: true,
+        domain: "localhost"
+      });
       const userData = await Users.findOne({ _id });
-      if (!userdata) {
-        const error = new Error("invalid user id ");
+  
+      if (!userData) {
+        const error = new Error("you don't have enough privilege !!! ");
         error.status = 404;
         next(error);
         return;
       }
       req.payload = userData;
-      console.log("dial payload", userData);
+      console.log('req.payload',req.payload);
       next();
     } catch (error) {
       const err = new Error("Login again");
@@ -51,10 +58,11 @@ const refreshAccToken = async (req, res, next) => {
       next(err);
     }
   } else {
-    console.log("hna 2");
     next();
   }
 };
+
+
 
 // middelware check jwt
 async function CheckJWT(req, res, next) {
@@ -74,21 +82,17 @@ async function CheckJWT(req, res, next) {
 
   try {
     const payload = verify(token, process.env.JWT_SECRET);
-    console.log("check", payload);
     const { _id } = payload;
-    console.log("hna 1");
     const userdata = await Users.findOne({ _id });
     if (!userdata) {
-      const error = new Error("invalid user id ");
+      const error = new Error("you dont have enough priviliege ");
       error.status = 404;
       next(error);
       return;
     }
     req.payload = userdata;
-    console.log("dial hna payload", req.payload);
     next();
   } catch (error) {
-    console.log("5aso yd5ol hna");
     req.payload = null;
     next();
     // const refreshToken = req.cookies.refreshToken;
@@ -120,7 +124,10 @@ function ValidatFields(req, res, next) {
   // console.log('hna');
   const error = validationResult(req);
   if (!error.isEmpty()) {
-    res.status(400).json({ error: error.array() });
+    // const error=new Error(error.array());
+    // error.status(400)
+    res.status(400).json({status:"Failed", error: error.array() });
+    // next(error)
     return;
   }
 
@@ -141,9 +148,7 @@ function isActive(req, res, next) {
 
 // middelware verify role user admin or manager
 async function VerifyRole(req, res, next) {
-  console.log("verify", req.payload);
   const { role } = req.payload;
-
   if (role == "admin") {
     next();
   } else {
@@ -163,21 +168,24 @@ function GenerateJWT(req, res, next) {
       { _id: req.session.user._id },
       process.env.JWT_REFRESH_SECRET,
       {
-        expiresIn: "180d",
+        expiresIn: "180s",
       }
     );
 
-    res
-      .cookie("refreshToken", refreshtoken, {
-        httpOnly: true,
-        domaine: "localhost",
-      })
-      .cookie("accessToken", token, {
-        httpOnly: true,
-        domaine: "localhost",
-      });
+    console.log("Tokens", token);
+    console.log("Ref Token", refreshtoken);
+
     const { _id, user_name, email, role, id } = req.session.user;
-    res.status(200).json({
+    res.status(200).cookie("refreshToken", refreshtoken, {
+      secure:false,
+      httpOnly: false,
+      domain: "localhost"
+    })
+    .cookie("accessToken", token, {
+      secure:false,
+      httpOnly: false,
+      domain: "localhost"
+    }).json({
       status: "success",
       access_token: token,
       data: { _id, user_name, email, role, id },
@@ -191,16 +199,28 @@ function GenerateJWT(req, res, next) {
 }
 
 function admin_OR_manager(req, res, next) {
-  // console.log(req.payload);
-  const { role } = req.payload;
-  console.log("req.payload", req.payload);
-  if (role == "admin" || role == "manager") {
-    next();
-  } else {
-    const error = new Error("you dont have enough privilege");
-    error.status = 403;
-    next(error);
-  }
+console.log('hnaaanannanna');
+    const { role } = req.payload;
+    if (role == "admin" || role == "manager") {
+      next();
+    }else {
+       const error = new Error("you unauthorized not admin or manager ");
+       error.status = 403;
+       next(error);
+    }
+ 
+}
+
+async function  isCustomer(req,res,next){
+const {email}=req.body;
+const finduser=await Users.findOne({email});
+if(finduser){
+  const error=new Error('can not signup with this mail is private ');
+  error.status=401;
+  next(error);
+  return;
+}
+next()
 }
 
 async function SendMail(req, res, next) {
@@ -246,6 +266,80 @@ function checkValidationResult(req, res, next) {
   next();
 }
 
+
+
+
+
+
+
+
+
+// verify token for front-end
+async function verifytoken_for_front_end (req,res,next){
+  let token = req.cookies.accessToken;
+  if (!token) {
+    const error = new Error("Missing token");
+    error.status = 404;
+    next(error);
+    return;
+  };
+  try {
+    const payload = verify(token, process.env.JWT_SECRET);
+    const { _id } = payload;
+    const userdata = await Users.findOne({ _id });
+    if (!userdata) {
+      const error = new Error("user not found");
+      error.status = 404;
+      next(error);
+      return;
+    }
+    req.payload = userdata;
+    next();
+  } catch (error) {
+    req.payload = null;
+    next();
+  }
+  }
+
+
+// verify refresh token for front-end
+async function verifyrefreshtoken_for_front_end(req,res,next){
+  if (!req.payload) {
+    try {
+      const userdata = verify(
+        req.cookies.refreshToken,
+        process.env.JWT_REFRESH_SECRET
+      );
+      
+      const { _id } = userdata;
+      
+      const newAccToken = sign({ _id: userdata._id }, process.env.JWT_SECRET, {
+        expiresIn: "20s",
+      });
+      
+      res.cookie("accessToken", newAccToken);
+      const userData = await Users.findOne({ _id });
+  
+      if (!userData) {
+        const error = new Error("user not found");
+        error.status = 404;
+        next(error);
+        return;
+      }
+      req.payload = userData;
+      
+      next();
+    } catch (error) {
+      const err = new Error("Login again");
+      err.status = 401;
+      next(err);
+    }
+  } else {
+    next();
+  }
+}
+
+
 module.exports = {
   ValidatFields,
   CheckJWT,
@@ -255,5 +349,8 @@ module.exports = {
   isActive,
   admin_OR_manager,
   refreshAccToken,
-  checkValidationResult
+  checkValidationResult,
+  isCustomer,
+  verifytoken_for_front_end,
+  verifyrefreshtoken_for_front_end
 };

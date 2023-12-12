@@ -59,7 +59,7 @@ const productsschema=new Schema({
 })
 
 
-const Products=model("product",productsschema);
+const Products=model("Products",productsschema);
 module.exports={
     Products
 }

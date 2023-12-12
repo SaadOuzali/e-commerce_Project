@@ -9,7 +9,7 @@ const { userRouter } = require("./routes/userRoutes");
 const { productsRouter } = require("./routes/productRoutes");
 const { categorieRouter } = require("./routes/categoriesRoutes");
 require("dotenv").config();
-
+const cors=require('cors')
 const customerRouter = require("./routes/customerRoutes.js");
 const orderRouter = require("./routes/orderRoutes.js");
 
@@ -20,17 +20,32 @@ app.use(
     saveUninitialized: false,
   })
 );
+// for sanding token in cookeis
+app.use(
+  cors({
+      origin: "http://localhost:5173",
+      credentials: true
+  })
+);
+
+
 app.use(cookieParser());
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
+// app.use(cors());
+
+app.use((req, res, next) => {
+  console.log("Cookies", req.cookies);
+  next();
+});
 
 connect_to_DB()
   .then(() => {
     console.log("connection to DB success");
   })
   .catch((err) => {
-    console.log(err);
+    console.log(err.message);
   });
 
 // const transporter=nodemailer.createTransport({
@@ -55,16 +70,17 @@ connect_to_DB()
 
 // main().catch(console.error)
 
-app.use((req, res, next) => {
-  console.log(req.body);
-  next();
-});
+
+
+
 
 app.use("/v1/customers", customerRouter);
 app.use("/v1/orders", orderRouter);
 app.use("/v1/users", userRouter);
 app.use("/v1/products", productsRouter);
 app.use("/v1/categories", categorieRouter);
+
+
 
 app.use((req, res, next) => {
   res.status(404).json({

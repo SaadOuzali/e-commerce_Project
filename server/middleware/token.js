@@ -1,13 +1,15 @@
 const jwt = require("jsonwebtoken");
+const Customer = require("../models/Customer");
 
+
+
+// generate token
 function generateJWT(req, res, next) {
-  const secret_key_jwt = process.env.JWT_SECRET;
-  const { email, active, valid_account } = req.customer;
   const customer = req.customer;
-  const expiresIn = "2h";
+  const expiresIn = "10s";
   const accessToken = jwt.sign(
-    { _id: customer._id, email, active, valid_account, first_name, last_name },
-    secret_key_jwt,
+    { _id: customer._id },
+    process.env.JWT_SECRET,
     {
       expiresIn,
     }
@@ -17,29 +19,48 @@ function generateJWT(req, res, next) {
   next();
 }
 
-function verifyJWT(req, res, next) {
+
+
+// verify jwt
+async function verifyJWT(req, res, next) {
   const secret_key_jwt = process.env.JWT_SECRET;
   const accessToken = req.cookies.accessToken;
   if (!accessToken) {
-    return res.status(401).json({ message: "Unauthorized" });
+    const error=new Error('missing cookies');
+    error.status=404;
+    next(error);
+    return ;
   }
   try {
     // Verify and decode the JWT token
+    console.log('hna 1');
     const decodedToken = jwt.verify(accessToken, secret_key_jwt);
-    req.customer = decodedToken;
+    const {_id}=decodedToken;
+    const findcustomer=await Customer.findOne({_id});
+      if(!findcustomer){
+        const error=new Error('you not a customer !');
+        error.status=404;
+        next(error);
+        return ;
+      }
+    req.payload = findcustomer;
     next();
   } catch (error) {
-    return res.status(401).json({ message: "Invalid token" });
+    req.payload=null;
+    next()
   }
 }
 
+
+
+// generate refrech token
 function generateRefreshToken(req, res, next) {
-  const expiresIn = "2d";
-  const secret_key_refresh_token = process.env.REFRESH_TOKEN_SECRET;
+  const expiresIn = "100d";
+  
   const customer = req.customer;
   const refreshToken = jwt.sign(
     { _id: customer._id },
-    secret_key_refresh_token,
+    process.env.JWT_REFRESH_SECRET,
     {
       expiresIn,
     }
@@ -48,29 +69,44 @@ function generateRefreshToken(req, res, next) {
   next();
 }
 
-function verifyRefreshToken(req, res, next) {
-  const secret_key_refresh_token = process.env.REFRESH_TOKEN_SECRET;
+
+
+// verify refresh token
+async function verifyRefreshToken(req, res, next) {
+  if(!req.payload){
+ const refreshToken=req.cookies.refreshToken
   try {
     const decodedRefreshToken = jwt.verify(
       refreshToken,
-      secret_key_refresh_token
+      process.env.JWT_REFRESH_SECRET
     );
-    if (decodedRefreshToken.expiresIn < Date.now() / 1000) {
-      // /1000 to convert Date.now to seconds
-      return false;
-    }
-    return true;
+   const {_id}=decodedRefreshToken;
+      const findcustomer=await Customer.findOne({_id});
+      if(!findcustomer){
+        const err=new Error('you not a customer !!! ');
+        err.status=404;
+        next(err);
+        return;
+      }
+      req.payload=findcustomer;
+      next()
   } catch (error) {
-    console.log("UGH : ", error);
-    return false;
+    const err=new Error('invalid token');
+    err.status=403;
+    next(err)
   }
+}else{
+  next()
+}
 }
 
+
+
+// generate token email
 function generateTokenEmail(req, res, next) {
   const secret_key_jwt = process.env.JWT_SECRET;
   const customer = req.customer;
-  const expiresIn = "2h";
-  console.log(customer);
+  const expiresIn = "1h";
   const token = jwt.sign({ _id: customer._id }, secret_key_jwt, {
     expiresIn,
   });
@@ -78,10 +114,25 @@ function generateTokenEmail(req, res, next) {
   next();
 }
 
+
+
+// verify is a custumor or not
+function noRole(req,res,next){
+if(req.payload.role){
+  next();
+  return;
+}
+const error=new Error('unauthorized you not customer');
+error.status=403;
+next(error)
+}
+
+
 module.exports = {
   generateJWT,
   verifyJWT,
   generateRefreshToken,
   verifyRefreshToken,
   generateTokenEmail,
+  noRole
 };

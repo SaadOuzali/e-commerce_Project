@@ -11,10 +11,12 @@ const orderSchema = new Schema({
     ref: "Customer",
     required: true,
   },
-  order_items: {
-    type: Array,
-    required: true,
-  },
+  order_items: [
+    {
+      productId:{type:Types.ObjectId,ref:'Products'},
+      quantity:{type:Number}
+    }
+  ],
   order_date: {
     type: String,
     default: new Date().toString(),

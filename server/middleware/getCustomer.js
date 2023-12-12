@@ -23,12 +23,10 @@ async function getCustomerProfile(req, res, next) {
 async function getCustomerById(req, res, next) {
   const customerId = req.params.id;
   const customer = await Customer.find({ id: customerId });
-  if (!customer) {
+  if (!customer.length) {
     const err = new Error("Customer not found");
-    res.status(404).json({
-      status: 404,
-      message: "Customer not found",
-    });
+      err.status=404;
+      next(err)
     return;
   }
   req.customer = customer;

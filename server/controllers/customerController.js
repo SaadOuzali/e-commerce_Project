@@ -1,5 +1,7 @@
 const Customer = require("../models/Customer");
 
+
+
 const loginController = async (req, res, next) => {
   const last_login = new Date().toDateString();
   const refreshToken = req.ref;
@@ -9,14 +11,13 @@ const loginController = async (req, res, next) => {
     { _id: customer._id },
     { last_login: last_login },
     { new: true } //
-  );
+  ).select('_id id first_name last_name email valid_account active');
+
   // Check to make sure that the customer object is not empty
   if (!updatedCustomer) {
     const err = new Error("Can not find customer");
-    res.status(500).json({
-      status: 500,
-      message: "Failed to find customer",
-    });
+    err.status=404;
+    next(err)
     return;
   }
   res
@@ -36,10 +37,8 @@ const loginController = async (req, res, next) => {
     const err = new Error(
       "Failed to set access token and refresh token cookies"
     );
-    res.status(500).json({
-      status: 500,
-      message: "Failed to set access token and refresh token cookies",
-    });
+    err.status=400;
+    next(err);
     return;
   }
 
@@ -58,6 +57,7 @@ const signupController = async (req, res, next) => {
   res.status(201).json({
     status: 201,
     message: "customer created successfully",
+    token:req.token
   });
 };
 
@@ -114,6 +114,8 @@ const listCustomersController = (req, res, next) => {
     data: req.customers,
   });
 };
+
+
 
 module.exports = {
   loginController,

@@ -1,3 +1,4 @@
+const { Products } = require("../models/Product");
 
 
 //  create product controller
@@ -25,7 +26,7 @@ async function get_product_controller  (req, res, next) {
 
     try {
       const findproducts = await Products.find({})
-        .populate({ path: "subcategory_id", populate: { path: "category_id" } })
+        // .populate({ path: "subcategory_id", populate: { path: "category_id" } })
         .skip((Number(page) - 1) * 10)
         .limit(10);
 
@@ -100,13 +101,14 @@ async function find_product_byId_controller (req, res, next) {
 // update a product
 async function update_product_controller (req, res, next) {
     const { _id } = req.params;
+    console.log("hhhhhhh",_id);
     try {
       const updateproduct = await Products.findOneAndUpdate(
         { _id },
         { ...req.body },
         { new: true }
       );
-
+        console.log("hhhhhh2",updateproduct);
       if (!updateproduct) {
         const error = new Error("invalid product id");
         error.status = 404;

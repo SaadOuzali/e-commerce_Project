@@ -56,7 +56,7 @@ async function SignUpController(req, res, next) {
 			const error = new Error(
 				"that it is not possible to create a resource with the given definition because another resource already exists with the same attributes"
 			);
-			error.status = 401;
+			error.status = 403;
 			next(error);
 			return;
 		}
@@ -65,7 +65,7 @@ async function SignUpController(req, res, next) {
 
 		if (!createUser) {
 			const error = new Error("can not creat");
-			error.status = 401;
+			error.status = 500;
 			next(error);
 			return;
 		}
@@ -155,16 +155,17 @@ async function Get_AllUsers_ScipingController(req, res, next)  {
       .sort({ first_name: sort })
       .skip((page-1) * 10)
       .select(
-        "user_name id creation_date email role active last_logon last_update"
+        " first_name last_name id user_name email role active last_login last_update"
       )
       .limit(10);
-    res.status(200).json({status:"success",data: [findusers]});
+    res.status(200).json({status:"success",data: findusers});
   }
 
 
 //to modify a user 
 async function modify_ById_Controller(req,res,next){
     const {_id}=req.params
+	console.log(req.body);
     const {first_name,last_name,email,role,active}=req.body;
     const last_update=new Date().toDateString()
     try {
@@ -175,14 +176,17 @@ async function modify_ById_Controller(req,res,next){
             next(error);
             return;
         }
+		
+		
         res.status(200).json({
             status:"success",
-            message:"user updated successfully"
+            message:"user updated successfully",
+			data:finduser
         })
 
     } catch (error) {
         const err=new Error(error.message);
-        err.status=404
+        err.status=501
         next(err)
     }
 }
@@ -216,6 +220,7 @@ async function delete_UserById_Controller (req,res,next){
 //search with regex controller
 async function search_user_Controller (req, res, next) {
     const { query } = req.query;
+	console.log(query);
     let page = 1;
 
     if (Number(req.query.page)) {
@@ -241,11 +246,11 @@ async function search_user_Controller (req, res, next) {
 			.sort({ first_name: sort })
 			.skip((Number(page) - 1) * 10)
 			.select(
-			  "first_name user_name id creation_date email role active last_logon last_update"
+			  "first_name user_name id creation_date email role active last_login last_update"
 			)
 			.limit(10);
-			
-		  res.status(200).json({ status: "success", data: [findusers] });
+			console.log(findusers);
+		  res.status(200).json({ status: "success", data: findusers });
 	} catch (error) {
 		const err=new Error(error.message);
 		err.status=500;
