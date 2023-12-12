@@ -1,32 +1,24 @@
-const {Types, Schema, model} = require('mongoose');
+const {Schema,model, trusted}=require('mongoose');
+const { v4 } = require('uuid');
 
-// -1 create schema for categories :
-const categoriesSchema = new Schema(
-    {
-        category_name : {
-            type : String,
-            required : true,
-        },
+const categoriesschema=new Schema({
+    id:{
+        type:String,
+        required:true,
+        default :v4()
+    },
+    category_name:{
+        type:String,
+        unique:true,
+        required:true
+    },
+    active:{
+        type:Boolean,
+        default:false
+    }
+})
 
-        id : {
-            type : String,
-            required : true,
-            unique : true,
-        },
-
-        active : {
-            type : Boolean,
-        },
-
-        subcategories : [
-            {
-            type : Types.ObjectId,
-            ref : 'Subcategorie'
-        },]
-
-});
-
-// -2 create model :
-const category = model('Category', categoriesSchema );
-
-module.exports = category;
+const Categories=model("Categories",categoriesschema);
+module.exports={
+    Categories
+}
