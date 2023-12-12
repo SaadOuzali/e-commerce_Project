@@ -1,0 +1,8 @@
+a{
+    text-decoration: none;
+};
+.active{
+    /* color: brown; */
+    font-weight: bold;
+    background-color: #6CB4EE;
+}
