@@ -19,6 +19,11 @@ import PieChart from './statistics/PieChart'
 import Orders from './orders/Orders'
 import SingleOrder from './orders/SingleOrder'
 import App_Front from './Stor_Front/App_Front'
+import Registre from './Stor_Front/componenet/Register'
+import Drawer from './Stor_Front/componenet/Drawers'
+import CartShoppingprovider from './Stor_Front/componenet/contexte/CartShoppingContexte'
+// import PrentOfStoreFront from './Stor_Front/componenet/PrentOfStoreFront'
+import Test from './Stor_Front/componenet/contexte/test'
 
 
 // import Home from './components/Home'
@@ -70,8 +75,15 @@ function App() {
         <Route path='/pagination' element={<Pagination/>}>
           <Route path='add' element={<AddProduct/>} />
         </Route>
-        <Route path='/landing_page' element={<App_Front/>} />
+
         
+        <Route path='/landing_page' element={<App_Front/>} />
+        <Route path='/registre' element={<Registre/> } />
+        <Route path='/drawer' element={<Drawer/> } />
+        <Route path='/landing' element={<Test/>} />
+
+        
+       
       </Routes>
     </BrowserRouter>
     </usercontext.Provider>

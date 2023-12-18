@@ -1,4 +1,5 @@
 import {
+  Box,
   Button,
   Card,
   CardActions,
@@ -9,12 +10,27 @@ import {
   Stack,
   Typography,
 } from "@mui/material";
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import img2 from "../../../images/img.jpg";
 import AddShoppingCartIcon from "@mui/icons-material/AddShoppingCart";
+import formatCurrency from "../../formatCurrency";
+import { Shoppigncartcontexte } from "../contexte/CartShoppingContexte";
 
 export default function ({ data, theme }) {
+  console.log("fsection");
   const [value, setValue] = useState(4);
+  const {
+    cartItems,
+    setCartItems,
+    getCartItemsQuantity,
+    increaseProductToCart,
+    decreaseItemInCart,
+    removeItemInCart
+  } = useContext(Shoppigncartcontexte);
+
+  let quantity = 0;
+  // console.log("dial cart items",cartItems);
+
   return (
     <Container>
       <Stack
@@ -23,7 +39,7 @@ export default function ({ data, theme }) {
         // justifyContent={"space-between"}
         gap={4}
       >
-        {data.map((item) => {
+        {data.map((item, index) => {
           return (
             <Card
               sx={{
@@ -64,7 +80,7 @@ export default function ({ data, theme }) {
                     component="div"
                     color={theme.palette.text.primary}
                   >
-                    ${item.price}
+                    {formatCurrency(item.price)}
                   </Typography>
                   <Rating
                     readOnly
@@ -76,14 +92,46 @@ export default function ({ data, theme }) {
                       setValue(newValue);
                     }}
                   />
-                  <Button
-                    size="small"
-                    variant="outlined"
-                    sx={{ textTransform: "capitalize" }}
-                  >
-                    <AddShoppingCartIcon fontSize="small" />
-                    Add to Cart
-                  </Button>
+                  {getCartItemsQuantity(item?.id) === 0 ? (
+                    <Button
+                      size="small"
+                      variant="outlined"
+                      sx={{ textTransform: "capitalize" }}
+                      onClick={() => increaseProductToCart(item?.id)}
+                    >
+                      <AddShoppingCartIcon fontSize="small" />
+                      Add to Cart
+                    </Button>
+                  ) : (
+                    <>
+                      <Box>
+                        <Button
+                          size="small"
+                          variant="contained"
+                          onClick={() => increaseProductToCart(item.id)}
+                        >
+                          +
+                        </Button>
+                        <Button> {getCartItemsQuantity(item?.id)} </Button>
+                        <Button
+                          variant="contained"
+                          size="small"
+                          onClick={() => decreaseItemInCart(item.id)}
+                        >
+                          -
+                        </Button>
+                      </Box>
+
+                      <Button
+                        variant="contained"
+                        size="small"
+                        sx={{ marginTop: "5px" }}
+                        onClick={() => removeItemInCart(item.id)}
+                      >
+                        Remove
+                      </Button>
+                    </>
+                  )}
                 </Stack>
               </CardContent>
             </Card>

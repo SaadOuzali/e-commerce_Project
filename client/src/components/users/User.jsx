@@ -29,26 +29,26 @@ console.log("dial users",users);
   const handleDelete = useCallback(async (row) => {
     const {_id}=row;
       console.log(_id);
-    // try {
-    //   const {_id}=row;
-    //   console.log(_id);
-    //   const id = "6004a2e031b65381d7d7cdd3";
+    try {
+      const {_id}=row;
+      console.log(_id);
+      const id = "6004a2e031b65381d7d7cdd3";
 
-    //   const { data } = await request.delete(`/v1/users/${id}`);
-    //   if (data?.status == "success") {
-    //     toast.success("user deleted successfully");
-    //   }
-    // } catch ({ response }) {
-    //   if (response.status == 401) {
-    //     toast.error("session expired please logain again");
-    //     console.log("error", response);
-    //     navigate("/users/login");
-    //   }
-    //   // console.log("dial hna",response);
-    //   else if (response.status == 404) {
-    //     toast.error(response.data.Error);
-    //   }
-    // }
+      // const { data } = await request.delete(`/v1/users/${id}`);
+      // if (data?.status == "success") {
+      //   toast.success("user deleted successfully");
+      // }
+    } catch ({ response }) {
+      if (response.status == 401) {
+        toast.error("session expired please logain again");
+        console.log("error", response);
+        navigate("/users/login");
+      }
+      // console.log("dial hna",response);
+      else if (response.status == 404) {
+        toast.error(response.data.Error);
+      }
+    }
   }, []);
 //   const handleDelete2 = ({ row, field }) => console.log("row,field");
 

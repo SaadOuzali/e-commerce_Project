@@ -21,8 +21,8 @@ const authenticateCustomer = async (req, res, next) => {
     const customer = req.customer;
     if (!isValid) {
       const err = new Error("Invalid login credentials");
-      res.status(401).json({
-        status: 401,
+      res.status(404).json({
+        status: 404,
         message: "invalid credentials",
       });
       return;

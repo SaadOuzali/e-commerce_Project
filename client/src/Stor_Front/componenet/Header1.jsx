@@ -17,6 +17,7 @@ const options = [
   ];
 
 export default function Header1() {
+  console.log("header 1");
     const [anchorEl, setAnchorEl] = useState(null);
   const [selectedIndex, setSelectedIndex] = useState(1);
   const open = Boolean(anchorEl);

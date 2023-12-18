@@ -18,19 +18,20 @@ import Section from "./Section";
 
 
 
-export default function Main({ theme }) {
+export default function Main({ theme,data }) {
   const [alignment, setAlignment] = React.useState("web");
-  const [data, setData] = React.useState([
-    { title: "Jeans", price: 15,img:img1 },
-    { title: "T-Shirt", price: 10,img:img2 },
-    { title: "Nike", price: 75,img:img3 },
-    { title: "Denim Jeans", price: 15,img:img3 },
-    { title: "Robe", price: 5  ,img:img3 },
-    { title: "Bracelet", price: 15 ,img:img3 },
-    { title: "Jordan", price: 100 ,img:img3 },
-    { title: "Jordan", price: 150 ,img:img3 },
+  console.log("fl main");
+  // const [data, setData] = React.useState([
+  //   {id:0, title: "Jeans", price: 15,img:img1 },
+  //   {id:1, title: "T-Shirt", price: 10,img:img2 },
+  //   { id:2,title: "Nike", price: 75,img:img3 },
+  //   {id:3, title: "Denim Jeans", price: 15,img:img3 },
+  //   {id:4, title: "Robe", price: 5  ,img:img3 },
+  //   {id:5, title: "Bracelet", price: 15 ,img:img3 },
+  //   { id:6,title: "Jordan", price: 100 ,img:img3 },
+  //   { id:7,title: "Jordan", price: 150 ,img:img3 },
 
-  ]);
+  // ]);
   const handleChange = (event, newAlignment) => {
     setAlignment(newAlignment);
   };

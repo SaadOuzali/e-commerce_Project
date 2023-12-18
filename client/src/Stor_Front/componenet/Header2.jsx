@@ -1,6 +1,8 @@
 import {
   Box,
   Container,
+  Divider,
+  Drawer,
   IconButton,
   InputBase,
   List,
@@ -12,7 +14,7 @@ import {
   Typography,
   useTheme,
 } from "@mui/material";
-import React from "react";
+import React, { useContext } from "react";
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 import SearchIcon from "@mui/icons-material/Search";
 import { styled, alpha } from "@mui/material/styles";
@@ -20,8 +22,17 @@ import PersonIcon from "@mui/icons-material/Person";
 import Badge from "@mui/material/Badge";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import ModalTemplate from "./ModalTemplate";
-
-
+import TemplateModal from "./template/TemplateModal";
+import TemplateFields from "./template/TemplateFields";
+import LockOpenIcon from "@mui/icons-material/LockOpen";
+import request from "../../components/axios";
+import ChevronRightIcon from "@mui/icons-material/ChevronRight";
+import { toast } from "react-toastify";
+import img from "./main/productImage/trico.png";
+import { Shoppigncartcontexte } from "./contexte/CartShoppingContexte";
+import img4 from "./main/productImage/trico.png";
+import formatCurrency from "../formatCurrency";
+import Shoppingcart from "./Shoppingcart";
 
 const Search = styled("div")(({ theme }) => ({
   position: "relative",
@@ -75,19 +86,27 @@ const StyledBadge = styled(Badge)(({ theme }) => ({
 }));
 
 const options = ["All categories", "Baskett", "Chaussures"];
-const arr = [{ type: "email",label:"Email" }, { type: "password",label:"Password" }];
-const btn={title:"Login"};
+const arr = [
+  { type: "email", label: "email" },
+  { type: "password", label: "password" },
+];
+const btn = { title: "Login" };
+// const query={url:"/v1/customers/login",method:"post",initialValue:[]};
 
-export default function Header2() {
-    const theme=useTheme()
+export default function Header2({ data }) {
+  console.log("hna fleader 2");
+  const [openmdl, setOpenmdl] = React.useState(false);
+  const theme = useTheme();
   const [anchorEl, setAnchorEl] = React.useState(null);
   const [selectedIndex, setSelectedIndex] = React.useState(1);
+  const [isdraweropen, setIsdraweropen] = React.useState(false);
+  const { cartItems } = useContext(Shoppigncartcontexte);
+  let numberofproducts = cartItems.length;
   const open = Boolean(anchorEl);
+
   const handleClickListItem = (event) => {
     setAnchorEl(event.currentTarget);
   };
-
- 
 
   const handleMenuItemClick = (event, index) => {
     setSelectedIndex(index);
@@ -96,6 +115,21 @@ export default function Header2() {
 
   const handleClose = () => {
     setAnchorEl(null);
+  };
+
+  // to handle login in modale
+  const handleSubmit = async (inputValue) => {
+    try {
+      const { data } = await request.post("/v1/customers/login", inputValue);
+      console.log("dial data", data);
+    } catch (error) {
+      console.log("hnaaaa");
+      if (error?.response?.status === 404) {
+        toast.error(error?.response?.data?.message);
+        setOpenmdl(false);
+      }
+      console.log("dial error", error);
+    }
   };
 
   return (
@@ -127,10 +161,11 @@ export default function Header2() {
             aria-label="Device settings"
             sx={{
               width: "160px",
+              height: "50px",
               bgcolor: theme.palette.search.main,
               borderBottomRightRadius: "22px",
               borderTopRightRadius: "22px",
-              p:"0"
+              p: "0",
             }}
           >
             <ListItem
@@ -158,7 +193,7 @@ export default function Header2() {
           >
             {options.map((option, index) => (
               <MenuItem
-              sx={{fontSize:"12px"}}
+                sx={{ fontSize: "12px" }}
                 key={option}
                 selected={index === selectedIndex}
                 onClick={(event) => handleMenuItemClick(event, index)}
@@ -171,15 +206,70 @@ export default function Header2() {
       </Search>
       <Box sx={{ flexGrow: 1 }}></Box>
       <Stack direction={"row"} alignItems={"center"}>
+        {/* modal form */}
         <IconButton>
-        <ModalTemplate fields={arr} btn={btn} />
+          {/* <ModalTemplate fields={arr} btn={btn} query={query} /> */}
+          <TemplateModal
+            icon={<PersonIcon />}
+            openmdl={openmdl}
+            setOpenmdl={setOpenmdl}
+          >
+            <TemplateFields
+              fields={arr}
+              btn={btn}
+              icon={
+                <LockOpenIcon sx={{ color: "#1e90ff", fontSize: "40px" }} />
+              }
+              setOpenmdl={setOpenmdl}
+              handleSubmit={handleSubmit}
+              theme={theme}
+            />
+          </TemplateModal>
         </IconButton>
 
-        <IconButton aria-label="cart">
-          <StyledBadge badgeContent={7} color="primary">
+        {/* cart shopping icon */}
+        <IconButton aria-label="cart" onClick={() => setIsdraweropen(true)}>
+          <StyledBadge badgeContent={numberofproducts} color="primary">
             <ShoppingCartIcon />
           </StyledBadge>
         </IconButton>
+        
+        <Drawer
+          anchor="right"
+          open={isdraweropen}
+          onClose={() => setIsdraweropen(false)}
+        >
+          <Stack spacing={3} width={340}>
+            <IconButton
+              sx={{ width: "40px", ":hover": { color: "#dc143c" } }}
+              onClick={() => setIsdraweropen(false)}
+            >
+              <ChevronRightIcon />
+            </IconButton>
+           
+              <Divider  />
+            
+            <Stack>
+              {cartItems.map((item) =>
+                 (
+                  // <Stack spacing={10} direction={"row"} alignItems={"center"}>
+                  //   <img src={item.img} width={120} />
+                  //   <Stack>
+                  //     <Typography fontWeight={"700"} fontSize={20}>
+                  //       {item.title}
+                  //     </Typography>
+                  //     <h6 style={{ margin: 0 }}>{formatCurrency(item.price)} </h6>
+                  //   </Stack>
+                  // </Stack>
+                  <Shoppingcart {...item} data={data} />
+                )
+              )}
+            </Stack>
+            <Box>
+              <Typography>Totale price </Typography>
+            </Box>
+          </Stack>
+        </Drawer>
       </Stack>
     </Container>
   );

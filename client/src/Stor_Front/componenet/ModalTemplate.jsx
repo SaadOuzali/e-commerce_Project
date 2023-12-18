@@ -24,7 +24,7 @@ const style = {
 
 // const arr = [{ type: "email",label:"Email" }, { type: "password",label:"Password" }];
 // const btn={title:"Login"}
-export default function ModalTemplate({ fields, btn, fn }) {
+export default function ModalTemplate({ fields, btn,query }) {
   const [inputValue, setInputValue] = useState({});
   //   const initialInputValue = useMemo(() => {
   //     let objectsOfInput = {};
@@ -38,20 +38,20 @@ export default function ModalTemplate({ fields, btn, fn }) {
   const [open, setOpen] = useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
-    // console.log("dial input",inputValue);
+    // to recovre data of inputs
   const handlechange = ({ target }) => {
     const name = target.name;
     const value = target.value;
-    setInputValue((prev) => ({ ...prev, [name]: value }));
+    setInputValue((prev) => ({ ...prev, name: value }));
   };
+
+//   const fetchdata= handleActions(query)
+
+//   handle submiting
   const handleModal = async (e) => {
     e.preventDefault();
-    console.log("dial input", inputValue);
-    try {
-        const data=await handleActions()
-    } catch (error) {
-        
-    }
+    console.log("dial input ",inputValue);
+
   };
 
   return (

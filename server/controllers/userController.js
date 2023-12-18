@@ -206,7 +206,7 @@ async function delete_UserById_Controller (req,res,next){
         res.status(200).json({
             status:"success",
             message:"user deleted successfully",
-            deletedocument
+            data:deletedocument
         })
     } catch (error) {
         const err=new Error(error.message);
