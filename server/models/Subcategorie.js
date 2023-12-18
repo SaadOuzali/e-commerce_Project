@@ -9,12 +9,6 @@ const SubcategorieSchema = new Schema(
             unique: true
         },
 
-        id : {
-            type : String,
-            required : true,
-            unique : true,
-        },
-
         category_id : {
             type : Types.ObjectId,
             ref: "Category",

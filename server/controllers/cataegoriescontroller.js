@@ -1,6 +1,6 @@
 const { delete_categories } = require("../middleware/categorieMiddleware");
 const { Categories } = require("../models/Categories");
-const { Subcategories } = require("../models/Subcategories");
+const { Subcategories } = require("../models/Subcategorie");
 
 async function create_Categorie_controller(req, res, next) {
   try {

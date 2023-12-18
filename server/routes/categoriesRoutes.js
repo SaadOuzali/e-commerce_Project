@@ -1,23 +1,3 @@
-<<<<<<< HEAD
-import express from "express"
-import  Validate  from "express-validator"
-
-import {
-    createCategory,
-    listCategories,
-    searchCategories,
-    getCategoryById,
-    updateCategory,
-    deleteCategory,
-} from "../controllers/categoriesController"
-
-const categoryRouter = express.Router()
-
-
-categoryRouter.post('/', checkUserRole, createCategory);
-
-categoryRouter.delete('/categories/:id', checkUserRole, deleteCategory);
-=======
 const { Router } = require("express");
 const {
   CheckJWT,
@@ -27,7 +7,7 @@ const {
 } = require("../middleware/authMiddleware");
 const { Categories } = require("../models/Categories");
 const { body, query, param } = require("express-validator");
-const { Subcategories } = require("../models/Subcategories");
+const { Subcategories } = require("../models/Subcategorie");
 const {
   create_Categorie_controller,
   modify_categorie_controller,
@@ -173,4 +153,3 @@ categorieRouter.delete(
 module.exports = {
   categorieRouter,
 };
->>>>>>> 3aa4b40036e359158d2ada0a11c10cd3d507fbd6

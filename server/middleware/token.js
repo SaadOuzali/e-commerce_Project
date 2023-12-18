@@ -6,7 +6,7 @@ const Customer = require("../models/Customer");
 // generate token
 function generateJWT(req, res, next) {
   const customer = req.customer;
-  const expiresIn = "10s";
+  const expiresIn = "6h";
   const accessToken = jwt.sign(
     { _id: customer._id },
     process.env.JWT_SECRET,

@@ -1,25 +1,35 @@
-import express from "express";
-import Validate, { param } from "express-validator";
+const express = require("express");
+const { param } = require("express-validator");
 
-import {
-    createSubcategory,
-    listSubcategories,
-    searchSubcategories,
-    getSubcategoryById,
-    updateSubcategory,
-    deleteSubcategory,
-} from "../controllers/subcategoriesController";
+const {
+  createSubcategory,
+  listSubcategories,
+  searchSubcategories,
+  getSubcategoryById,
+  updateSubcategory,
+  deleteSubcategory
+} = require("../controllers/subcategoriesController");
+
+
+const {
+  CheckJWT,
+  admin_OR_manager,
+  ValidatFields,
+  refreshAccToken,
+} = require("../middleware/authMiddleware");
 
 const subcategoryRouter = express.Router();
 
-subcategoryRouter.post("/", checkUserRole, createSubcategory);
+subcategoryRouter.post("/", CheckJWT, admin_OR_manager, ValidatFields, refreshAccToken, createSubcategory);
 
-subcategoryRouter.get("/", listSubcategories);
+subcategoryRouter.get("/",CheckJWT, admin_OR_manager, ValidatFields, refreshAccToken, listSubcategories);
 
-subcategoryRouter.get("/", searchSubcategories);
+subcategoryRouter.get("/",CheckJWT, admin_OR_manager, ValidatFields, refreshAccToken, searchSubcategories);
 
-subcategoryRouter.get("/", getSubcategoryById);
+subcategoryRouter.get("/:id", CheckJWT, admin_OR_manager, ValidatFields, refreshAccToken, getSubcategoryById);
 
-subcategoryRouter.put("/:id", checkUserRole, param("id").isMongoId(), updateSubcategory);
+subcategoryRouter.put("/:id", param("id").isMongoId(), ValidatFields, updateSubcategory);
 
-subcategoryRouter.delete("/", checkUserRole, deleteSubcategory)
+subcategoryRouter.delete("/:id", param("id").isMongoId(), ValidatFields, deleteSubcategory);
+
+module.exports = subcategoryRouter;
