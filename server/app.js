@@ -7,11 +7,13 @@ const cookieParser = require("cookie-parser");
 const jsonwebtoken = require("jsonwebtoken");
 const { userRouter } = require("./routes/userRoutes");
 const { productsRouter } = require("./routes/productRoutes");
-const { categorieRouter } = require("./routes/categoriesRoutes");
+const categorieRouter = require("./routes/categoryRoutes1.js");
 require("dotenv").config();
 const cors=require('cors')
 const customerRouter = require("./routes/customerRoutes.js");
 const orderRouter = require("./routes/orderRoutes.js");
+const subcategoryRouter = require("./routes/subcategoriesRoutes.js");
+
 
 app.use(
   session({
@@ -79,6 +81,7 @@ app.use("/v1/orders", orderRouter);
 app.use("/v1/users", userRouter);
 app.use("/v1/products", productsRouter);
 app.use("/v1/categories", categorieRouter);
+app.use("/v1/subcategories", subcategoryRouter);
 
 
 

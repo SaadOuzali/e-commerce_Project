@@ -7,7 +7,7 @@ const {
 } = require("../middleware/authMiddleware");
 const { Categories } = require("../models/Categories");
 const { body, query, param } = require("express-validator");
-const { Subcategories } = require("../models/Subcategories");
+const { Subcategories } = require("../models/Subcategorie");
 const {
   create_Categorie_controller,
   modify_categorie_controller,
