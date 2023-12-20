@@ -22,7 +22,12 @@ orderRouter.post("/", verifyJWT, createOrder, createController);
 orderRouter.get("/:id", verifyJWT, getOrderById, getOrderByIdController);
 
 //DONE
-orderRouter.get("/", verifyJWT, listOrders, listOrdersController);
+orderRouter.get(
+  "/",
+  // verifyJWT,
+  listOrders,
+  listOrdersController
+);
 
 //DONE
 orderRouter.put("/:id", verifyJWT, updateOrder, updateOrderController);

@@ -1,5 +1,6 @@
 const express = require("express");
 const { connect_to_DB } = require("./config/database");
+const cors = require("cors");
 const app = express();
 const session = require("express-session");
 const bodyParser = require("body-parser");
@@ -60,6 +61,8 @@ app.use((req, res, next) => {
   next();
 });
 
+app.use(cors());
+
 app.use("/v1/customers", customerRouter);
 app.use("/v1/orders", orderRouter);
 app.use("/v1/users", userRouter);
@@ -79,7 +82,7 @@ app.use((err, req, res, next) => {
   const error = err.message || "can not process your request";
   res.status(status).json({
     status: "failed",
-    Error: error,
+    message: error,
   });
 });
 

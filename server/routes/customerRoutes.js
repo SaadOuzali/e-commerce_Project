@@ -100,7 +100,7 @@ customerRouter.post(
 //search DONE except privileges
 customerRouter.get(
   "/search",
-  verifyJWT,
+  // verifyJWT,
   // checkPrivileges,
   searchCustomer,
   searchCustomerController
@@ -108,7 +108,12 @@ customerRouter.get(
 
 // http://localhost:0000/v1/customers?page=1&sort=DESC
 // get list DONE except privileges
-customerRouter.get("/", verifyJWT, listCustomers, listCustomersController);
+customerRouter.get(
+  "/",
+  // verifyJWT,
+  listCustomers,
+  listCustomersController
+);
 
 //email validation DONE
 customerRouter.get("/email/validation", async (req, res, next) => {
@@ -168,8 +173,8 @@ customerRouter.get(
 
 //update DONE EXCEPT privileges : admin, manager
 customerRouter.put(
-  "/:id",
-  verifyJWT,
+  "/:_id",
+  // verifyJWT,
   // checkPrivileges,
   updateCustomer,
   updateCustomerController
@@ -178,7 +183,7 @@ customerRouter.put(
 //update data DONE EXCEPT privileges : customer
 customerRouter.patch(
   "/profile/update",
-  verifyJWT,
+  // verifyJWT,
   // checkPrivileges,
   updateDataCustomer,
   updateCustomerDataController
@@ -187,7 +192,7 @@ customerRouter.patch(
 //delete DONE EXCEPT privileges : customer
 customerRouter.delete(
   "/delete",
-  verifyJWT,
+  // verifyJWT,
   // checkPrivileges,
   deleteCustomer,
   deleteCustomerController

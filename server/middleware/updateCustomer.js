@@ -3,11 +3,12 @@ const Customer = require("../models/Customer");
 //we can update the customer in db but the customer we get is not updated => findOne, updateOne
 async function updateCustomer(req, res, next) {
   try {
-    const customerId = req.params.id;
+    const customerId = req.params._id;
     const customerData = req.body;
     const customer = await Customer.findOneAndUpdate(
-      { id: customerId },
-      customerData
+      { _id: customerId },
+      customerData,
+      { new: true }
     );
     if (!customer) {
       const err = new Error("Customer not found");
