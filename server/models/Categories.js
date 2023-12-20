@@ -15,6 +15,11 @@ const categoriesschema=new Schema({
     active:{
         type:Boolean,
         default:false
+    },
+    slug:{
+        type:String,
+        required:true,
+        unique:true
     }
 })
 

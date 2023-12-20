@@ -26,6 +26,7 @@ import ChairIcon from "@mui/icons-material/Chair";
 import BedroomParentIcon from "@mui/icons-material/BedroomParent";
 import DropdownMenu from "./DropdownMenu";
 import { Link } from "react-router-dom";
+import CategoriesDisplay from "../../components/CategoriesDisplay";
 
 const categories = ["Sports", "Electronic"];
 
@@ -48,6 +49,7 @@ export default function Header3() {
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
   };
+
   const handleClose = () => {
     setAnchorEl(null);
   };
@@ -56,6 +58,7 @@ export default function Header3() {
     const fetchCategorie = async () => {
       try {
         const data = await request.get("/v1/categories");
+        console.log(data.data.data);
         if (data.status === 200) {
           setCategorie(data.data.data);
         }
@@ -67,6 +70,7 @@ export default function Header3() {
   }, []);
 
   return (
+    <>
     <Container
       sx={{
         display: "flex",
@@ -133,21 +137,27 @@ export default function Header3() {
             },
           }}
         >
-           {categorie.map((cat) => {
+           {/* {categorie.map((cat) => {
             return (
          <MenuItem >
-            <Link>
+            <Link  >
                 {cat.category_name}
             </Link>
          </MenuItem>
             );
-          })}
+          })} */}
         
         </Menu>
 
-        
 
       <TemporaryDrawer />
     </Container>
+    
+
+    {/* <Box>
+      <CategoriesDisplay />
+    </Box> */}
+
+    </>
   );
 }

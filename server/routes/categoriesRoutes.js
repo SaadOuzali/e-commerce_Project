@@ -117,7 +117,24 @@ categorieRouter.delete(
 
 
 // to get categories with subcategorie
-categorieRouter.get("/", get_Categorie_and_Subcategorie_controller);
+// categorieRouter.get("/", get_Categorie_and_Subcategorie_controller);
+
+
+
+// to get categories 
+categorieRouter.get("/",async(req,res,next)=>{
+  try {
+    const findcategories=await Categories.find();
+    res.status(200).json({
+      status:"success",
+      data:findcategories
+    })
+  } catch (error) {
+    const err=new Error(error.message);
+    err.status=500;
+    next(err)
+  }
+})
 
 
 

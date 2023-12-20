@@ -50,3 +50,11 @@ a{
   font-weight: bold;
   background-color: #6CB4EE;
 }
+
+.category-wrapper:not(.sub-active) .sub {
+  display: none;
+}
+
+.sub-active .sub {
+  display: block;
+}
