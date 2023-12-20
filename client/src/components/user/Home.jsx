@@ -1,7 +1,7 @@
 // import React from 'react'
 import { Button, Grid, Stack } from "@mui/material";
 import React, { useEffect, useState } from "react";
-import { Link, useParams } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import Card from '@mui/material/Card';
 import CardActions from '@mui/material/CardActions';
 import CardContent from '@mui/material/CardContent';
@@ -11,6 +11,7 @@ import request from "../axios";
 import { toast } from "react-toastify";
 
 const Home = () => {
+  const navigate=useNavigate()
   const [data,setData]=useState({});
   console.log("data",data);
 useEffect(()=>{
