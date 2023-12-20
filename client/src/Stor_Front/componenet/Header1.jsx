@@ -33,8 +33,8 @@ export default function Header1() {
   const handleClose = () => {
     setAnchorEl(null);
   };
-  const colorMode = useContext(ColorModeContext);
-  const theme = useTheme();
+  const {theme, colorMode} = useContext(ColorModeContext);
+  
   return (
     <Box sx={{ bgcolor: "#000000",py:"4px",borderBottomRightRadius:4,borderBottomLeftRadius:4 }}>
       <Container>

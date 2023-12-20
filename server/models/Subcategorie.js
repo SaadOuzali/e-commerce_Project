@@ -6,18 +6,27 @@ const SubcategorieSchema = new Schema(
         subcategory_name : {
             type : String,
             required : true,
-            unique: true
+            
+        },
+        id:{
+            type:String,
+            required:true
         },
 
         category_id : {
             type : Types.ObjectId,
-            ref: "Category",
+            ref: "Categorie",
             required : true,
-            unique : true,
+          
         },
 
         active : {
             type : Boolean,
+        },
+        slug : {
+            type : String,
+            unique:true,
+            required:true
         },
 
 });

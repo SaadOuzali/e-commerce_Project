@@ -1,5 +1,6 @@
 const { delete_categories } = require("../middleware/categorieMiddleware");
 const { Categories } = require("../models/Categories");
+const Subcategorie = require("../models/Subcategorie");
 const { Subcategories } = require("../models/Subcategorie");
 
 async function create_Categorie_controller(req, res, next) {
@@ -144,11 +145,48 @@ async function get_categoryById_controller(req, res, next) {
   }
 }
 
+
+
+
+const get_Categorie_and_Subcategorie_controller=async (req, res, next) => {
+  const returnedResponse = [];
+
+ try {
+   const findcategories = await Categories.find();
+ 
+   for (let i = 0; i < findcategories.length; i++) {
+     const category = findcategories[i];
+     const _id = category._id;
+ 
+     const categorySubs = await Subcategorie.find({ category_id: _id }).select('subcategory_name slug');
+     console.log("hna fsub",categorySubs[0]);
+
+     returnedResponse.push({
+      category_name: category.category_name,
+      sub:categorySubs
+     });
+   }
+   
+   res.status(200).json({
+     data: returnedResponse,
+   });
+
+   
+ } catch (error) {
+  const err=new Error(error.message);
+  err.status=500;
+  next(err)
+ }
+};
+
+
+
 module.exports = {
   create_Categorie_controller,
   modify_categorie_controller,
   get_Category_controller,
   delete_categorie_controller,
   get_categoryById_controller,
-  search_category_controller
+  search_category_controller,
+  get_Categorie_and_Subcategorie_controller
 };

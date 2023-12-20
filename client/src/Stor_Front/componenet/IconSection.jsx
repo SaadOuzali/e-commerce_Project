@@ -4,6 +4,7 @@ import ElectricBoltIcon from "@mui/icons-material/ElectricBolt";
 import AccessAlarmIcon from "@mui/icons-material/AccessAlarm";
 import PaymentIcon from "@mui/icons-material/Payment";
 import WorkspacePremiumIcon from "@mui/icons-material/WorkspacePremium";
+import { useMode } from "../them";
 
 const MyBox = ({ icon, text1, text2 }) => {
   return (
@@ -28,6 +29,7 @@ const MyBox = ({ icon, text1, text2 }) => {
 };
 
 export default function IconSection({theme}) {
+  // const [theme, colorMode] = useMode();
 
   return (
     <Container sx={{mt:1,bgcolor:theme.palette.bg1.main}}>

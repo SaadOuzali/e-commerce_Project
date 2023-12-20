@@ -15,8 +15,10 @@ const {
   delete_categorie_controller,
   get_categoryById_controller,
   search_category_controller,
+  get_Categorie_and_Subcategorie_controller,
 } = require("../controllers/cataegoriescontroller");
 const { delete_categories } = require("../middleware/categorieMiddleware");
+const Subcategorie = require("../models/Subcategorie");
 const categorieRouter = Router();
 
 //create a new categories;
@@ -77,10 +79,8 @@ categorieRouter.get(
   search_category_controller
 );
 
-
 //get all categories 10 per page
-categorieRouter.get("/", get_Category_controller);
-
+// categorieRouter.get("/", get_Category_controller);
 
 // get a categorie by id
 categorieRouter.get(
@@ -95,7 +95,6 @@ categorieRouter.get(
   ValidatFields,
   get_categoryById_controller
 );
-
 
 //delete a categorie by id
 categorieRouter.delete(
@@ -113,6 +112,15 @@ categorieRouter.delete(
   ValidatFields,
   delete_categorie_controller
 );
+
+
+
+
+// to get categories with subcategorie
+categorieRouter.get("/", get_Categorie_and_Subcategorie_controller);
+
+
+
 
 //search for categories
 // categorieRouter.get(

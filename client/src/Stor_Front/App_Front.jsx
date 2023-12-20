@@ -42,7 +42,7 @@ export default function App_Front() {
 
   ]);
   return (
-    <ColorModeContext.Provider value={colorMode}>
+    <>
       <CartShoppingprovider>
       <ThemeProvider theme={theme}>
         <CssBaseline />
@@ -63,6 +63,6 @@ export default function App_Front() {
      </TemplateModal> */}
   </CartShoppingprovider>
       
-    </ColorModeContext.Provider>
+    </>
   );
 }

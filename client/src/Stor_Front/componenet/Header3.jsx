@@ -3,21 +3,45 @@ import {
   Button,
   Container,
   IconButton,
+  List,
+  ListItem,
+  ListItemButton,
+  ListItemText,
   Menu,
   MenuItem,
+  Paper,
+  Stack,
   Typography,
   useTheme,
 } from "@mui/material";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import KeyboardArrowRightIcon from "@mui/icons-material/KeyboardArrowRight";
 import WindowIcon from "@mui/icons-material/Window";
 import MenuIcon from "@mui/icons-material/Menu";
 import TemporaryDrawer from "./TemporaryDrawer";
+import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import IconSection from "./IconSection";
+import request from "../../components/axios";
+import ChairIcon from "@mui/icons-material/Chair";
+import BedroomParentIcon from "@mui/icons-material/BedroomParent";
+import DropdownMenu from "./DropdownMenu";
+import { Link } from "react-router-dom";
 
 const categories = ["Sports", "Electronic"];
 
 export default function Header3() {
+  const [categorie, setCategorie] = useState([]);
+  const [isopen, setIsopen] = useState(false);
+  const [isDropdownVisible, setDropdownVisible] = useState(false);
+
+  const handleMouseEnter = () => {
+    setDropdownVisible(true);
+  };
+
+  const handleMouseLeave = () => {
+    setDropdownVisible(false);
+  };
+  // console.log("dial state", categorie);
   const theme = useTheme();
   const [anchorEl, setAnchorEl] = useState(null);
   const open = Boolean(anchorEl);
@@ -28,17 +52,48 @@ export default function Header3() {
     setAnchorEl(null);
   };
 
+  useEffect(() => {
+    const fetchCategorie = async () => {
+      try {
+        const data = await request.get("/v1/categories");
+        if (data.status === 200) {
+          setCategorie(data.data.data);
+        }
+      } catch (error) {
+        console.log("hna ferror", error);
+      }
+    };
+    fetchCategorie();
+  }, []);
+
   return (
-   
-
-
-      <Container
+    <Container
+      sx={{
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "space-between",
+      }}
+    >
+      {/* <Button
         sx={{
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "space-between",
+          bgcolor: theme.palette.search.main,
+          color: theme.palette.text.secondary,
+          width: "250px",
         }}
+        onClick={()=>setIsopen(true)}
       >
+        <WindowIcon />
+        <Typography sx={{ mx: 1, textTransform: "capitalize" }}>
+          Categories
+        </Typography>
+        {isopen ? (
+          <ExpandMoreIcon sx={{ marginLeft: 9 }} />
+        ) : (
+          <KeyboardArrowRightIcon sx={{ marginLeft: 9 }} />
+        )}
+      </Button> */}
+
+      
         <Button
           id="basic-button"
           aria-controls={open ? "basic-menu" : undefined}
@@ -48,14 +103,18 @@ export default function Header3() {
           sx={{
             bgcolor: theme.palette.search.main,
             color: theme.palette.text.secondary,
-            width:"200px"
+            width: "250px",
           }}
         >
           <WindowIcon />
           <Typography sx={{ mx: 1, textTransform: "capitalize" }}>
             Categories
           </Typography>
-          <KeyboardArrowRightIcon />
+          {open ? (
+            <ExpandMoreIcon sx={{ marginLeft: 9 }} />
+          ) : (
+            <KeyboardArrowRightIcon sx={{ marginLeft: 9 }} />
+          )}
         </Button>
         <Menu
           id="basic-menu"
@@ -67,27 +126,28 @@ export default function Header3() {
           }}
           sx={{
             ".MuiPaper-root": {
-              width: 200,
+              width: 250,
               bgcolor: theme.palette.search.main,
               color: theme.palette.text.secondary,
+              // display:"none"
             },
           }}
         >
-          {categories.map((cat) => {
-            return <MenuItem onClick={handleClose}>{cat} </MenuItem>;
+           {categorie.map((cat) => {
+            return (
+         <MenuItem >
+            <Link>
+                {cat.category_name}
+            </Link>
+         </MenuItem>
+            );
           })}
-          {/* <MenuItem onClick={handleClose}>My account</MenuItem>
-          <MenuItem onClick={handleClose}>Logout</MenuItem> */}
+        
         </Menu>
-      
-          <TemporaryDrawer />
-      
-      
-      </Container>
-      
-      
-    
 
-    
+        
+
+      <TemporaryDrawer />
+    </Container>
   );
 }

@@ -24,7 +24,7 @@ const productsschema=new Schema({
     },
     subcategory_id:{
         type:Schema.Types.ObjectId,
-        ref:'Subcategories'
+        ref:'Subcategorie'
     },
     short_description:{
         type:String,
@@ -55,6 +55,10 @@ const productsschema=new Schema({
     active:{
         type:Boolean,
         default:false
+    },
+    slug:{
+        type:String,
+        required:true
     }
 })
 

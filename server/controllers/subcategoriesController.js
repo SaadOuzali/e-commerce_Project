@@ -2,28 +2,32 @@
 const Subcategorie = require("../models/Subcategorie");
 // Import the Categorie model
 const Category = require("../models/Categories");
+const {v4}=require('uuid')
 
 // Function to create a new subcategory
 const createSubcategory = async (req, res) => {
-  const { subcategory_name, active = false, category_id } = req.body;
+  const { subcategory_name, active = false, category_id,slug } = req.body;
 
   try {
     // Check uniqueness of subcategory subcategory_name in the database
-    const existingSubcategory = await Subcategorie.findOne({
-      subcategory_name
-    });
+    // const existingSubcategory = await Subcategorie.findOne({
+    //   subcategory_name
+    // });
 
-    if (existingSubcategory) {
-      return res
-        .status(400)
-        .json({ error: "subcategory subcategory_name already exists" });
-    }
+    // if (existingSubcategory) {
+    //   return res
+    //     .status(400)
+    //     .json({ error: "subcategory subcategory_name already exists" });
+    // }
 
     // Create the new subcategory
+    const id=v4()
     const newSubcategory = await Subcategorie.create({
       subcategory_name,
       active,
-      category_id
+      category_id,
+      id,
+      slug
     });
 
     // Return success response
@@ -36,6 +40,10 @@ const createSubcategory = async (req, res) => {
     return res.status(500).json({ error: "Internal Server Error" });
   }
 };
+
+
+
+
 
 // Controller function to list all subcategories
 async function listSubcategories(req, res) {

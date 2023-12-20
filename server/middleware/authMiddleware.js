@@ -33,7 +33,7 @@ const refreshAccToken = async (req, res, next) => {
       const { _id } = userdata;
       
       const newAccToken = sign({ _id: userdata._id }, process.env.JWT_SECRET, {
-        expiresIn: "6h",
+        expiresIn: "180s",
       });
       
       res.cookie("accessToken", newAccToken,{

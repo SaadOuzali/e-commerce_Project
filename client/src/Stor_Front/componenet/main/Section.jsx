@@ -17,7 +17,7 @@ import formatCurrency from "../../formatCurrency";
 import { Shoppigncartcontexte } from "../contexte/CartShoppingContexte";
 
 export default function ({ data, theme }) {
-  console.log("fsection");
+  
   const [value, setValue] = useState(4);
   const {
     cartItems,

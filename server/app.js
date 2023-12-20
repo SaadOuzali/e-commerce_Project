@@ -7,7 +7,7 @@ const cookieParser = require("cookie-parser");
 const jsonwebtoken = require("jsonwebtoken");
 const { userRouter } = require("./routes/userRoutes");
 const { productsRouter } = require("./routes/productRoutes");
-const categorieRouter = require("./routes/categoryRoutes1.js");
+const {categorieRouter} = require("./routes/categoriesRoutes.js");
 require("dotenv").config();
 const cors=require('cors')
 const customerRouter = require("./routes/customerRoutes.js");
@@ -47,7 +47,7 @@ connect_to_DB()
     console.log("connection to DB success");
   })
   .catch((err) => {
-    console.log(err.message);
+    console.log("hna",err.message);
   });
 
 // const transporter=nodemailer.createTransport({
