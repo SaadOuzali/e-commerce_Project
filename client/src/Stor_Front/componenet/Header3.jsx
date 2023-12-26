@@ -34,7 +34,7 @@ export default function Header3() {
   const [categorie, setCategorie] = useState([]);
   const [isopen, setIsopen] = useState(false);
   const [isDropdownVisible, setDropdownVisible] = useState(false);
-
+console.log("categorie",categorie);
   const handleMouseEnter = () => {
     setDropdownVisible(true);
   };
@@ -57,8 +57,8 @@ export default function Header3() {
   useEffect(() => {
     const fetchCategorie = async () => {
       try {
-        const data = await request.get("/v1/categories");
-        console.log(data.data.data);
+        const data = await request.get(`/v1/categories`);
+        console.log("dila header3",data.data.data);
         if (data.status === 200) {
           setCategorie(data.data.data);
         }
@@ -71,14 +71,14 @@ export default function Header3() {
 
   return (
     <>
-    <Container
-      sx={{
-        display: "flex",
-        alignItems: "center",
-        justifyContent: "space-between",
-      }}
-    >
-      {/* <Button
+      <Container
+        sx={{
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "space-between",
+        }}
+      >
+        {/* <Button
         sx={{
           bgcolor: theme.palette.search.main,
           color: theme.palette.text.secondary,
@@ -97,7 +97,6 @@ export default function Header3() {
         )}
       </Button> */}
 
-      
         <Button
           id="basic-button"
           aria-controls={open ? "basic-menu" : undefined}
@@ -137,27 +136,21 @@ export default function Header3() {
             },
           }}
         >
-           {/* {categorie.map((cat) => {
+          {categorie.map((cat) => {
             return (
-         <MenuItem >
-            <Link  >
-                {cat.category_name}
-            </Link>
-         </MenuItem>
+              <Link to={`/home/${cat.slug}`}>
+                <MenuItem>{cat.category_name}</MenuItem>
+              </Link>
             );
-          })} */}
-        
+          })}
         </Menu>
 
+        <TemporaryDrawer />
+      </Container>
 
-      <TemporaryDrawer />
-    </Container>
-    
-
-    {/* <Box>
+      {/* <Box>
       <CategoriesDisplay />
     </Box> */}
-
     </>
   );
 }

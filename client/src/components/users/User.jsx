@@ -9,7 +9,7 @@ import { DataGrid } from "@mui/x-data-grid";
 import request from "../axios";
 import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
-import { Button, Stack, TextField } from "@mui/material";
+import { Button, Stack, TextField, Typography } from "@mui/material";
 import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
 import usercontext from "../../context/AuthContext";
@@ -23,14 +23,14 @@ export default function DataTable() {
   const navigate = useNavigate();
   const [users, setUsers] = useState([]);
   const [search, setSearch] = useState("");
-console.log("dial users",users);
+  console.log("dial users", users);
 
   //   for deleting users
   const handleDelete = useCallback(async (row) => {
-    const {_id}=row;
-      console.log(_id);
+    const { _id } = row;
+    console.log(_id);
     try {
-      const {_id}=row;
+      const { _id } = row;
       console.log(_id);
       const id = "6004a2e031b65381d7d7cdd3";
 
@@ -50,72 +50,65 @@ console.log("dial users",users);
       }
     }
   }, []);
-//   const handleDelete2 = ({ row, field }) => console.log("row,field");
+  //   const handleDelete2 = ({ row, field }) => console.log("row,field");
 
-
-
-//for display data of user
-const mappeduser = useMemo(() => {
-  return users.map((user) => {
-    return { ...user };
-  });
-}, [users]);
-
-
+  //for display data of user
+  const mappeduser = useMemo(() => {
+    return users.map((user) => {
+      return { ...user };
+    });
+  }, [users]);
 
   // static variable
   const columns = useMemo(
-    () => user.userdata.Data.role ==="manager" ? userTableGeneralColumns:   [
-        ...userTableGeneralColumns,
-      {
-        field: "actions",
-        headerName: "Actions",
-        width: 240,
-        renderCell: ({ row }) => (
-          <>
-            <Button
-              size="small"
-              variant="text"
-              color="info"
-              endIcon={<EditIcon />}
-              // onClick={()=>handleDelete2(celldata)}
-            >
-              <ModalEdit
-                name={"Edit"}
-                data={{
-                  first_name: row.first_name,
-                  last_name: row.last_name,
-                  user_name: row.user_name,
-                  email: row.email,
-            
-                }}
-                _id={row._id}
-                setUsers={setUsers}
-                
-              />
-              {/* <Modaluser name={"Edit"} /> */}
-            </Button>
-            {user.userdata.Data.id !== row.id && (
-              <Button
-                size="small"
-                variant="text"
-                color="error"
-                endIcon={<DeleteIcon />}
-                onClick={() => handleDelete(row)}
-              >
-                Delete
-              </Button>
-            )}
-          </>
-        ),
-      },
-    ],
+    () =>
+      user.userdata.Data.role === "manager"
+        ? userTableGeneralColumns
+        : [
+            ...userTableGeneralColumns,
+            {
+              field: "actions",
+              headerName: "Actions",
+              width: 240,
+              renderCell: ({ row }) => (
+                <>
+                  <Button
+                    size="small"
+                    variant="text"
+                    color="info"
+                    endIcon={<EditIcon />}
+                    // onClick={()=>handleDelete2(celldata)}
+                  >
+                    <ModalEdit
+                      name={"Edit"}
+                      data={{
+                        first_name: row.first_name,
+                        last_name: row.last_name,
+                        user_name: row.user_name,
+                        email: row.email,
+                      }}
+                      _id={row._id}
+                      setUsers={setUsers}
+                    />
+                    {/* <Modaluser name={"Edit"} /> */}
+                  </Button>
+                  {user.userdata.Data.id !== row.id && (
+                    <Button
+                      size="small"
+                      variant="text"
+                      color="error"
+                      endIcon={<DeleteIcon />}
+                      onClick={() => handleDelete(row)}
+                    >
+                      Delete
+                    </Button>
+                  )}
+                </>
+              ),
+            },
+          ],
     []
   );
-
-  
-  
-
 
   // for getting users
   useEffect(() => {
@@ -161,6 +154,7 @@ const mappeduser = useMemo(() => {
 
   return (
     <>
+    <Typography textAlign={"center"}  variant="h4">Users </Typography>
       {user.userdata.Data.role == "admin" && (
         <Button
           variant="contained"
@@ -181,7 +175,31 @@ const mappeduser = useMemo(() => {
         < SearchIcon />
         </Button> */}
         </Stack>
-        <DataGrid rows={mappeduser} columns={columns} />
+        {/* <DataGrid rows={mappeduser} columns={columns}  initialState={{
+          pagination: {
+            paginationModel: {
+              pageSize: 5,
+            },
+          },
+        }}
+        pageSizeOptions={[5]}
+        checkboxSelection
+        disableRowSelectionOnClick /> */}
+
+        <DataGrid
+          rows={mappeduser}
+          columns={columns}
+          initialState={{
+            pagination: {
+              paginationModel: {
+                pageSize: 5,
+              },
+            },
+          }}
+          pageSizeOptions={[5]}
+          checkboxSelection
+          disableRowSelectionOnClick
+        />
       </div>
     </>
   );

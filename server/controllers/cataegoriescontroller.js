@@ -125,18 +125,20 @@ async function delete_categorie_controller(req, res, next) {
 
 // get a categorie by Id
 async function get_categoryById_controller(req, res, next) {
-  const { _id } = req.params;
+  const { slug } = req.params;
   try {
-    const findcategorie = await Categories.findOne({ _id });
+    const findcategorie = await Categories.findOne({ slug });
     if (!findcategorie) {
       const error = new Error("category not found");
       error.status = 404;
       next(error);
       return;
     }
+
+    const findsubcategorie=await Subcategorie.find({category_id:findcategorie._id});
     res.status(200).json({
       status: "success",
-      data: findcategorie,
+      data: {categorie :findcategorie,subcategorie:findsubcategorie},
     });
   } catch (error) {
     const err = new Error(error.message);
@@ -181,6 +183,23 @@ const get_Categorie_and_Subcategorie_controller=async (req, res, next) => {
 
 
 
+const get_all_categories_controller=async(req,res,next)=>{
+  try {
+    const findcategories=await Categories.find();
+    console.log('hnaaaaa',findcategories);
+    res.status(200).json({
+      status:"success",
+      data:findcategories
+    })
+  } catch (error) {
+    const err=new Error(error.message);
+    err.status=500;
+    next(err)
+  }
+}
+
+
+
 module.exports = {
   create_Categorie_controller,
   modify_categorie_controller,
@@ -188,5 +207,6 @@ module.exports = {
   delete_categorie_controller,
   get_categoryById_controller,
   search_category_controller,
-  get_Categorie_and_Subcategorie_controller
+  get_Categorie_and_Subcategorie_controller,
+  get_all_categories_controller
 };

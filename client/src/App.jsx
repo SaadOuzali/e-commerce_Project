@@ -8,12 +8,14 @@ import Dashboard from "./components/Dashboard";
 import usercontext from "./context/AuthContext";
 import PrivateRoute from "./components/PrivateRoute";
 import Pagination from "./components/Pagination";
-import AddProduct from "./components/productcomponent/AddProduct";
-import AllProducts from "./components/productcomponent/AllProducts";
+import AddProduct from "./components/productcomponent/CreateProductModal";
+import AllProducts from "./components/productcomponent/ProductList";
 import EditProduct from "./components/productcomponent/EditProduct";
 import Navbar from "./components/user/Navbar";
 import Home from "./components/user/Home";
 import User from "./components/users/User";
+
+
 import Barchart from "./statistics/Barchart";
 import PieChart from "./statistics/PieChart";
 import Orders from "./orders/Orders";
@@ -29,6 +31,15 @@ import { ColorModeContext, useMode } from "./Stor_Front/them";
 import Section from "./Stor_Front/componenet/Section";
 import Child from "./Stor_Front/componenet/Child";
 import IconSection from "./Stor_Front/componenet/IconSection";
+import ProductList from "./components/productcomponent/ProductList";
+import CategoryTemplate from "./Stor_Front/componenet/CategoryTemplate";
+import "bootstrap/dist/css/bootstrap.css";
+import SubCategoryTemplate from "./Stor_Front/componenet/SubCategoryTemplate";
+import Categorie from "./Stor_Front/componenet/Categorie";
+import TT from "./Stor_Front/componenet/TT";
+import ModalUserDetails from "./components/users/ModalUserDetails";
+import Subcategory from "./components/Subcategory/Subcategory";
+import CreateNewSubcategory from "./components/Subcategory/CreateNewSubcategory";
 
 // import Home from './components/Home'
 function App() {
@@ -37,7 +48,7 @@ function App() {
 
   return (
     <usercontext.Provider value={{ userdata, setUserdata }}>
-      <ColorModeContext.Provider value={{theme, colorMode}}>
+      <ColorModeContext.Provider value={{ theme, colorMode }}>
         <CartShoppingprovider>
           <BrowserRouter>
             <Routes>
@@ -66,12 +77,11 @@ function App() {
 
                 <Route path="/" element={<Home />} />
                 <Route path="users" element={<User />} />
-                {/* <Route path='orders' element={<Orders/>} >
-                <Route path='singleorder/:id' element={<SingleOrder/>} />
-            </Route> */}
+                <Route path="create/subcategory" element={<CreateNewSubcategory />}  />
+                <Route path="subcategory" element={<Subcategory />} />
                 <Route path="orders" element={<Orders />} />
                 <Route path="singleorder/:id" element={<SingleOrder />} />
-                <Route path="product" element={<AllProducts />} />
+                <Route path="product" element={<ProductList />} />
                 <Route path="barchart" element={<Barchart />} />
                 <Route path="piechart" element={<PieChart />} />
                 <Route path="product/edit" element={<EditProduct />} />
@@ -86,10 +96,12 @@ function App() {
               <Route path="/landing_page" element={<App_Front />} />
               <Route path="/registre" element={<Registre />} />
               <Route path="/drawer" element={<Drawer />} />
-              {/* <Route path='/landing' element={<Test/>} /> */}
               <Route path="/home" element={<Parent />}>
-                <Route path="featured" element={<Child theme={theme} />} />
-                <Route path="cat" element={<IconSection theme={theme} />} />
+                <Route index element={<Child />} />
+                <Route path=":slug" element={<Categorie />}>
+                  <Route index element={ <CategoryTemplate />} />
+                  <Route path=":Slug/products" element={<TT />} />
+                </Route>
               </Route>
             </Routes>
           </BrowserRouter>

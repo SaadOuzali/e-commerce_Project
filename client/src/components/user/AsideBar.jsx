@@ -41,7 +41,9 @@ import DrawerHeader from "../mui/user/DrawerHeader";
 import { Avatar, Stack } from "@mui/material";
 import BarChartIcon from '@mui/icons-material/BarChart';
 import PieChartIcon from '@mui/icons-material/PieChart';
-import '../../App.css'
+import CategoryIcon from '@mui/icons-material/Category';
+
+// import '../../App.css'
 
 const drawerWidth = 240;
 
@@ -87,8 +89,8 @@ export default function AsideBar({ open, setOpen, theme }) {
 
         <Stack sx={{ alignItems: "center", mt: 2, mb: 2 }}>
           <Avatar
-            alt="Remy Sharp"
-            src="../images/3135715.png"
+            alt="Semy Sharp"
+            src="https://randomuser.me/api/portraits/men/51.jpg"
             sx={{
               width: open ? 60 : 30,
               height: open ? 60 : 30,
@@ -152,16 +154,18 @@ export default function AsideBar({ open, setOpen, theme }) {
         </Collapse> */}
 
           {/* products */}
-          <ListItemButton >
-            <ListItemIcon>
-              <ProductionQuantityLimitsIcon
-                style={{ color: "#000" }}
-                fontSize="large"
-              />
-            </ListItemIcon>
-            <ListItemText primary="Products" />
-            {/* {prod ? <ExpandLess /> : <ExpandMore />} */}
-          </ListItemButton>
+          <NavLink to={"product"} >
+            <ListItemButton >
+              <ListItemIcon>
+                <ProductionQuantityLimitsIcon
+                  style={{ color: "#000" }}
+                  fontSize="large"
+                />
+              </ListItemIcon>
+              <ListItemText primary="Products" />
+              {/* {prod ? <ExpandLess /> : <ExpandMore />} */}
+            </ListItemButton>
+          </NavLink>
           
           
           
@@ -175,6 +179,18 @@ export default function AsideBar({ open, setOpen, theme }) {
             {/* {order ? <ExpandLess /> : <ExpandMore />} */}
           </ListItemButton>
           </NavLink>
+
+
+          
+            <NavLink to={"/subcategory"}>
+          <ListItemButton>
+            <ListItemIcon>
+              <CategoryIcon style={{ color: "#000" }} fontSize="large" />
+            </ListItemIcon>
+              <ListItemText primary="SubCategories" />
+          </ListItemButton>
+            </NavLink>
+        
          
           
         </List>
@@ -220,6 +236,8 @@ export default function AsideBar({ open, setOpen, theme }) {
             </NavLink>
           </ListItemButton>
         </Box>
+
+        
         
       </Drawer>
       

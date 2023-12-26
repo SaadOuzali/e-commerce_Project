@@ -9,6 +9,11 @@ import CardMedia from '@mui/material/CardMedia';
 import Typography from '@mui/material/Typography';
 import request from "../axios";
 import { toast } from "react-toastify";
+import Barchart from "../../statistics/Barchart";
+import PieChart from "../../statistics/PieChart";
+import Row1 from "./dashboardComponent/Row1";
+import Row2 from "./dashboardComponent/Row2";
+import Row3 from "./dashboardComponent/Row3";
 
 const Home = () => {
   const navigate=useNavigate()
@@ -34,56 +39,11 @@ useEffect(()=>{
 
   return (
     <>
-    <Grid container spacing={2}>
-      <Grid item md={3} >
-        <Card sx={{ bgcolor:"#FF7F50" }}>
-          <CardContent>
-            <Typography gutterBottom variant="h5" component="div">
-              Users
-            </Typography>
-        <Typography>{data.numberOfUsers}</Typography>
-          </CardContent>
-        
-        </Card>
-      </Grid>
-
-      <Grid item md={3} >
-        <Card sx={{ bgcolor:"  #6F00FF" }}>
-          <CardContent>
-            <Typography gutterBottom variant="h5" component="div">
-              Products
-            </Typography>
-            <Typography>{data.numberOfProducts}</Typography>
-          </CardContent>
-        
-        </Card>
-      </Grid>
-
-      <Grid item md={3} >
-        <Card sx={{ bgcolor:"#40E0D0" }}>
-          <CardContent>
-            <Typography gutterBottom variant="h5" component="div">
-              Customers
-            </Typography>
-            <Typography>{data.numberOfcustomers}</Typography>
-          </CardContent>
-        
-        </Card>
-      </Grid>
-
-      <Grid item md={3} >
-        <Card sx={{ bgcolor:"#007FFF" }}>
-          <CardContent>
-            <Typography gutterBottom variant="h5" component="div">
-              Orders
-            </Typography>
-            <Typography>{data.numberOforders}</Typography>
-          </CardContent>
-        
-        </Card>
-      </Grid>
-
-    </Grid>
+    <Typography textAlign={"center"} marginBottom={4} variant="h4">Dashboard</Typography>
+    
+    <Row1 />
+    <Row2 />
+    <Row3 />
     </>
   )
 }

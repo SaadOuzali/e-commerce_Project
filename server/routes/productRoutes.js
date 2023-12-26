@@ -19,6 +19,7 @@ const {
   find_product_byId_controller,
   update_product_controller,
   delete_product_controller,
+  get_products_by_slug_controller,
 } = require("../controllers/productController");
 const productsRouter = Router();
 
@@ -118,7 +119,7 @@ productsRouter.get(
 
 //find product by id
 productsRouter.get(
-  "/:_id",
+  "single-product/:_id",
   [
     param("_id")
       .notEmpty()
@@ -129,6 +130,11 @@ productsRouter.get(
   ValidatFields,
   find_product_byId_controller
 );
+
+
+
+// find product bu slug
+productsRouter.get("/:slug",get_products_by_slug_controller)
 
 //update a product
 productsRouter.patch(

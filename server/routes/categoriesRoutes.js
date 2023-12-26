@@ -16,6 +16,7 @@ const {
   get_categoryById_controller,
   search_category_controller,
   get_Categorie_and_Subcategorie_controller,
+  get_all_categories_controller,
 } = require("../controllers/cataegoriescontroller");
 const { delete_categories } = require("../middleware/categorieMiddleware");
 const Subcategorie = require("../models/Subcategorie");
@@ -82,17 +83,30 @@ categorieRouter.get(
 //get all categories 10 per page
 // categorieRouter.get("/", get_Category_controller);
 
-// get a categorie by id
+
+
+// to get categories with subcategorie
+// categorieRouter.get("/cat-sub", get_Categorie_and_Subcategorie_controller);
+
+
+
+// to get categories 
+categorieRouter.get("/",get_all_categories_controller)
+
+
+
+
+// get a categorie by slug
 categorieRouter.get(
-  "/:_id",
-  [
-    param("_id")
-      .notEmpty()
-      .withMessage("must a param id")
-      .isMongoId()
-      .withMessage("this not a mongo id"),
-  ],
-  ValidatFields,
+  "/:slug",
+  // [
+  //   param("_id")
+  //     .notEmpty()
+  //     .withMessage("must a param id")
+  //     .isMongoId()
+  //     .withMessage("this not a mongo id"),
+  // ],
+  // ValidatFields,
   get_categoryById_controller
 );
 
@@ -116,25 +130,6 @@ categorieRouter.delete(
 
 
 
-// to get categories with subcategorie
-// categorieRouter.get("/", get_Categorie_and_Subcategorie_controller);
-
-
-
-// to get categories 
-categorieRouter.get("/",async(req,res,next)=>{
-  try {
-    const findcategories=await Categories.find();
-    res.status(200).json({
-      status:"success",
-      data:findcategories
-    })
-  } catch (error) {
-    const err=new Error(error.message);
-    err.status=500;
-    next(err)
-  }
-})
 
 
 

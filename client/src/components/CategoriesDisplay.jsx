@@ -12,8 +12,8 @@ import {
 } from "@mui/material";
 import React, { useEffect } from "react";
 import { useState } from "react";
-import request from "./axios";
 import { Link } from "react-router-dom";
+import request from "./axios";
 
 const CategoriesDisplay = () => {
   const theme = useTheme();

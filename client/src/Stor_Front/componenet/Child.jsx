@@ -8,6 +8,7 @@ import img3 from './main/productImage/jeans.png'
 import IconSection from './IconSection';
 import Main from './main/Main';
 import Section from './Section';
+import { useEffect } from 'react';
 
 export default function Child() {
     const [data, setData] = useState([
@@ -23,6 +24,11 @@ export default function Child() {
       ]);
   // const [theme, colorMode] = useMode();
       const {theme} = useContext(ColorModeContext);
+
+      useEffect(() => {
+        console.log("Featured Rendering");
+      }, [])
+      
       
   return (
     <Box bgcolor={theme.palette.bg.main}>

@@ -11,7 +11,9 @@ async function create_product_controller  (req, res, next)  {
         messag: "product created successfully",
       });
     } catch (error) {
-      next(error);
+      const err=new Error(error.message);
+      err.status=500
+      next(err);
     }
 }
 
@@ -151,6 +153,22 @@ async function delete_product_controller (req, res, next)  {
   }
 
 
+const get_products_by_slug_controller=async (req,res,next)=>{
+  const {slug}=req.params;
+  try {
+    const getProducts=await Products.find({slug});
+    res.status(200).json({
+      status:"success",
+      data:getProducts
+    })
+  } catch (error) {
+    const err=new Error(error.message);
+    err.status=500;
+    next(err)
+  }
+}
+
+
 
 module.exports={
     create_product_controller,
@@ -158,5 +176,6 @@ module.exports={
     get_product_bySearch_controller,
     find_product_byId_controller,
     update_product_controller,
-    delete_product_controller
+    delete_product_controller,
+    get_products_by_slug_controller
 }

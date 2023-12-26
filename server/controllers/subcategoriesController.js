@@ -6,7 +6,7 @@ const {v4}=require('uuid')
 
 // Function to create a new subcategory
 const createSubcategory = async (req, res) => {
-  const { subcategory_name, active = false, category_id,slug } = req.body;
+  const { subcategory_name, active = false, category_id } = req.body;
 
   try {
     // Check uniqueness of subcategory subcategory_name in the database
@@ -22,6 +22,7 @@ const createSubcategory = async (req, res) => {
 
     // Create the new subcategory
     const id=v4()
+    const slug=`${subcategory_name}_${id}`
     const newSubcategory = await Subcategorie.create({
       subcategory_name,
       active,
@@ -30,14 +31,14 @@ const createSubcategory = async (req, res) => {
       slug
     });
 
-    // Return success response
     return res.status(201).json({
       message: "Subcategory created successfully",
       data: newSubcategory
     });
   } catch (error) {
-    console.log(error);
-    return res.status(500).json({ error: "Internal Server Error" });
+    const err=new Error(error.message);
+    err.status=500
+   next(err)
   }
 };
 
@@ -58,7 +59,7 @@ async function listSubcategories(req, res) {
     const subcategories = await Subcategorie.find()
       .skip(offset)
       .limit(limit)
-      .populate("category_id", "name") // Populate category field from Category collection/table, return only 'name'
+      .populate("category_id", "category_name") // Populate category field from Category collection/table, return only 'name'
       .exec();
 
     // If no subcategories exist, return an empty array
@@ -66,10 +67,12 @@ async function listSubcategories(req, res) {
       return res.json([]);
     }
 
-    return res.json({ data: subcategories });
+    return res.status(200).json({status:"sucess" ,data: subcategories });
+    
   } catch (error) {
-    console.error("Error listing subcategories:", error);
-    return res.status(500).json({ error: "Server error" });
+    const err=new Error(error.message);
+    err.status=500;
+    next(err)
   }
 }
 
