@@ -33,7 +33,7 @@ async function updateDataCustomer(req, res, next) {
     );
     if (!customer) {
       const error = new Error("Customer not found");
-      res.send(404).json({ status: 404, message: "invalid data id" });
+      res.status(404).json({ status: 404, message: "invalid data id" });
       return;
     }
     req.customer = customer;

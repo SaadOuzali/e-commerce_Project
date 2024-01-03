@@ -174,7 +174,7 @@ customerRouter.get(
 //update DONE EXCEPT privileges : admin, manager
 customerRouter.put(
   "/:_id",
-  // verifyJWT,
+  verifyJWT,
   // checkPrivileges,
   updateCustomer,
   updateCustomerController
@@ -183,7 +183,7 @@ customerRouter.put(
 //update data DONE EXCEPT privileges : customer
 customerRouter.patch(
   "/profile/update",
-  // verifyJWT,
+  verifyJWT,
   // checkPrivileges,
   updateDataCustomer,
   updateCustomerDataController

@@ -1,20 +1,36 @@
 const jwt = require("jsonwebtoken");
+require("dotenv").config();
 
 function generateJWT(req, res, next) {
   const secret_key_jwt = process.env.JWT_SECRET;
-  const { email, active, valid_account } = req.customer;
+  const { email, active, valid_account, first_name, last_name } = req.customer;
   const customer = req.customer;
   const expiresIn = "2h";
-  const accessToken = jwt.sign(
-    { _id: customer._id, email, active, valid_account, first_name, last_name },
-    secret_key_jwt,
-    {
-      expiresIn,
-    }
-  );
-  // res.setHeader("Authorization", `Bearer ${accessToken}`);
-  req.acc = accessToken;
-  next();
+  console.log("JWT SECRET: ", secret_key_jwt);
+
+  try {
+    const accessToken = jwt.sign(
+      {
+        _id: customer._id,
+        email,
+        active,
+        valid_account,
+        first_name,
+        last_name,
+      },
+      secret_key_jwt,
+      {
+        expiresIn,
+      }
+    );
+    // res.setHeader("Authorization", `Bearer ${accessToken}`);
+    console.log("Access Token: ", accessToken);
+    req.acc = accessToken;
+    next();
+  } catch (error) {
+    console.log("Error:", error);
+    next(error);
+  }
 }
 
 function verifyJWT(req, res, next) {
@@ -35,7 +51,7 @@ function verifyJWT(req, res, next) {
 
 function generateRefreshToken(req, res, next) {
   const expiresIn = "2d";
-  const secret_key_refresh_token = process.env.REFRESH_TOKEN_SECRET;
+  const secret_key_refresh_token = process.env.JWT_REFRESH_SECRET;
   const customer = req.customer;
   const refreshToken = jwt.sign(
     { _id: customer._id },
@@ -44,6 +60,7 @@ function generateRefreshToken(req, res, next) {
       expiresIn,
     }
   );
+  console.log("Refresh token", refreshToken);
   req.ref = refreshToken;
   next();
 }

@@ -4,19 +4,20 @@ import "../styles/categories_style.css";
 import SofaImage from "./sofa_1.png";
 // import TableImage from "./table_2.png";
 // import WallArtImage from "./wall_art.png";
-import axios from "axios";
+// import axios from "axios";
+import { mainAxiosInstance } from "../config/api";
 
 const CategoryTemplate = () => {
   const [categories, setCategories] = useState([]);
   useEffect(() => {
     const fetchCategories = async () => {
       try {
-        const response = await axios.get(
+        const response = await mainAxiosInstance.get(
           "http://localhost:3000/v1/categories/"
         );
         const responseData = response.data;
         console.log("Fetched categories: ", responseData);
-        setCategories(responseData.categories || []);
+        setCategories(responseData.categories);
       } catch (error) {
         console.error("ERROR UGH fetching Categories data: ", error.message);
       }

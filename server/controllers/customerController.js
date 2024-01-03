@@ -19,20 +19,9 @@ const loginController = async (req, res, next) => {
     });
     return;
   }
-  res
-    .cookie("accessToken", accessToken, {
-      httpOnly: true,
-      domain: "localhost",
-      // path: "/",
-    })
-    .cookie("refreshToken", refreshToken, {
-      httpOnly: true,
-      domain: "localhost",
-      // path: "/",
-    });
 
   // Check to make sure that the access token and refresh token cookies are set
-  if (!req.cookies.accessToken || !req.cookies.refreshToken) {
+  if (!accessToken || !refreshToken) {
     const err = new Error(
       "Failed to set access token and refresh token cookies"
     );
@@ -42,6 +31,8 @@ const loginController = async (req, res, next) => {
     });
     return;
   }
+
+  res.cookie("accessToken", accessToken).cookie("refreshToken", refreshToken);
 
   //send the response to the client
   res.status(200).json({
@@ -64,6 +55,7 @@ const signupController = async (req, res, next) => {
 const getProfileCustomerController = (req, res, next) => {
   res.status(200).json({
     status: 200,
+    message: "customer profile found successfully",
     data: req.customerProfile,
   });
 };

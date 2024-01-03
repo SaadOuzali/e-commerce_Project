@@ -61,7 +61,7 @@ app.use((req, res, next) => {
   next();
 });
 
-app.use(cors());
+app.use(cors({ origin: "http://localhost:5173", credentials: true }));
 
 app.use("/v1/customers", customerRouter);
 app.use("/v1/orders", orderRouter);

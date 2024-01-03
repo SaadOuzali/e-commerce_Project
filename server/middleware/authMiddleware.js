@@ -169,12 +169,14 @@ function GenerateJWT(req, res, next) {
 
     res
       .cookie("refreshToken", refreshtoken, {
-        httpOnly: true,
-        domaine: "localhost",
+        httpOnly: false,
+        secure: false,
+        domain: "localhost",
       })
       .cookie("accessToken", token, {
-        httpOnly: true,
-        domaine: "localhost",
+        httpOnly: false,
+        secure: false,
+        domain: "localhost",
       });
     const { _id, user_name, email, role, id } = req.session.user;
     res.status(200).json({
@@ -235,7 +237,6 @@ async function SendMail(req, res, next) {
     });
 }
 
-
 function checkValidationResult(req, res, next) {
   const errors = validationResult(req);
   if (!errors.isEmpty()) {
@@ -255,5 +256,5 @@ module.exports = {
   isActive,
   admin_OR_manager,
   refreshAccToken,
-  checkValidationResult
+  checkValidationResult,
 };

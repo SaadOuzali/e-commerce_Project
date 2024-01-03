@@ -21,7 +21,7 @@ function sendEmail(req, res, next) {
   
   To complete the registration process, please verify your email address by clicking on the following link:
   
-  <a href="http://localhost:4006/v1/customers/email/validation?token=${req.token}">Verification link</a>
+  <a href="http://localhost:3000/v1/customers/email/validation?token=${req.token}">Verification link</a>
     
   If you have any questions, please do not hesitate to contact us.
   
