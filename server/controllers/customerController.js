@@ -20,7 +20,6 @@ const loginController = async (req, res, next) => {
     return;
   }
 
-  // Check to make sure that the access token and refresh token cookies are set
   if (!accessToken || !refreshToken) {
     const err = new Error(
       "Failed to set access token and refresh token cookies"
