@@ -15,6 +15,8 @@ import FooterTemplate from "./components/FooterTemplate";
 import UserInfosTemplate from "./components/UserInfosTemplate";
 import UserFavoritesTemplate from "./components/UserFavoritesTemplate";
 import UserOrdersTemplate from "./components/UserOrdersTemplate";
+import Loading from "./components/Loading";
+import PageNotFound from "./components/NotFoundPage";
 
 function App() {
   return (
@@ -43,6 +45,8 @@ function App() {
             element={<UserFavoritesTemplate />}
           />
           <Route path="/profile/orders" element={<UserOrdersTemplate />} />
+          <Route path="/loading" element={<Loading />} />
+          <Route path="/" element={<PageNotFound />} />
         </Routes>
       </BrowserRouter>
       <ToastContainer />

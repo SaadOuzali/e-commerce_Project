@@ -9,7 +9,10 @@ const ProductTemplate = () => {
         <div className="style_category_header">
           <h1>Product</h1>
         </div>
-        <div className="row " style={{ height: "100%" }}>
+        <div
+          className="row "
+          style={{ height: "100%", marginLeft: "0", marginRight: "0" }}
+        >
           <div
             className="col-md-6 "
             style={{ backgroundColor: "rgb(160 167 177)" }}
@@ -18,7 +21,7 @@ const ProductTemplate = () => {
               className="d-flex justify-content-center align-items-center"
               style={{ margin: "auto", height: "100%" }}
             >
-              <img src={SofaImage} alt="sofa_image" />
+              <img src={SofaImage} alt="sofa_image" style={{ width: "100%" }} />
             </div>
           </div>
           <div className="col-md-6 ">

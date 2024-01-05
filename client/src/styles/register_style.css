@@ -27,10 +27,11 @@
   background-position: 0 100%;
   border-color: #e57f00c9;
 }
-button:hover {
+/**********************************/
+/* button:hover {
   transition: 0.3s;
   background-color: #ffffff !important;
-}
+} */
 .white_button {
   width: 75%;
   height: 50px;
@@ -47,4 +48,5 @@ button:hover {
   color: #fff !important;
   background-position: 0 100%;
   border-color: #212529;
+  transition: 0.5s;
 }

@@ -4,7 +4,7 @@ import "../styles/register_style.css";
 import home_decor_image_1 from "./home_decor_image_1.jpeg";
 import { useState } from "react";
 import { toast } from "react-toastify";
-import axios from "axios";
+// import axios from "axios";
 import { mainAxiosInstance } from "../config/api";
 // import SofaImage from "./sofa_1.png";
 // import TableImage from "./table_2.png";
@@ -23,7 +23,7 @@ const LoginTemplate = () => {
         password,
       });
       if (response.status === 200) {
-        navigate("/profile/information");
+        navigate("/profile/orders");
         console.log(response.data.data.first_name);
         toast.success(
           `Login success. Welcome ${response.data.data.first_name}!`

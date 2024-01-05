@@ -33,10 +33,11 @@
   background-position: 0 100%;
   border-color: #212529;
 }
-button:hover {
+/*******************************/
+/* button:hover {
   transition: 0.3s;
   background-color: #ffffff !important;
-}
+} */
 .favorite-icon-size {
   width: 35px;
   height: 35px;

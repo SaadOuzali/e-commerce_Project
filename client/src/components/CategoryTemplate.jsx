@@ -47,7 +47,10 @@ const CategoryTemplate = () => {
         <div className="style_category_header">
           <h1>LIVING ROOM</h1>
         </div>
-        <div className="row" style={{ height: "100%" }}>
+        <div
+          className="row"
+          style={{ height: "100%", marginRight: "0", marginLeft: "0" }}
+        >
           {categories.map((category, index) => (
             <div
               key={index}
@@ -55,7 +58,7 @@ const CategoryTemplate = () => {
               id={renderCorrespondingId(index)}
             >
               <div
-                className="container ms-3 d-flex flex-column align-items-start"
+                className="container d-flex flex-column align-items-start"
                 style={{ marginTop: 100, height: "100%" }}
               >
                 <div style={{ height: "30%" }}>

@@ -1,11 +1,11 @@
 body {
   overflow-x: hidden;
 }
-
-button:hover {
+/*************A REVENIR****************/
+/* button:hover {
   transition: 0.3s;
   background-color: #ffffff !important;
-}
+} */
 .columnsToHover {
   background-color: #dae2ed;
   display: flex;
@@ -67,6 +67,7 @@ button:hover {
   color: #06142e !important;
   background-position: 0 100%;
   border-color: #ffffff;
+  transition: 0.3s;
 }
 .style_category_header {
   background-color: #08090a;
@@ -90,4 +91,6 @@ button:hover {
   color: #fff !important;
   background-position: 0 100%;
   border-color: #212529;
+  transition: 0.3s;
+  background-color: white !important;
 }
