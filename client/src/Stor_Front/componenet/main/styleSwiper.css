@@ -4,18 +4,20 @@
   height: 100%;
 }
 
-#slider  .swiper-slide {
+#products-swiper .swiper-slide {
   text-align: center;
   font-size: 18px;
   background: #fff;
-
+  width: 250px !important;
   /* Center slide text vertically */
   display: flex;
+  padding: 20px 10px;
+  height: 400px;
   justify-content: center;
   align-items: center;
 }
 
-#slider  .swiper-slide img {
+#products-swiper .swiper-slide img {
   display: block;
   width: 100%;
   height: 100%;

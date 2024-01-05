@@ -29,11 +29,12 @@ export default function Section() {
               // position: "relative",
               display: "flex",
               alignItems: "center",
-              gap: 1,
+              gap: 2,
             }}
           >
       
             <Swiper
+            id="slider"
             loop={true}
               pagination={{
                 dynamicBullets: true,
@@ -122,8 +123,10 @@ export default function Section() {
                 <img src={img} />
               </SwiperSlide>
             </Swiper>
+
+
             <Box>
-              <Box position={"relative"}>
+              <Box  position={"relative"}>
                 <img src={img2} width={"300px"} height={"90%"} />
                 <Stack
                   sx={{
@@ -147,7 +150,7 @@ export default function Section() {
                   </Typography>
                 </Stack>
               </Box>
-              <Box position={"relative"}>
+              <Box marginTop={1} position={"relative"}>
                 <img src={img3} width={"300px"} />
                 <Stack
                   sx={{

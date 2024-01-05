@@ -6,7 +6,7 @@ const Customer = require("../models/Customer");
 // generate token
 function generateJWT(req, res, next) {
   const customer = req.customer;
-  const expiresIn = "6h";
+  const expiresIn = "20s";
   const accessToken = jwt.sign(
     { _id: customer._id },
     process.env.JWT_SECRET,
@@ -55,7 +55,7 @@ async function verifyJWT(req, res, next) {
 
 // generate refrech token
 function generateRefreshToken(req, res, next) {
-  const expiresIn = "100d";
+  const expiresIn = "180s";
   
   const customer = req.customer;
   const refreshToken = jwt.sign(

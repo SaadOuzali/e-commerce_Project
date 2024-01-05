@@ -40,7 +40,7 @@ export default function CreateNewSubcategory() {
     subcategory_name: "",
     active: false,
   });
-
+console.log(createsubcategory);
 // to fetch categories
   useEffect(() => {
     const getCategories = async () => {

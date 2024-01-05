@@ -51,6 +51,10 @@ const {
 } = require("../middleware/authMiddleware");
 const Customer = require("../models/Customer");
 const { sendEmail } = require("../middleware/email");
+const {
+  checToken_Front_End_customer,
+  checkRefToken_Front_End_customer,
+} = require("../middleware/customerPrivate");
 
 const customerRouter = Router();
 
@@ -100,7 +104,7 @@ customerRouter.post(
   checkEmailExists,
   createCustomer,
   generateTokenEmail,
-  // sendEmail,
+  sendEmail,
   signupController
 );
 
@@ -130,7 +134,7 @@ customerRouter.get(
 customerRouter.get(
   "/profile",
   verifyJWT,
-  // checkPrivileges,
+  verifyRefreshToken,
   getCustomerProfile,
   getProfileCustomerController
 );
@@ -144,7 +148,8 @@ customerRouter.get(
       .withMessage("must value in token query")
       .isJWT()
       .withMessage("this is not a JWT token"),
-  ],ValidatFields,
+  ],
+  ValidatFields,
   async (req, res, next) => {
     const secret_key_jwt = process.env.JWT_SECRET;
     const { token } = req.query;
@@ -225,6 +230,27 @@ customerRouter.delete(
   verifyRefreshToken,
   deleteCustomer,
   deleteCustomerController
+);
+
+// to verify token for customer in front end
+customerRouter.post(
+  "/token",
+  checToken_Front_End_customer,
+  checkRefToken_Front_End_customer,
+  (req, res, next) => {
+    let newaccToken = req.token;
+    let data = req.payload;
+    let userdata={id: data.id,
+      _id: data._id,
+      first_name: data.first_name,
+      last_name: data.last_name,
+      user_name: data.user_name,}
+    // console.log("hna data", newaccToken);
+    res.status(200).json({
+      status: 200,
+      data:userdata
+    });
+  }
 );
 
 module.exports = customerRouter;

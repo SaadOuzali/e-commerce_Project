@@ -35,7 +35,7 @@ export default function Child() {
         <Section />
         <IconSection theme={theme} />
         <Main theme={theme} data={data} />
-
+        
     </Box>
   )
 }

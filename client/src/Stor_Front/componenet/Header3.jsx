@@ -14,7 +14,7 @@ import {
   Typography,
   useTheme,
 } from "@mui/material";
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import KeyboardArrowRightIcon from "@mui/icons-material/KeyboardArrowRight";
 import WindowIcon from "@mui/icons-material/Window";
 import MenuIcon from "@mui/icons-material/Menu";
@@ -27,6 +27,7 @@ import BedroomParentIcon from "@mui/icons-material/BedroomParent";
 import DropdownMenu from "./DropdownMenu";
 import { Link } from "react-router-dom";
 import CategoriesDisplay from "../../components/CategoriesDisplay";
+import { Shoppigncartcontexte } from "./contexte/CartShoppingContexte";
 
 const categories = ["Sports", "Electronic"];
 
@@ -34,7 +35,9 @@ export default function Header3() {
   const [categorie, setCategorie] = useState([]);
   const [isopen, setIsopen] = useState(false);
   const [isDropdownVisible, setDropdownVisible] = useState(false);
-console.log("categorie",categorie);
+  const {anchorEl,
+    setAnchorEl,
+    open }=useContext(Shoppigncartcontexte)
   const handleMouseEnter = () => {
     setDropdownVisible(true);
   };
@@ -44,8 +47,8 @@ console.log("categorie",categorie);
   };
   // console.log("dial state", categorie);
   const theme = useTheme();
-  const [anchorEl, setAnchorEl] = useState(null);
-  const open = Boolean(anchorEl);
+  // const [anchorEl, setAnchorEl] = useState(null);
+  // const open = Boolean(anchorEl);
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
   };
@@ -58,7 +61,6 @@ console.log("categorie",categorie);
     const fetchCategorie = async () => {
       try {
         const data = await request.get(`/v1/categories`);
-        console.log("dila header3",data.data.data);
         if (data.status === 200) {
           setCategorie(data.data.data);
         }
@@ -78,24 +80,7 @@ console.log("categorie",categorie);
           justifyContent: "space-between",
         }}
       >
-        {/* <Button
-        sx={{
-          bgcolor: theme.palette.search.main,
-          color: theme.palette.text.secondary,
-          width: "250px",
-        }}
-        onClick={()=>setIsopen(true)}
-      >
-        <WindowIcon />
-        <Typography sx={{ mx: 1, textTransform: "capitalize" }}>
-          Categories
-        </Typography>
-        {isopen ? (
-          <ExpandMoreIcon sx={{ marginLeft: 9 }} />
-        ) : (
-          <KeyboardArrowRightIcon sx={{ marginLeft: 9 }} />
-        )}
-      </Button> */}
+       
 
         <Button
           id="basic-button"
@@ -127,6 +112,7 @@ console.log("categorie",categorie);
           MenuListProps={{
             "aria-labelledby": "basic-button",
           }}
+          
           sx={{
             ".MuiPaper-root": {
               width: 250,

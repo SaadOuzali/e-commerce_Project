@@ -221,7 +221,7 @@ export default function AsideBar({ open, setOpen, theme }) {
             <ListItemIcon>
               <DashboardIcon style={{ color: "#000" }} fontSize="large" />
             </ListItemIcon>
-            <NavLink to={"/"}>
+            <NavLink to={"/lklk"}>
               <ListItemText primary="Dashboard" />
             </NavLink>
           </ListItemButton>
@@ -231,7 +231,7 @@ export default function AsideBar({ open, setOpen, theme }) {
             <ListItemIcon>
               <DashboardIcon style={{ color: "#000" }} fontSize="large" />
             </ListItemIcon>
-            <NavLink to={"/"}>
+            <NavLink to={"/nkjjl"} >
               <ListItemText primary="Dashboard" />
             </NavLink>
           </ListItemButton>

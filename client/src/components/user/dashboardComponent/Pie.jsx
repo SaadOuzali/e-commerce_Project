@@ -17,14 +17,17 @@ const data=useMemo(()=>{
             "year": "2022",
             "sofas": 52,
             "tables":50,
-            "chairs":180
+            "chairs":180,
+            
            
           },
         {
           "year": "2023",
           "sofas": 88,
           "tables":150,
-          "chairs":250
+          "chairs":250,
+          'lighting':90,
+          'accessories':66
          
         },
         {
@@ -63,7 +66,10 @@ const data=useMemo(()=>{
         'bed',
         'dresser',
         'wall decors',
-        'chairs'
+        'chairs',
+        'lighting',
+        'accessories',
+        'desks'
         
     ]}
     indexBy="year"

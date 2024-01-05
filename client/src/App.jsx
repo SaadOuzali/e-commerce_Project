@@ -33,17 +33,25 @@ import Child from "./Stor_Front/componenet/Child";
 import IconSection from "./Stor_Front/componenet/IconSection";
 import ProductList from "./components/productcomponent/ProductList";
 import CategoryTemplate from "./Stor_Front/componenet/CategoryTemplate";
-import "bootstrap/dist/css/bootstrap.css";
+// import "bootstrap/dist/css/bootstrap.css";
 import SubCategoryTemplate from "./Stor_Front/componenet/SubCategoryTemplate";
 import Categorie from "./Stor_Front/componenet/Categorie";
 import TT from "./Stor_Front/componenet/TT";
 import ModalUserDetails from "./components/users/ModalUserDetails";
 import Subcategory from "./components/Subcategory/Subcategory";
 import CreateNewSubcategory from "./components/Subcategory/CreateNewSubcategory";
+import Payment from "./Stor_Front/componenet/Payment";
+import ProductTemplate from "./Stor_Front/componenet/ProductTemplate";
+import LoginTemplate from "./Stor_Front/componenet/customer/LoginTemplate";
+import SignupTemplate from "./Stor_Front/componenet/customer/SignupTemplate";
+import CustomerInfosTemplate from "./Stor_Front/componenet/customer/CustomerInfosTemplate";
+import VerifyEmail from "./Stor_Front/componenet/customer/VerifyEmail";
+import PrivateRouteCustomer from "./Stor_Front/componenet/customer/PrivateRouteCustomer";
 
 // import Home from './components/Home'
 function App() {
   const [theme, colorMode] = useMode();
+
   const [userdata, setUserdata] = useState({ Data: null, isConnected: false });
 
   return (
@@ -95,14 +103,25 @@ function App() {
 
               <Route path="/landing_page" element={<App_Front />} />
               <Route path="/registre" element={<Registre />} />
-              <Route path="/drawer" element={<Drawer />} />
+              {/* <Route path="/drawer" element={<Drawer />} /> */}
+              {/* <Route path="/payment" element={<Payment/>} /> */}
               <Route path="/home" element={<Parent />}>
+                <Route path="customer"  element={<PrivateRouteCustomer />} >
+                    <Route path="profile" element={<CustomerInfosTemplate />} />
+                    <Route path="payment" element={<Payment/>} />
+                </Route>
                 <Route index element={<Child />} />
+                <Route path="login" element={<LoginTemplate />} />
+                
+                <Route path="validate_account" element={<VerifyEmail />} />
+                <Route path="signup" element={<SignupTemplate />} />
+                {/* <Route path="payment" element={<Payment/>} /> */}
                 <Route path=":slug" element={<Categorie />}>
                   <Route index element={ <CategoryTemplate />} />
-                  <Route path=":Slug/products" element={<TT />} />
+                  <Route path=":single" element={<ProductTemplate />}  />
+                  <Route path=":Slug/products" element={<SubCategoryTemplate />} />
                 </Route>
-              </Route>
+              </Route>             
             </Routes>
           </BrowserRouter>
         </CartShoppingprovider>

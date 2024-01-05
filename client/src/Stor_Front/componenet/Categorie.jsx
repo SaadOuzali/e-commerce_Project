@@ -1,7 +1,8 @@
-import React, { createContext, useEffect, useState } from "react";
+import React, { createContext, useContext, useEffect, useState } from "react";
 import { Outlet, useLocation, useParams } from "react-router-dom";
 import request from "../../components/axios";
 import "./categories_styles.css";
+import { Shoppigncartcontexte } from "./contexte/CartShoppingContexte";
 
 export const categorieContexte = createContext({ categorie: null });
 
@@ -10,12 +11,13 @@ export default function Categorie() {
   const [products, setProducts] = useState([]);
   const { slug } = useParams();
   const { Slug } = useParams();
-  const aa = useParams();
+  const {setAnchorEl} = useContext(Shoppigncartcontexte);
   const loc = useLocation();
   console.log("hnaaaaaaaa fcategorie",categorie);
 
 // to fetch subcategorie
   useEffect(() => {
+    setAnchorEl(null);
     const fetchCategories = async () => {
       try {
         const data = await request.get(`/v1/categories/${slug}`);

@@ -1,5 +1,6 @@
 import {
   Box,
+  Button,
   Container,
   Divider,
   Drawer,
@@ -33,6 +34,8 @@ import { Shoppigncartcontexte } from "./contexte/CartShoppingContexte";
 import img4 from "./main/productImage/trico.png";
 import formatCurrency from "../formatCurrency";
 import Shoppingcart from "./Shoppingcart";
+import Payment from "./Payment";
+import { NavLink, useNavigate } from "react-router-dom";
 
 const Search = styled("div")(({ theme }) => ({
   position: "relative",
@@ -93,16 +96,16 @@ const arr = [
 const btn = { title: "Login" };
 // const query={url:"/v1/customers/login",method:"post",initialValue:[]};
 
-export default function Header2({ data }) {
-  console.log("hna fleader 2");
+export default function Header2() {
   const [openmdl, setOpenmdl] = React.useState(false);
   const theme = useTheme();
   const [anchorEl, setAnchorEl] = React.useState(null);
   const [selectedIndex, setSelectedIndex] = React.useState(1);
   const [isdraweropen, setIsdraweropen] = React.useState(false);
-  const { cartItems } = useContext(Shoppigncartcontexte);
+  const { cartItems, TotalPrice } = useContext(Shoppigncartcontexte);
   let numberofproducts = cartItems.length;
   const open = Boolean(anchorEl);
+  const navigate = useNavigate();
 
   const handleClickListItem = (event) => {
     setAnchorEl(event.currentTarget);
@@ -132,12 +135,19 @@ export default function Header2({ data }) {
     }
   };
 
+  // handle navigation
+ const handleNavigation = () => {
+    navigate("/home/customer/payment");
+    setIsdraweropen(false)
+  };
+
   return (
     <Container sx={{ my: 3, display: "flex" }}>
       <Stack alignItems={"center"}>
         <ShoppingCartIcon />
         <Typography variant="body2">E-Commerce</Typography>
       </Stack>
+
       <Box sx={{ flexGrow: 1 }}></Box>
       <Search
         sx={{
@@ -204,12 +214,14 @@ export default function Header2({ data }) {
           </Menu>
         </div>
       </Search>
+
       <Box sx={{ flexGrow: 1 }}></Box>
+
       <Stack direction={"row"} alignItems={"center"}>
         {/* modal form */}
         <IconButton>
           {/* <ModalTemplate fields={arr} btn={btn} query={query} /> */}
-          <TemplateModal
+          {/* <TemplateModal
             icon={<PersonIcon />}
             openmdl={openmdl}
             setOpenmdl={setOpenmdl}
@@ -224,50 +236,64 @@ export default function Header2({ data }) {
               handleSubmit={handleSubmit}
               theme={theme}
             />
-          </TemplateModal>
+          </TemplateModal> */}
+          <NavLink to={"/home/login"}>
+            {" "}
+            <PersonIcon sx={{ fontSize: "30px" }} />{" "}
+          </NavLink>
         </IconButton>
 
         {/* cart shopping icon */}
         <IconButton aria-label="cart" onClick={() => setIsdraweropen(true)}>
           <StyledBadge badgeContent={numberofproducts} color="primary">
-            <ShoppingCartIcon />
+            <ShoppingCartIcon sx={{ fontSize: "28px" }} />
           </StyledBadge>
         </IconButton>
-        
+
         <Drawer
           anchor="right"
           open={isdraweropen}
           onClose={() => setIsdraweropen(false)}
         >
-          <Stack spacing={3} width={340}>
+          <Stack spacing={3} width={360}>
             <IconButton
               sx={{ width: "40px", ":hover": { color: "#dc143c" } }}
               onClick={() => setIsdraweropen(false)}
             >
               <ChevronRightIcon />
             </IconButton>
-           
-              <Divider  />
-            
+
+            <Divider />
+
             <Stack>
-              {cartItems.map((item) =>
-                 (
-                  // <Stack spacing={10} direction={"row"} alignItems={"center"}>
-                  //   <img src={item.img} width={120} />
-                  //   <Stack>
-                  //     <Typography fontWeight={"700"} fontSize={20}>
-                  //       {item.title}
-                  //     </Typography>
-                  //     <h6 style={{ margin: 0 }}>{formatCurrency(item.price)} </h6>
-                  //   </Stack>
-                  // </Stack>
-                  <Shoppingcart {...item} data={data} />
-                )
-              )}
+              {cartItems.map((item) => (
+                <Shoppingcart {...item} />
+              ))}
             </Stack>
-            <Box>
-              <Typography>Totale price </Typography>
-            </Box>
+            {cartItems.length === 0 ? null : (
+              <>
+                <Stack direction={"row"} spacing={7.5} alignItems={"center"}>
+                  <Typography variant="h6">Totale price : </Typography>
+                  <Typography variant="h6">
+                    {" "}
+                    {formatCurrency(TotalPrice)}{" "}
+                  </Typography>
+                </Stack>
+
+                <Box display={"flex"} justifyContent={"center"}>
+                  {/* <NavLink  to={'/home/customer/payment'}> */}
+                  <Button
+                    variant="contained"
+                    size="large"
+                    sx={{ width: "320px" }}
+                    onClick={handleNavigation}
+                  >
+                    checkout Now ({formatCurrency(TotalPrice)})
+                  </Button>
+                  {/* </NavLink> */}
+                </Box>
+              </>
+            )}
           </Stack>
         </Drawer>
       </Stack>

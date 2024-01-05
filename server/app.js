@@ -18,8 +18,8 @@ const subcategoryRouter = require("./routes/subcategoriesRoutes.js");
 app.use(
   session({
     secret: "fjklsjfkljj",
-    resave: "true",
-    saveUninitialized: false,
+    resave: true,
+    saveUninitialized: true,
   })
 );
 // for sanding token in cookeis
@@ -39,6 +39,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 
 app.use((req, res, next) => {
   console.log("Cookies", req.cookies);
+  console.log("Session Id",req.sessionID);
   next();
 });
 
@@ -98,7 +99,7 @@ app.use((err, req, res, next) => {
   const error = err.message || "can not process your request";
   res.status(status).json({
     status: "failed",
-    Error: error,
+    message: error,
   });
 });
 

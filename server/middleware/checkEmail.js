@@ -7,15 +7,19 @@ async function checkEmailExists(req, res, next) {
     const customer = await Customer.findOne({ email });
     if (customer) {
       const err = new Error("Email address already exists");
-      res.status(400).json({
-        status: 400,
-        message: "Email address already exists",
-      });
+      err.status=400
+      next(err)
+      // res.status(400).json({
+      //   status: 400,
+      //   message: "Email address already exists",
+      // });
       return;
     }
     next();
   } catch (err) {
-    console.log("UGH: ", err);
+    const error=new Error(err.message);
+    error.status=500;
+    next(error)
   }
 }
 

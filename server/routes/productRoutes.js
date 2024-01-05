@@ -33,56 +33,58 @@ productsRouter.post(
   CheckJWT,
   refreshAccToken,
   admin_OR_manager,
-  [
-    body("sku")
-      .notEmpty()
-      .withMessage("field sku required")
-      .isString()
-      .withMessage("field must a string value"),
-    body("product_name")
-      .notEmpty()
-      .withMessage("field product_name required")
-      .isString()
-      .withMessage("field must a string value"),
-    body("short_description")
-      .notEmpty()
-      .withMessage("field short_description required")
-      .isString()
-      .withMessage("field must a string value"),
-    body("long_description")
-      .notEmpty()
-      .withMessage("field long_description required")
-      .isString()
-      .withMessage("field must a string value"),
-    body("price")
-      .notEmpty()
-      .withMessage("field price required")
-      .isNumeric()
-      .withMessage("field must a numeric value"),
-    // body("discount_price").isString().withMessage("field must a string value"),
-    body("options")
-      .notEmpty()
-      .withMessage("field price required")
-      .isArray()
-      .withMessage("field must a array value"),
-    body("subcategory_id")
-      .notEmpty()
-      .withMessage("field subcategory_id required")
-      .isMongoId()
-      .withMessage("field must a Mongo Id  value"),
-  ],
-  ValidatFields,
-  upload.single("file"),async (req,res,next)=>{
+  // [
+  //   body("sku")
+  //     .notEmpty()
+  //     .withMessage("field sku required")
+  //     .isString()
+  //     .withMessage("field must a string value"),
+  //   body("product_name")
+  //     .notEmpty()
+  //     .withMessage("field product_name required")
+  //     .isString()
+  //     .withMessage("field must a string value"),
+  //   body("short_description")
+  //     .notEmpty()
+  //     .withMessage("field short_description required")
+  //     .isString()
+  //     .withMessage("field must a string value"),
+  //   body("long_description")
+  //     .notEmpty()
+  //     .withMessage("field long_description required")
+  //     .isString()
+  //     .withMessage("field must a string value"),
+  //   body("price")
+  //     .notEmpty()
+  //     .withMessage("field price required")
+  //     .isNumeric()
+  //     .withMessage("field must a numeric value"),
+  //   // body("discount_price").isString().withMessage("field must a string value"),
+  //   body("options")
+  //     .notEmpty()
+  //     .withMessage("field price required")
+  //     .isArray()
+  //     .withMessage("field must a array value"),
+  //   body("subcategory_id")
+  //     .notEmpty()
+  //     .withMessage("field subcategory_id required")
+  //     .isMongoId()
+  //     .withMessage("field must a Mongo Id  value"),
+  // ],
+  // ValidatFields,
+  upload.single("product_img"),async (req,res,next)=>{
 
     const img=Buffer.from(req.file.buffer).toString("base64");
     let dataUrl="data:"+req.file.mimetype+";base64,"+img;
     try {
       const uploadimg=await cloudinary_Upload_Img(dataUrl);
-      console.log(uploadimg);
+      // console.log(uploadimg);
       req.image=uploadimg.url;
       next()
     } catch (error) {
-      next(error)
+      const err=error.message;
+      err.status=500
+      next(err)
     }
   },
   create_product_controller
@@ -119,15 +121,15 @@ productsRouter.get(
 
 //find product by id
 productsRouter.get(
-  "single-product/:_id",
-  [
-    param("_id")
-      .notEmpty()
-      .withMessage("must id param ")
-      .isMongoId()
-      .withMessage("this is not a mongo Id"),
-  ],
-  ValidatFields,
+  "/single-product/:prd_name",
+  // [
+  //   param("_id")
+  //     .notEmpty()
+  //     .withMessage("must id param ")
+  //     .isMongoId()
+  //     .withMessage("this is not a mongo Id"),
+  // ],
+  // ValidatFields,
   find_product_byId_controller
 );
 

@@ -20,7 +20,7 @@ import Section from "./Section";
 
 export default function Main({ theme,data }) {
   const [alignment, setAlignment] = React.useState("web");
-  console.log("fl main");
+  
   // const [data, setData] = React.useState([
   //   {id:0, title: "Jeans", price: 15,img:img1 },
   //   {id:1, title: "T-Shirt", price: 10,img:img2 },
@@ -95,7 +95,7 @@ export default function Main({ theme,data }) {
         </Box>
       </Stack>
       <Stack sx={{ marginTop: 8 }}>
-        <Section data={data} theme={theme} />
+        <Section  theme={theme} />
       </Stack>
     </Container>
   );

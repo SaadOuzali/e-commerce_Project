@@ -18,7 +18,6 @@ import Row3 from "./dashboardComponent/Row3";
 const Home = () => {
   const navigate=useNavigate()
   const [data,setData]=useState({});
-  console.log("data",data);
 useEffect(()=>{
  const alldocument=async ()=>{
   try {

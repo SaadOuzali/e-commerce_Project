@@ -7,7 +7,8 @@ const {
   searchSubcategories,
   getSubcategoryById,
   updateSubcategory,
-  deleteSubcategory
+  deleteSubcategory,
+  fetch_category_controller
 } = require("../controllers/subcategoriesController");
 
 
@@ -17,12 +18,16 @@ const {
   ValidatFields,
   refreshAccToken,
 } = require("../middleware/authMiddleware");
+const Subcategorie = require("../models/Subcategorie");
 
 const subcategoryRouter = express.Router();
 
 subcategoryRouter.post("/", CheckJWT, refreshAccToken,admin_OR_manager,createSubcategory);
 
 subcategoryRouter.get("/", listSubcategories);
+
+// to fatch all subcategory
+subcategoryRouter.get("/all",fetch_category_controller)
 
 subcategoryRouter.get("/",CheckJWT, admin_OR_manager, ValidatFields, refreshAccToken, searchSubcategories);
 

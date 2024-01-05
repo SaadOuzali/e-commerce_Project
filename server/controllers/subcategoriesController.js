@@ -173,11 +173,28 @@ const deleteSubcategory = (req, res) => {
     });
 };
 
+
+// to faetch all subcategory
+const fetch_category_controller=async(req,res,next)=>{
+  try {
+    const findsubcategory=await Subcategorie.find();
+    res.status(200).json({
+      status:"success",
+      data:findsubcategory
+    })
+  } catch (error) {
+    const err=new Error(error.message);
+    err.status=500;
+    next(err)
+  }
+}
+
 module.exports = {
   createSubcategory,
   listSubcategories,
   searchSubcategories,
   getSubcategoryById,
   updateSubcategory,
-  deleteSubcategory
+  deleteSubcategory,
+  fetch_category_controller
 };

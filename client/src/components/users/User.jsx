@@ -9,7 +9,7 @@ import { DataGrid } from "@mui/x-data-grid";
 import request from "../axios";
 import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
-import { Button, Stack, TextField, Typography } from "@mui/material";
+import { Box, Button, Stack, TextField, Typography } from "@mui/material";
 import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
 import usercontext from "../../context/AuthContext";
@@ -154,7 +154,9 @@ export default function DataTable() {
 
   return (
     <>
-    <Typography textAlign={"center"}  variant="h4">Users </Typography>
+    <Stack direction={"row"} justifyContent={"center"}>
+      <Typography variant="h4">USERS</Typography>
+    </Stack>
       {user.userdata.Data.role == "admin" && (
         <Button
           variant="contained"
@@ -164,16 +166,13 @@ export default function DataTable() {
           <Modaluser name={"Create New User"} />
         </Button>
       )}
-      <div style={{ height: 400, width: "100%" }}>
+      <Box sx={{ height: 400, width: '100%' }}>
         <Stack direction="row" sx={{ marginBottom: "10px" }}>
           <input
             placeholder="search"
             style={{ width: "400px", padding: "12px", borderRadius: "15px" }}
             onChange={({ target }) => setSearch(target.value)}
           />
-          {/* <Button variant="contained" sx={{borderRadius:"15px"}}>
-        < SearchIcon />
-        </Button> */}
         </Stack>
         {/* <DataGrid rows={mappeduser} columns={columns}  initialState={{
           pagination: {
@@ -200,7 +199,7 @@ export default function DataTable() {
           checkboxSelection
           disableRowSelectionOnClick
         />
-      </div>
+      </Box>
     </>
   );
 }

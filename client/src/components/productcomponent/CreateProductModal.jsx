@@ -1,13 +1,15 @@
 import Modal from "@mui/material/Modal";
 import Box from "@mui/material/Box";
-import { Button, Chip, Grid, TextField, Typography } from "@mui/material";
+import { Button, Chip, FormControl, Grid, InputLabel, MenuItem, Select, TextField, Typography } from "@mui/material";
 import PropTypes from "prop-types";
-import { useCallback, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import axios, { AxiosError } from "axios";
 import { toast } from "react-toastify";
 import CloudUploadIcon from "@mui/icons-material/CloudUpload";
 import styled from "@emotion/styled";
 import AddIcon from "@mui/icons-material/Add";
+import request from "../axios";
+import { useNavigate } from "react-router-dom";
 
 const VisuallyHiddenInput = styled("input")({
   clip: "rect(0 0 0 0)",
@@ -21,12 +23,16 @@ const VisuallyHiddenInput = styled("input")({
   width: 1,
 });
 
+
+// my component
 const CreateProductModal = ({
   open,
   handleClose,
   setIsCreateOpen,
   setProducts,
 }) => {
+  const Navigate = useNavigate();
+  const [slugsubcategory,setSlugsubcategory]=useState([])
   const [createProductModal, setCreateProductModal] = useState({
     product_name: "",
     sku: "",
@@ -34,39 +40,72 @@ const CreateProductModal = ({
     long_description: "",
     quantity: "",
     price: "",
+    slug: "",
     active: "",
     product_img: null,
   });
 
+  console.log("hnaaa fproduct", createProductModal);
+
+  // to handle creation of poducts
   const handleCreateButton = useCallback(() => {
-    console.log("CREAAAAAATE!!!!!!!!");
-    axios
-      .post("http://localhost:3000/v1/products/", createProductModal, {
+    
+    request
+      .post("/v1/products/", createProductModal, {
         headers: { "Content-Type": "multipart/form-data" },
       })
-      .then(({ data }) => {
+      .then((data) => {
         console.log("Product created: ", data.data);
-        toast.success(data?.message ?? "YAAAAAAY created!!!!");
-        if (data) setProducts((prev) => [...prev, { ...data.data }]);
-        setIsCreateOpen(false);
+        if(data.status === 201){
+          
+          toast.success("product created successfully");
+           setProducts((prev) => [...prev, { ...data.data.data }]);
+          setIsCreateOpen(false);
+        }
       })
       .catch((err) => {
+        // Err: Axios
+        // 1- Backend with an Error response
+        // --- response.data.message ?? ""
+        // 2- AxiosError: {message: ""}
+        // TypeError
+
+
+
         if (err instanceof AxiosError) {
+          Navigate("/users/login");
           toast.error(err.response.data?.message ?? "Couldn't create product");
         }
         console.error("Error creating product: ", err);
       });
   }, [createProductModal]);
 
-  const handleInputChange = (e) => {
+  // to handle changes
+  const handleInputChange = useCallback((e) => {
     const { name, value } = e.target;
     console.log("Name of the input: ", name);
     setCreateProductModal((prev) => ({
       ...prev,
       [name]: value,
     }));
-  };
+  },[createProductModal]);
 
+
+  // to fetch all subcategorie
+  useEffect(()=>{
+    const fetchcategory=async ()=>{
+      try {
+        const data=await request('/v1/subcategories/all');
+        
+        if(data.status === 200){
+            setSlugsubcategory(data.data.data)
+        }
+      } catch (error) {
+        console.log(error);
+      }
+    }
+    fetchcategory()
+  },[])
   const style = {
     position: "absolute",
     top: "50%",
@@ -79,6 +118,7 @@ const CreateProductModal = ({
     p: 4,
     color: "black",
   };
+
   return (
     <Modal
       open={open}
@@ -110,6 +150,16 @@ const CreateProductModal = ({
                   fullWidth
                   required
                   name="sku"
+                  onChange={handleInputChange}
+                />
+                 <TextField
+                  label="SKU"
+                  variant="outlined"
+                  hidden
+                  value={"jhjhgjhj"}
+                  fullWidth
+                  required
+                  name="productId"
                   onChange={handleInputChange}
                 />
               </Grid>
@@ -187,6 +237,27 @@ const CreateProductModal = ({
                 )}
               </Grid>
               <Grid item xs={12} sm={12}>
+                <FormControl sx={{ m: 1, minWidth: 120 }} size="small">
+                  <InputLabel id="demo-select-small-label">subcategory</InputLabel>
+                  <Select
+                    name="slug"
+                    labelId="demo-select-small-label"
+                    id="demo-select-small"
+                    value={createProductModal.slug}
+                    label="subcategory"
+                    onChange={handleInputChange}
+                  >
+                    {slugsubcategory.length ===0 ? null 
+                    :
+                    slugsubcategory.map((sub)=>{
+                        return <MenuItem value={sub.slug}>{sub.subcategory_name}</MenuItem>
+                    })
+                      
+                      }
+                    
+                    
+                  </Select>
+                </FormControl>
                 <Button
                   variant="contained"
                   onClick={handleCreateButton}

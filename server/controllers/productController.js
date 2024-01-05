@@ -1,14 +1,16 @@
 const { Products } = require("../models/Product");
-
+const uuid=require("uuid")
 
 //  create product controller
 async function create_product_controller  (req, res, next)  {
-    const id = v4();
+    const id = uuid.v4();
     try {
-      const createproduct = await Products.create({ id, ...req.body });
+      const createproduct = await Products.create({ id, ...req.body,
+        product_img:req.image });
       res.status(201).json({
         status: "success",
         messag: "product created successfully",
+        data:createproduct
       });
     } catch (error) {
       const err=new Error(error.message);
@@ -78,9 +80,9 @@ async function get_product_bySearch_controller (req, res, next) {
 
 // find product by id 
 async function find_product_byId_controller (req, res, next) {
-    const { _id } = req.params;
+    const { prd_name } = req.params;
     try {
-      const findproduct = await Products.findOne({ _id }).populate();
+      const findproduct = await Products.findOne({ product_name:prd_name }).populate();
       if (!findproduct) {
         const error = new Error("product not found");
         error.status = 404;
@@ -154,6 +156,7 @@ async function delete_product_controller (req, res, next)  {
 
 
 const get_products_by_slug_controller=async (req,res,next)=>{
+  console.log("hhhhh");
   const {slug}=req.params;
   try {
     const getProducts=await Products.find({slug});

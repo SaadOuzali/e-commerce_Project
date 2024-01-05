@@ -1,9 +1,35 @@
-import { createContext, useContext, useState } from "react";
+import { createContext, useContext, useEffect, useMemo, useState } from "react";
 
 export const Shoppigncartcontexte = createContext({});
 
+// to initial state
+const initialState = () => {
+  const cart = localStorage.getItem("cartshopping");
+  return cart ? JSON.parse(cart) : [];
+};
 const CartShoppingprovider = ({ children }) => {
-  const [cartItems, setCartItems] = useState([]);
+  // 
+
+  const [cartItems, setCartItems] = useState(initialState());
+  const [anchorEl, setAnchorEl] = useState(null);
+  const open = Boolean(anchorEl);
+  const handleClick = (event) => {
+    setAnchorEl(event.currentTarget);
+  };
+
+  // to calculate total price
+  const TotalPrice = useMemo(() => {
+    let total = 0;
+    for (let i = 0; i < cartItems.length; i++) {
+      total += cartItems[i].price * cartItems[i].quantity;
+    }
+    return total;
+  }, [cartItems]);
+
+  // to save state in local storage dynamicly
+  useEffect(() => {
+    localStorage.setItem("cartshopping", JSON.stringify(cartItems));
+  }, [cartItems]);
 
   // get quantity of product
   const getCartItemsQuantity = (id) => {
@@ -11,10 +37,10 @@ const CartShoppingprovider = ({ children }) => {
   };
 
   // to add product in to cart
-  const increaseProductToCart = (id) => {
+  const increaseProductToCart = (id, img, price, title,_id) => {
     setCartItems((prev) => {
       if (!prev.find((item) => item.id === id)) {
-        return [...prev, { id, quantity: 1 }];
+        return [...prev, { id, img, price, title, quantity: 1,_id }];
       } else {
         return prev.map((item) => {
           return item.id === id
@@ -25,7 +51,35 @@ const CartShoppingprovider = ({ children }) => {
     });
   };
 
+  // const increaseProductToCart = (id) => {
+  //   setCartItems((prev) => {
+  //     if (!prev.find((item) => item.id === id)) {
+  //       return [...prev, { id, quantity: 1 }];
+  //     } else {
+  //       return prev.map((item) => {
+  //         return item.id === id
+  //           ? { ...item, quantity: item.quantity + 1 }
+  //           : item;
+  //       });
+  //     }
+  //   });
+  // };
+
   // to delete product in to cart
+  // const decreaseItemInCart = (id) => {
+  //   setCartItems((prev) => {
+  //     if (!prev.find((item) => item.id === id)) {
+  //       return [...prev];
+  //     } else {
+  //       return prev.map((item) => {
+  //         return item.id === id
+  //           ? { ...item, quantity: item.quantity - 1 }
+  //           : item;
+  //       });
+  //     }
+  //   });
+  // };
+
   const decreaseItemInCart = (id) => {
     setCartItems((prev) => {
       if (!prev.find((item) => item.id === id)) {
@@ -57,7 +111,12 @@ const CartShoppingprovider = ({ children }) => {
         getCartItemsQuantity,
         increaseProductToCart,
         decreaseItemInCart,
-        removeItemInCart
+        removeItemInCart,
+        initialState,
+        TotalPrice,
+        anchorEl,
+        setAnchorEl,
+        open,
       }}
     >
       {children}

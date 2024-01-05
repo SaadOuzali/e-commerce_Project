@@ -1,18 +1,49 @@
 // import "bootstrap/dist/css/bootstrap.min.css";
-import "../styles/categories_style.css";
 import SofaImage from "./sofa_1.png";
+import "./categories_styles.css";
+import { useParams } from "react-router-dom";
+import { categorieContexte } from "./Categorie";
+import { useContext, useEffect, useState } from "react";
+import request from "../../components/axios";
+import { AxiosError } from "axios";
+import formatCurrency from "../formatCurrency";
 
 const ProductTemplate = () => {
-  return (
+  const { single } = useParams();
+  const [prd, setPrd] = useState(null);
+  const { categorie, products } = useContext(categorieContexte);
+  console.log("hna fproducts single", prd);
+
+  useEffect(() => {
+    const fetchproduct = async () => {
+      try {
+        const findproduct = await request.get(
+          `/v1/products/single-product/${single}`
+        );
+        console.log("hhhhhhhhhh", findproduct.data.data);
+        if (findproduct.status === 200) {
+          setPrd(findproduct.data.data);
+        }
+        console.log("hna fproduct", findproduct);
+      } catch (error) {
+        if (error instanceof AxiosError) {
+          console.log(error);
+        }
+      }
+    };
+    fetchproduct();
+  }, []);
+
+  console.log(prd);
+  return  (
     <>
-      <div className="text-center" style={{ height: "100vh" }}>
-        <div className="style_category_header">
-          <h1>Product</h1>
-        </div>
+      {  !prd  ? null :
+        <div className="text-center" style={{ height: "100vh" }}>
+        
         <div className="row " style={{ height: "100%" }}>
           <div
             className="col-md-6 "
-            style={{ backgroundColor: "rgb(160 167 177)" }}
+            style={{ backgroundColor: "#FAFAFA" }}
           >
             <div
               className="d-flex justify-content-center align-items-center"
@@ -28,16 +59,16 @@ const ProductTemplate = () => {
             >
               <div className="ms-5 mt-5">
                 <div className="d-flex justify-content-start">
-                  <h2 style={{ fontWeight: "700" }}>Name of the product</h2>
+                  <h2 style={{ fontWeight: "700" }}>{prd.product_name} </h2>
                 </div>
                 <div className="pt-1 mb-5 d-flex justify-content-start">
                   <h5 style={{ fontWeight: "700", color: "#858484" }}>
-                    150.00$
+                    {formatCurrency(prd.price)} 
                   </h5>
                 </div>
                 <div className="mt-5 d-flex justify-content-start">
                   <p className="text-start" style={{ fontWeight: "500" }}>
-                    Lorem ipsum dolor sit amet consectetur adipisicing elit.
+                    
                   </p>
                 </div>
                 <div className="d-flex justify-content-start">
@@ -45,10 +76,7 @@ const ProductTemplate = () => {
                     className="text-start"
                     style={{ fontWeight: "300", color: "#858484" }}
                   >
-                    Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                    Deleniti, aut. Ratione animi cupiditate ipsam eos inventore,
-                    optio quo? Dolor expedita laudantium iure perferendis nisi
-                    maxime exercitationem nam. Temporibus, odit sed.
+                    {prd.long_description}
                   </p>
                 </div>
                 <div className="mt-5 d-flex justify-content-start">
@@ -60,7 +88,7 @@ const ProductTemplate = () => {
             </div>
           </div>
         </div>
-      </div>
+      </div>}
     </>
   );
 };

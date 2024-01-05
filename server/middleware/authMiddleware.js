@@ -211,6 +211,7 @@ console.log('hnaaanannanna');
  
 }
 
+
 async function  isCustomer(req,res,next){
 const {email}=req.body;
 const finduser=await Users.findOne({email});
@@ -251,7 +252,10 @@ async function SendMail(req, res, next) {
       console.log("Message sent: %s", info.messageId);
     })
     .catch((err) => {
+      const error=new Error("can not send email");
+      error.status=500;
       console.log(err);
+      next(error)
     });
 }
 

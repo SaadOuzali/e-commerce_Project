@@ -2,18 +2,16 @@ import React, { useContext, useEffect } from "react";
 import { Navigate, Outlet, useLocation, useNavigate } from "react-router-dom";
 import usercontext from "../context/AuthContext";
 import { toast } from "react-toastify";
-import request from './axios'
+import request from "./axios";
 import DrawerHeader from "./mui/user/DrawerHeader";
 import AsideBar from "./user/AsideBar";
 import Bar from "./user/Bar";
 import { Box, CssBaseline, useTheme } from "@mui/material";
-
-
-
+import Main from "./mui/user/Main";
 
 export default function PrivateRoute() {
-    const navigate = useNavigate();
-    const location =useLocation()
+  const navigate = useNavigate();
+  const location = useLocation();
   const user = useContext(usercontext);
 
   const theme = useTheme();
@@ -23,50 +21,60 @@ export default function PrivateRoute() {
     const checkToken = async () => {
       if (!user.userdata.isConnected) {
         try {
-          
-          const {data, status} = await request.post("v1/users/token")
-  
-        
-          
-          console.log("status",status);
-          
+          const { data, status } = await request.post("v1/users/token");
+
+          console.log("status", status);
+
           if (data?.status == "success") {
             console.log("mz1");
             console.log(data);
             user.setUserdata((prev) => {
               return { ...prev, Data: data.data, isConnected: true };
             });
-  
-          } 
-        } catch ({response}) {
-            if(response.status == 401){
-              toast.error("session expired please logain again");
-              console.log("error",response);
-               navigate("/users/login", {state: {path: location.pathname}})
-            }
+          }
+        } catch ({ response }) {
+          if (response.status == 401) {
+            toast.error("session expired please logain again");
+            console.log("error", response);
+            navigate("/users/login", { state: { path: location.pathname } });
+          }
         }
       }
     };
-    
-      checkToken();
-      
-    
+
+    checkToken();
   }, [user.userdata.isConnected]);
 
-  if(user.userdata.isConnected) return (
-    <>
-    <Box sx={{ display: "flex" }}>
-      <CssBaseline />
+  if (user.userdata.isConnected)
+    return (
+      <>
+        <Box sx={{ display: "flex" }}>
+          <CssBaseline />
 
-      <Bar open={open} setOpen={setOpen} />
+          <Bar open={open} setOpen={setOpen} />
 
-      <AsideBar open={open} setOpen={setOpen} theme={theme} />
+          <AsideBar open={open} setOpen={setOpen} theme={theme} />
 
-      <Box component="main" sx={{ flexGrow: 1, p: 3 }}>
-        <DrawerHeader theme={theme} />
-        <Outlet />
-      </Box>
-    </Box>
-  </>
-  )
+          <Box
+            component="main"
+            sx={{
+              flexGrow: 1,
+              p: 3,
+              width: !open
+                ? "calc(100% - calc(64px + 1px))"
+                : "calc(100% - 240px)",
+            }}
+          >
+            <DrawerHeader theme={theme} />
+            <Outlet />
+          </Box>
+
+          {/* <Main theme={theme} open={open}>
+            <DrawerHeader theme={theme} />
+            <Outlet />
+
+          </Main> */}
+        </Box>
+      </>
+    );
 }

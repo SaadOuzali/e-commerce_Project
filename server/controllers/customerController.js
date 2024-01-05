@@ -6,6 +6,8 @@ const loginController = async (req, res, next) => {
   const last_login = new Date().toDateString();
   const refreshToken = req.ref;
   const accessToken = req.acc;
+  
+
   const customer = req.customer;
   const updatedCustomer = await Customer.findOneAndUpdate(
     { _id: customer._id },
@@ -32,8 +34,12 @@ const loginController = async (req, res, next) => {
       // path: "/",
     });
 
+    console.log('acesstoken customer',accessToken);
+    console.log('refresh customer',refreshToken);
+
+
   // Check to make sure that the access token and refresh token cookies are set
-  if (!req.cookies.accessToken || !req.cookies.refreshToken) {
+  if (!accessToken || !refreshToken) {
     const err = new Error(
       "Failed to set access token and refresh token cookies"
     );

@@ -1,5 +1,5 @@
-import { useCallback, useEffect, useState } from "react";
-import axios from "axios";
+import { useCallback, useEffect, useMemo, useState } from "react";
+import axios, { AxiosError } from "axios";
 import { DataGrid } from "@mui/x-data-grid";
 import "./stylingProduct.css";
 import DeleteIcon from "@mui/icons-material/Delete";
@@ -21,6 +21,8 @@ import AddIcon from "@mui/icons-material/Add";
 import CreateProductModal from "./CreateProductModal";
 import { toast } from "react-toastify";
 import VisibilityIcon from "@mui/icons-material/Visibility";
+import { useNavigate } from "react-router-dom";
+import request from "../axios";
 
 const theme = createTheme();
 const Search = styled("div")(({ theme }) => ({
@@ -67,7 +69,7 @@ const ProductList = () => {
   const [products, setProducts] = useState([]);
   //   const [products, setProducts] = useState([]);
   const [searchTerm, setSearchTerm] = useState("");
-
+  const navigate = useNavigate();
   const [isDetailsOpen, setIsDetailsOpen] = useState(false);
   const [isEditOpen, setIsEditOpen] = useState(false);
   const [isCreateOpen, setIsCreateOpen] = useState(false);
@@ -104,101 +106,129 @@ const ProductList = () => {
 
   const handleDeleteProduct = useCallback((row) => {
     console.log("delete product", row);
-    axios
-      .delete("http://localhost:3000/v1/products/" + row._id)
+    request
+      .delete("/v1/products/" + row._id)
       .then(({ data }) => {
         console.log(data);
         toast.success(data?.message ?? "YAAAY deleted!!");
         setProducts((prev) => prev.filter((prd) => prd._id !== row?._id));
       })
       .catch((err) => {
-        console.log("Error deleting: ", err);
+        if (err instanceof AxiosError) {
+          if (err.response.status === 401) {
+            toast.error("session expired please logain again");
+            navigate("/users/login");
+          }
+        }else{
+          console.log("Error deleting: ", err);
+        }
       });
   }, []);
 
   useEffect(() => {
     const fetchProducts = async () => {
       try {
-        const response = await axios.get("http://localhost:3000/v1/products/");
+        const response = await request.get("/v1/products/");
         const responseData = response.data;
         console.log("Fetched Products: ", responseData);
         setProducts(responseData.data || []);
       } catch (error) {
-        console.error("ERROR UGH fetching products data: ", error.message);
+        if (error instanceof AxiosError) {
+          if (error.response.status === 401) {
+            toast.error("session expired please logain again");
+            navigate("/users/login");
+          }
+        }else{
+          console.log("Error deleting: ", err);
+        }
       }
     };
     fetchProducts();
   }, []);
 
   useEffect(() => {
+    console.log(searchTerm.length);
     const filteredProducts = async () => {
       try {
-        const response = await axios.get(
-          `http://localhost:3000/v1/products/search/?query=${searchTerm}`
+        const response = await request.get(
+          `/v1/products/search/?query=${searchTerm}`
         );
         const responseData = response.data;
         console.log("Filtered Products: ", responseData);
         setProducts(responseData.data || []);
       } catch (error) {
-        console.log("ERROR UGH searching product: ", error.message);
+        if (error instanceof AxiosError) {
+          if (error.response.status === 401) {
+            toast.error("session expired please logain again");
+            navigate("/users/login");
+          }
+        } else {
+          console.log("ERROR UGH searching product: ", error.message);
+        }
       }
     };
-    filteredProducts();
+    if (searchTerm.length !== 0) {
+      filteredProducts();
+    }
   }, [searchTerm]);
 
-  const columns = [
-    { field: "_id", headerName: "ID", width: 250 },
-    {
-      field: "product_name",
-      headerName: "Product Name",
-      type: "string",
-      width: 300,
-    },
-    { field: "sku", headerName: "SKU", type: "string", width: 300 },
-    { field: "active", headerName: "active", type: "boolean", width: 200 },
-    { field: "price", headerName: "Price", type: "number", width: 200 },
-    {
-      field: "details",
-      headerName: "Details",
-      sortable: false,
-      width: 100,
-      renderCell: (params) => (
-        <IconButton aria-label="details" color="primary" className="buttons">
-          <VisibilityIcon onClick={() => handleOpenDetailsModal(params.row)} />
-        </IconButton>
-      ),
-    },
-    {
-      field: "edit",
-      headerName: "Edit",
-      sortable: false,
-      width: 100,
-      renderCell: (params) => (
-        <IconButton
-          aria-label="edit"
-          color="primary"
-          className="buttons buttonEdit"
-        >
-          <EditIcon onClick={() => handleOpenEditModal(params.row)} />
-        </IconButton>
-      ),
-    },
-    {
-      field: "delete",
-      headerName: "Delete",
-      sortable: false,
-      width: 100,
-      renderCell: (params) => (
-        <IconButton
-          aria-label="delete"
-          color="secondary"
-          className="buttons buttonDelete"
-        >
-          <DeleteIcon onClick={() => handleDeleteProduct(params.row)} />
-        </IconButton>
-      ),
-    },
-  ];
+  const columns = useMemo(() => {
+    return [
+      { field: "_id", headerName: "ID", width: 250 },
+      {
+        field: "product_name",
+        headerName: "Product Name",
+        type: "string",
+        width: 300,
+      },
+      { field: "sku", headerName: "SKU", type: "string", width: 300 },
+      { field: "active", headerName: "active", type: "boolean", width: 200 },
+      { field: "price", headerName: "Price", type: "number", width: 200 },
+      {
+        field: "details",
+        headerName: "Details",
+        sortable: false,
+        width: 100,
+        renderCell: (params) => (
+          <IconButton aria-label="details" color="primary" className="buttons">
+            <VisibilityIcon
+              onClick={() => handleOpenDetailsModal(params.row)}
+            />
+          </IconButton>
+        ),
+      },
+      {
+        field: "edit",
+        headerName: "Edit",
+        sortable: false,
+        width: 100,
+        renderCell: (params) => (
+          <IconButton
+            aria-label="edit"
+            color="primary"
+            className="buttons buttonEdit"
+          >
+            <EditIcon onClick={() => handleOpenEditModal(params.row)} />
+          </IconButton>
+        ),
+      },
+      {
+        field: "delete",
+        headerName: "Delete",
+        sortable: false,
+        width: 100,
+        renderCell: (params) => (
+          <IconButton
+            aria-label="delete"
+            color="secondary"
+            className="buttons buttonDelete"
+          >
+            <DeleteIcon onClick={() => handleDeleteProduct(params.row)} />
+          </IconButton>
+        ),
+      },
+    ];
+  }, []);
 
   return (
     <>

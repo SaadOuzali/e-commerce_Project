@@ -1,4 +1,6 @@
 const express = require("express");
+const stripe=require('stripe')(process.env.STRIPE_SECRET_KEY);
+const uuid=require('uuid')
 const {
   createController,
   getOrderByIdController,
@@ -17,11 +19,61 @@ const { Users } = require("../models/User");
 const { Products } = require("../models/Product");
 const Order = require("../models/Order");
 const Customer = require("../models/Customer");
+const { default: Stripe } = require("stripe");
 
 const orderRouter = express.Router();
 
 //DONE
-orderRouter.post("/", verifyJWT,verifyRefreshToken, createOrder, createController);
+orderRouter.post("/", 
+verifyJWT,verifyRefreshToken,
+async (req,res,next)=>{
+
+  // const {token,amount}=req.body;
+  const {token,order_items, cart_total_price}=req.body;
+  console.log("hnnnnaaaaaa",req.body.order_items);
+  const idempotencyKey=uuid.v4();
+  try {
+    const customer=await stripe.customers.create({ 
+      email:token.email,
+      source:token
+    });
+    const result=await stripe.charges.create({
+      amount:cart_total_price*100,
+      currency:'usd',
+      customer:customer.id,
+      receipt_email:token.email
+    },{idempotencyKey})   
+
+    res.status(200).send({message: "Good", result});
+  } catch (error) {
+    const err=new Error(error.message);
+    err.status=500
+   next(err)
+  }
+  } ,
+  createOrder, createController
+  );
+
+
+// for payement
+// orderRouter.post('/payement',async (req,res,next)=>{
+// // const {token,amount}=req.body;
+// const {email,token}=req.body;
+// const idempotencyKey=uuid.v4();
+// try {
+//   const customer=await stripe.customers.create({
+//     email:token.email,
+//     source:token
+//   })
+
+  
+//   res.status(200).json({data:customer})
+// } catch (error) {
+//   const err=new Error(error.message);
+//   err.status=500
+//  next(err)
+// }
+// })
 
 // to get all document count
 orderRouter.get('/countdocument',CheckJWT,refreshAccToken,admin_OR_manager,async(req,res,next)=>{
