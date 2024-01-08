@@ -37,6 +37,7 @@ export default function Header3() {
   const [isDropdownVisible, setDropdownVisible] = useState(false);
   const shopCtx = useContext(Shoppigncartcontexte);
 
+  if (!shopCtx) throw new Error("Shop context not available");
   console.log(shopCtx);
 
   const { anchorEl, setAnchorEl, open } = shopCtx;
