@@ -40,12 +40,12 @@ const ProductTemplate = () => {
       {!prd ? null : (
         <div className="text-center" style={{ height: "100vh" }}>
           <div className="row " style={{ height: "100%" }}>
-            <div className="col-md-6 " style={{ backgroundColor: "#FAFAFA" }}>
+            <div className="col-md-6 " style={{ backgroundColor: "#dae2ed" }}>
               <div
                 className="d-flex justify-content-center align-items-center"
                 style={{ margin: "auto", height: "100%" }}
               >
-                <img src={SofaImage} alt="sofa_image" />
+                <img src={prd.product_img} alt="sofa_image" />
               </div>
             </div>
             <div className="col-md-6 ">

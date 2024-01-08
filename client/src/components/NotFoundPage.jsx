@@ -6,7 +6,7 @@ const PageNotFound = () => {
   const navigate = useNavigate();
 
   const goHome = useCallback(() => {
-    navigate("/categories");
+    navigate("/home/");
   }, [navigate]);
 
   return (
