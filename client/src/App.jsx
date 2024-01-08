@@ -135,7 +135,7 @@ function App() {
                 />
                 <Route path="profile/orders" element={<UserOrdersTemplate />} />
                 <Route path="loading" element={<Loading />} />
-                <Route path="" element={<PageNotFound />} />
+                <Route path="pagenotfound" element={<PageNotFound />} />
               </Route>
             </Routes>
           </BrowserRouter>
