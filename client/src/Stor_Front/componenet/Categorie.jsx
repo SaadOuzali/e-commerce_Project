@@ -18,7 +18,7 @@ export default function Categorie() {
 
   // to fetch subcategorie
   useEffect(() => {
-    setAnchorEl(null);
+    if (setAnchorEl) setAnchorEl(null);
     const fetchCategories = async () => {
       try {
         const data = await request.get(`/v1/categories/${slug}`);

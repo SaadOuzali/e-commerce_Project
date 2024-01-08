@@ -35,7 +35,12 @@ export default function Header3() {
   const [categorie, setCategorie] = useState([]);
   const [isopen, setIsopen] = useState(false);
   const [isDropdownVisible, setDropdownVisible] = useState(false);
-  const { anchorEl, setAnchorEl, open } = useContext(Shoppigncartcontexte);
+  const shopCtx = useContext(Shoppigncartcontexte);
+
+  console.log(shopCtx);
+
+  const { anchorEl, setAnchorEl, open } = shopCtx;
+
   const handleMouseEnter = () => {
     setDropdownVisible(true);
   };
