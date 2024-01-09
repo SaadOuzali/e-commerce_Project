@@ -145,11 +145,11 @@ export default function Header2() {
     <Container sx={{ my: 3, display: "flex" }}>
       <Stack alignItems={"center"}>
         <ShoppingCartIcon />
-        <Typography variant="body2">E-Commerce</Typography>
+        <Typography variant="body2">DECOVIB</Typography>
       </Stack>
 
-      <Box sx={{ flexGrow: 1 }}></Box>
-      <Search
+      {/* <Box sx={{ flexGrow: 1 }}></Box> */}
+      {/* <Search
         sx={{
           borderRadius: "22px",
           display: "flex",
@@ -213,10 +213,12 @@ export default function Header2() {
             ))}
           </Menu>
         </div>
-      </Search>
+      </Search> */}
 
       <Box sx={{ flexGrow: 1 }}></Box>
-
+      <NavLink to={"/home/customer/profile"}>
+        <p>Hello</p>
+      </NavLink>
       <Stack direction={"row"} alignItems={"center"}>
         {/* modal form */}
         <IconButton>

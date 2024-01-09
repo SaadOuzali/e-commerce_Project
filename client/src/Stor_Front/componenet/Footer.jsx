@@ -11,18 +11,16 @@ const Footer = () => {
           <div className="row">
             <div className="col-md-4 mt-3">
               <h5 className="fw-bold footer-content footer-paragraphs">
-                Casa Chic Vibes
+                DECOVIB
               </h5>
               <p className="mt-5 footer-paragraphs">
-                At Casa Chic Vibes, we believe that your home is more than just
-                a space to live, it is a place where memories are made.
+                At DECOVIB, we believe that your home is more than just a space
+                to live, it is a place where memories are made.
               </p>
             </div>
             <div className="col-md-4 footer-content mt-3">
               <h5 className="fw-bold footer-paragraphs">Contact Us</h5>
-              <p className="mt-5 footer-paragraphs">
-                Email: casavibes@gmail.com
-              </p>
+              <p className="mt-5 footer-paragraphs">Email: decovib@gmail.com</p>
               <p className="footer-paragraphs">Phone: +212 645350290</p>
             </div>
             <div className="col-md-4 footer-content mt-3">
@@ -86,7 +84,7 @@ const Footer = () => {
           <div className="row">
             <div className="col-12">
               <p className="copyright">
-                &copy; 2023 Casa Chic Vibes. All rights reserved.
+                &copy; 2023 DecoVib. All rights reserved.
               </p>
             </div>
           </div>

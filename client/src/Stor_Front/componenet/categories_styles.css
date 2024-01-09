@@ -1,11 +1,11 @@
 body {
   overflow-x: hidden;
 }
-
-button:hover {
+/*****************bbbbbbbbbbbbb***********************/
+/* button:hover {
   transition: 0.3s;
   background-color: #ffffff !important;
-}
+} */
 .columnsToHover {
   background-color: #dae2ed;
   display: flex;
@@ -67,6 +67,8 @@ button:hover {
   color: #06142e !important;
   background-position: 0 100%;
   border-color: #ffffff;
+  transition: 0.3s;
+  background-color: #ffffff !important;
 }
 .style_category_header {
   background-color: #08090a;

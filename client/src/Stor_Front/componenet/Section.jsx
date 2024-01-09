@@ -9,6 +9,10 @@ import {
 } from "@mui/material";
 import React from "react";
 import img from "../../images/solde2.png";
+import landing_page2 from "../../images/landing_page2.jpeg";
+import landing_page1 from "../../images/landing_page1.jpeg";
+// import landing_page1 from "../../../assets/images/landing_page1.jpeg";
+import "./landing_page_style.css";
 import Slider from "./Slider";
 import img2 from "../../images/pc.png";
 import img3 from "../../images/sbat.png";
@@ -47,51 +51,7 @@ export default function Section() {
           modules={[Pagination]}
           className="mySwiper"
         >
-          <SwiperSlide>
-            <img src={img} />
-            <Stack
-              sx={{
-                position: "absolute",
-                alignItems: "flex-start",
-                left: "40px",
-              }}
-            >
-              {/* <Typography variant="caption" sx={{ fontSize: "20px" }}>
-                LIFESTYLE COLLECTION
-              </Typography> */}
-              <p>LIFESTYLE COLLECTION</p>
-              {/* <Typography variant="caption" sx={{ fontSize: "40px" }}>
-                MEN
-              </Typography> */}
-              <p>MEN</p>
-              <Stack direction={"row"} spacing={1}>
-                {/* <Typography variant="caption" sx={{ fontSize: "25px" }}>
-                  SALE UP TO
-                </Typography> */}
-                <p>SALE UP TO</p>
-                {/* <Typography
-                  variant="caption"
-                  sx={{ fontSize: "25px", color: "#D23F57" }}
-                >
-                  30 % OFF
-                </Typography> */}
-                <p style={{ color: "#D23F57" }}>30 % OFF</p>
-              </Stack>
-              {/* <Typography sx={{ fontSize: "12px" }}>
-                Get Free Shipping on orders over 99$
-              </Typography> */}
-              <p>Get Free Shipping on orders over 99$</p>
-              <Button
-                variant="outlined"
-                sx={{ color: "#fff", mt: 1, backgroundColor: "#222" }}
-              >
-                <Link sx={{ color: "#fff" }}>
-                  <p>Shop Now ►</p>
-                </Link>
-              </Button>
-            </Stack>
-          </SwiperSlide>
-          <SwiperSlide>
+          {/* <SwiperSlide>
             <img src={img} />
             <Stack
               sx={{
@@ -103,40 +63,114 @@ export default function Section() {
               <Typography variant="caption" sx={{ fontSize: "20px" }}>
                 LIFESTYLE COLLECTION
               </Typography>
+              <p>LIFESTYLE COLLECTION</p>
               <Typography variant="caption" sx={{ fontSize: "40px" }}>
                 MEN
               </Typography>
+              <p>MEN</p>
               <Stack direction={"row"} spacing={1}>
                 <Typography variant="caption" sx={{ fontSize: "25px" }}>
                   SALE UP TO
                 </Typography>
+                <p>SALE UP TO</p>
                 <Typography
                   variant="caption"
                   sx={{ fontSize: "25px", color: "#D23F57" }}
                 >
                   30 % OFF
                 </Typography>
+                <p style={{ color: "#D23F57" }}>30 % OFF</p>
               </Stack>
               <Typography sx={{ fontSize: "12px" }}>
                 Get Free Shipping on orders over 99$
               </Typography>
-              <Box>
-                <Button
-                  variant="outlined"
-                  sx={{ color: "#fff", mt: 1, backgroundColor: "#222" }}
-                >
-                  <Link sx={{ color: "#fff" }}>Shop Now ►</Link>
-                </Button>
-              </Box>
+              <p>Get Free Shipping on orders over 99$</p>
+              <Button
+                variant="outlined"
+                sx={{ color: "#fff", mt: 1, backgroundColor: "#222" }}
+              >
+                <Link sx={{ color: "#fff" }}>
+                  <p>Shop Now ►</p>
+                </Link>
+              </Button>
+            </Stack>
+          </SwiperSlide> */}
+          <SwiperSlide>
+            <img src={landing_page1} />
+            <Stack
+              sx={{
+                position: "absolute",
+                alignItems: "flex-start",
+                left: "40px",
+              }}
+            >
+              <div className="d-flex">
+                <div className="col-5 text-start">
+                  <h4 style={{ fontWeight: "600" }}>Decoration Home</h4>
+                  <p
+                    style={{ fontSize: "12px", fontWeight: "600" }}
+                    className="mt-3"
+                  >
+                    At DECOVIB, we believe that your home is more than just a
+                    space to live, it is a place where memories are made.
+                  </p>
+                </div>
+              </div>
+
+              <button
+                className="btn button_landing_page"
+                style={{
+                  fontSize: "12px",
+                  color: "#fff",
+                  fontWeight: "600",
+                }}
+              >
+                {/* <p
+                  className="p_landing_page"
+                  style={{
+                    fontSize: "12px",
+                    color: "#fff",
+                    fontWeight: "600",
+                  }}
+                > */}
+                Shop Now
+                {/* </p> */}
+              </button>
+            </Stack>
+            <Stack
+              sx={{
+                position: "absolute",
+                alignItems: "flex-end",
+                right: "60px",
+              }}
+            >
+              <p
+                className=" mb-0"
+                style={{ color: "#E8E5DF", fontSize: "100px" }}
+              >
+                DE
+              </p>
+              <p
+                className=" mb-0"
+                style={{ color: "#E8E5DF", fontSize: "100px" }}
+              >
+                CO
+              </p>
+              <p
+                className=" mb-0"
+                style={{ color: "#E8E5DF", fontSize: "86px" }}
+              >
+                VIB
+              </p>
             </Stack>
           </SwiperSlide>
 
-          <SwiperSlide>
-            <img src={img} />
-          </SwiperSlide>
+          {/* <SwiperSlide>
+            <img src={landing_page1} />
+          </SwiperSlide> */}
         </Swiper>
 
-        <Box>
+        {/* <Box>
           <Box position={"relative"}>
             <img src={img2} width={"300px"} height={"90%"} />
             <Stack
@@ -188,7 +222,7 @@ export default function Section() {
               </Typography>
             </Stack>
           </Box>
-        </Box>
+        </Box> */}
       </Container>
     </Box>
   );
