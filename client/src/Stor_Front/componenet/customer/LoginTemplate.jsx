@@ -8,52 +8,57 @@ import request from "../../../components/axios";
 import { Customercontexte } from "../Parent";
 import { AxiosError } from "axios";
 
-
 const LoginTemplate = () => {
-  const {customer,setCustomer}=useContext(Customercontexte)
+  const { customer, setCustomer } = useContext(Customercontexte);
   const navigate = useNavigate();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-console.log("contexte ",customer);
+  console.log("contexte ", customer);
 
-
-const handleLogin = useCallback(async (event) => {
-    event.preventDefault();
-    try {
-      const response = await request.post("v1/customers/login", {
-        email,
-        password,
-      });
-      console.log("reponse",response);
-      if (response.status === 200) {
-        // setCustomer({customerData:response.data.data,iscustConnected:true})
-        setCustomer((prev)=>{
-          return {...prev,customerData:response.data.data,iscustConnected:true}
-        })
-        navigate("/home/customer/profile");
-        // console.log(response.data.data.first_name);
-        toast.success(
-          `Login success. Welcome ${response.data.data.first_name}!`
-        );
-      }
-    } catch (error) {
-      console.log(error);
-      if(error instanceof AxiosError){
-        if (error.response.status === 400) {
-          toast.error(error.response.data.message || "Logain failed");
-        }else if(error.response.status === 401){
-          toast.error(error.response.data.message || "Logain failed");
-        }else if(error.response.status === 404){
-          toast.error(error.response.data.message || "Logain failed");
+  const handleLogin = useCallback(
+    async (event) => {
+      event.preventDefault();
+      try {
+        const response = await request.post("v1/customers/login", {
+          email,
+          password,
+        });
+        console.log("reponse", response);
+        if (response.status === 200) {
+          // setCustomer({customerData:response.data.data,iscustConnected:true})
+          setCustomer((prev) => {
+            return {
+              ...prev,
+              customerData: response.data.data,
+              iscustConnected: true,
+            };
+          });
+          navigate("/home/customer/profile");
+          // console.log(response.data.data.first_name);
+          toast.success(
+            `Login success. Welcome ${response.data.data.first_name}!`
+          );
         }
-      } else {
-        toast.error("Error: " + error.message);
+      } catch (error) {
+        console.log(error);
+        if (error instanceof AxiosError) {
+          if (error.response.status === 400) {
+            toast.error(error.response.data.message || "Logain failed");
+          } else if (error.response.status === 401) {
+            toast.error(error.response.data.message || "Logain failed");
+          } else if (error.response.status === 404) {
+            toast.error(error.response.data.message || "Logain failed");
+          }
+        } else {
+          toast.error("Error: " + error.message);
+        }
       }
-    }
-  },[email,password]);
+    },
+    [email, password]
+  );
   return (
     <>
-      {!customer.iscustConnected ? <div className="container">
+      <div className="container">
         <div className="row mt-5">
           <div className="col-sm-8 col-12" style={{ backgroundColor: "white" }}>
             <div style={{ padding: "5%" }}>
@@ -124,8 +129,6 @@ const handleLogin = useCallback(async (event) => {
           </div>
         </div>
       </div>
-      :"you athenticated"
-      }
     </>
   );
 };

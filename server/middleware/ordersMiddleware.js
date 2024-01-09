@@ -10,7 +10,7 @@ async function createOrder(req, res, next) {
         message: "Customer not authenticated.",
       });
     }
-    
+
     // console.log(req.customer.valid_account);
     // Check if the customer has validated their email
     if (!req.payload.valid_account) {
@@ -20,7 +20,7 @@ async function createOrder(req, res, next) {
       });
     }
     const { order_items, cart_total_price } = req.body;
-    const createOrder = await  Order.create({
+    const createOrder = await Order.create({
       id: uuidv4(),
       customer_id: req.payload._id,
       order_items,
@@ -46,10 +46,15 @@ async function createOrder(req, res, next) {
 //NEW
 async function getCustomerOrders(req, res, next) {
   try {
-    // console.log(req.customer);
-    const customerId = req.customer._id;
+    console.log("Payload", req.payload);
+    const customerId = req.payload._id;
     // console.log(customerId);
-    const orders = await Order.find({ customer_id: customerId });
+    const orders = await Order.find({ customer_id: customerId }).populate({
+      path: "order_items",
+      populate: {
+        path: "product_id",
+      },
+    });
     if (!orders || orders.length === 0) {
       const err = new Error("no orders found");
       res.status(404).json({
@@ -73,11 +78,13 @@ async function getOrderById(req, res, next) {
   console.log(req.payload);
   try {
     const orderId = req.params.id;
-    const order = await Order.findOne({ id: orderId })
-      .populate("customer_id", "last_name first_name email")
-      // .populate( {path:"order_items.productId",
-      //             populate:{path:"subcategory_id",select:""}
-      //             });
+    const order = await Order.findOne({ id: orderId }).populate(
+      "customer_id",
+      "last_name first_name email"
+    );
+    // .populate( {path:"order_items.productId",
+    //             populate:{path:"subcategory_id",select:""}
+    //             });
     if (!order) {
       const err = new Error("order not found");
       res.status(404).json({
@@ -89,9 +96,9 @@ async function getOrderById(req, res, next) {
     req.order = order;
     next();
   } catch (err) {
-  const error=new Error(err.message);
-  error.status=500;
-  next(error)
+    const error = new Error(err.message);
+    error.status = 500;
+    next(error);
   }
 }
 
@@ -103,10 +110,10 @@ async function listOrders(req, res, next) {
       // .populate("order_items.productId")
       .skip((Number(page) - 1) * 10)
       .limit(10);
-      
+
     const ordersData = orders.map((order) => ({
       id: order.id,
-      status:order.status,
+      status: order.status,
       order_date: order.order_date,
       itemsTotal: order.cart_total_price, // Assuming cart_total_price represents itemsTotal
       count: order.order_items.length,

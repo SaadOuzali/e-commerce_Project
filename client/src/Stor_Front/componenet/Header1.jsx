@@ -1,24 +1,32 @@
 import React, { useContext, useState } from "react";
-import { Box, Container, IconButton, List, ListItem, ListItemText, Menu, MenuItem, Stack, Typography, useTheme } from "@mui/material";
+import {
+  Box,
+  Container,
+  IconButton,
+  List,
+  ListItem,
+  ListItemText,
+  Menu,
+  MenuItem,
+  Stack,
+  Typography,
+  useTheme,
+} from "@mui/material";
 import { grey } from "@mui/material/colors";
-import FacebookIcon from '@mui/icons-material/Facebook';
-import InstagramIcon from '@mui/icons-material/Instagram';
-import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
+import FacebookIcon from "@mui/icons-material/Facebook";
+import InstagramIcon from "@mui/icons-material/Instagram";
+import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 
 const color = grey[50];
 
 import { DarkModeOutlined, LightModeOutlined } from "@mui/icons-material";
 import { ColorModeContext } from "../them";
 
-
-const options = [
-    'EN',
-    'AR',
-  ];
+const options = ["EN", "AR"];
 
 export default function Header1() {
   console.log("header 1");
-    const [anchorEl, setAnchorEl] = useState(null);
+  const [anchorEl, setAnchorEl] = useState(null);
   const [selectedIndex, setSelectedIndex] = useState(1);
   const open = Boolean(anchorEl);
   const handleClickListItem = (event) => {
@@ -33,40 +41,46 @@ export default function Header1() {
   const handleClose = () => {
     setAnchorEl(null);
   };
-  const {theme, colorMode} = useContext(ColorModeContext);
-  
+  const { theme, colorMode } = useContext(ColorModeContext);
+
   return (
-    <Box sx={{ bgcolor: "#000000",py:"4px",borderBottomRightRadius:4,borderBottomLeftRadius:4 }}>
+    <Box
+      sx={{
+        bgcolor: "#2B3445",
+        py: "4px",
+        borderBottomRightRadius: 4,
+        borderBottomLeftRadius: 4,
+      }}
+    >
       <Container>
-          <Stack direction={"row"} sx={{alignItems:"center"}}>
-              <Typography
-                sx={{
-                  mr: 2,
-                  p: "3px 10px",
-                  bgcolor: "#D23F57",
-                  borderRadius: "15px",
-                  fontWeight: "bold",
-                  fontSize: "10px",
-                  color: "#fff",
-                }}
-                variant="body2"
-              >
-                Hot
-              </Typography>
+        <Stack direction={"row"} sx={{ alignItems: "center" }}>
+          <Typography
+            sx={{
+              mr: 2,
+              p: "3px 10px",
+              bgcolor: "#D23F57",
+              borderRadius: "15px",
+              fontWeight: "bold",
+              fontSize: "10px",
+              color: "#fff",
+            }}
+            variant="body2"
+          >
+            Hot
+          </Typography>
 
-              <Typography
-                sx={{
-                  fontWeight: "600",
-                  fontSize: "10px",
-                  color: "#fff",
-                }}
-                variant="body2"
-              >
-                Free Express Shipping
-              </Typography>
-          
-              <Box sx={{flexGrow:1}} />
+          <Typography
+            sx={{
+              fontWeight: "600",
+              fontSize: "10px",
+              color: "#fff",
+            }}
+            variant="body2"
+          >
+            Free Express Shipping
+          </Typography>
 
+          <Box sx={{ flexGrow: 1 }} />
 
           <div>
             {theme.palette.mode === "light" ? (
@@ -78,7 +92,7 @@ export default function Header1() {
                   );
                   colorMode.toggleColorMode();
                 }}
-                sx={{color:"white"}}
+                sx={{ color: "white" }}
                 // color="primary"
               >
                 <LightModeOutlined fontSize="small" />
@@ -94,7 +108,7 @@ export default function Header1() {
                 }}
                 color="#ffffff"
               >
-                <DarkModeOutlined fontSize="small"  />
+                <DarkModeOutlined fontSize="small" />
               </IconButton>
             )}
           </div>
@@ -102,23 +116,25 @@ export default function Header1() {
           <List
             component="nav"
             aria-label="Device settings"
-           sx={{m:"0",p:"0"}}
+            sx={{ m: "0", p: "0" }}
           >
             <ListItem
               id="lock-button"
               aria-haspopup="listbox"
               aria-controls="lock-menu"
               aria-label="when device is locked"
-              aria-expanded={open ? 'true' : undefined}
+              aria-expanded={open ? "true" : undefined}
               onClick={handleClickListItem}
-              sx={{px:"4",py:"1"}}
+              sx={{ px: "4", py: "1" }}
             >
               <ListItemText
                 primary=""
                 secondary={options[selectedIndex]}
-                sx={{".MuiTypography-root":{fontSize:"12px",color:"#fff"}}}
+                sx={{
+                  ".MuiTypography-root": { fontSize: "12px", color: "#fff" },
+                }}
               />
-              <ExpandMoreIcon sx={{fontSize:"16px",color:"#fff"}}/>
+              <ExpandMoreIcon sx={{ fontSize: "16px", color: "#fff" }} />
             </ListItem>
           </List>
           <Menu
@@ -127,13 +143,13 @@ export default function Header1() {
             open={open}
             onClose={handleClose}
             MenuListProps={{
-              'aria-labelledby': 'lock-button',
-              role: 'listbox',
+              "aria-labelledby": "lock-button",
+              role: "listbox",
             }}
           >
             {options.map((option, index) => (
               <MenuItem
-              sx={{fontSize:"10px"}}
+                sx={{ fontSize: "10px" }}
                 key={option}
                 selected={index === selectedIndex}
                 onClick={(event) => handleMenuItemClick(event, index)}
@@ -143,12 +159,11 @@ export default function Header1() {
             ))}
           </Menu>
 
-
-          <FacebookIcon sx={{fontSize:"20px",color:"#fff"}} />
-          <InstagramIcon sx={{fontSize:"20px",color:"#fff",mr:1,ml:1}} />
-
-
-          </Stack>
+          <FacebookIcon sx={{ fontSize: "20px", color: "#fff" }} />
+          <InstagramIcon
+            sx={{ fontSize: "20px", color: "#fff", mr: 1, ml: 1 }}
+          />
+        </Stack>
       </Container>
     </Box>
   );

@@ -53,7 +53,7 @@ async function verifyJWT(req, res, next) {
 
 // generate refrech token
 function generateRefreshToken(req, res, next) {
-  const expiresIn = "180s";
+  const expiresIn = "2h";
 
   const customer = req.customer;
   const refreshToken = jwt.sign(

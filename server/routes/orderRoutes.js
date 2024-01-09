@@ -29,7 +29,9 @@ const { default: Stripe } = require("stripe");
 const orderRouter = express.Router();
 
 //DONE
-orderRouter.get("/myorders", verifyJWT, getCustomerOrders);
+//NEW
+orderRouter.get("/myorders", verifyJWT, verifyRefreshToken, getCustomerOrders);
+
 orderRouter.post(
   "/",
   verifyJWT,
@@ -116,9 +118,6 @@ orderRouter.get(
 );
 
 orderRouter.post("/", verifyJWT, createOrder, createController);
-
-//NEW
-orderRouter.get("/myorders", verifyJWT, getCustomerOrders);
 
 //DONE
 orderRouter.get(

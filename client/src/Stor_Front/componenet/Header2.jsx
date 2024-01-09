@@ -136,9 +136,9 @@ export default function Header2() {
   };
 
   // handle navigation
- const handleNavigation = () => {
+  const handleNavigation = () => {
     navigate("/home/customer/payment");
-    setIsdraweropen(false)
+    setIsdraweropen(false);
   };
 
   return (
@@ -237,9 +237,8 @@ export default function Header2() {
               theme={theme}
             />
           </TemplateModal> */}
-          <NavLink to={"/home/login"}>
-            {" "}
-            <PersonIcon sx={{ fontSize: "30px" }} />{" "}
+          <NavLink to={"/home/customer/profile"}>
+            <PersonIcon sx={{ fontSize: "30px" }} />
           </NavLink>
         </IconButton>
 

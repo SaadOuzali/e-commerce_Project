@@ -10,19 +10,23 @@ const FooterTemplate = () => {
         <div className="container">
           <div className="row">
             <div className="col-md-4 mt-3">
-              <h5 className="fw-bold footer-content">Casa Chic Vibes</h5>
-              <p className="mt-5">
+              <h5 className="fw-bold footer-content footer-paragraphs">
+                Casa Chic Vibes
+              </h5>
+              <p className="mt-5 footer-paragraphs">
                 At Casa Chic Vibes, we believe that your home is more than just
                 a space to live, it is a place where memories are made.
               </p>
             </div>
             <div className="col-md-4 footer-content mt-3">
-              <h5 className="fw-bold">Contact Us</h5>
-              <p className="mt-5">Email: casavibes@gmail.com</p>
+              <h5 className="fw-bold footer-paragraphs">Contact Us</h5>
+              <p className="mt-5 footer-paragraphs">
+                Email: casavibes@gmail.com
+              </p>
               <p>Phone: +212 645350290</p>
             </div>
             <div className="col-md-4 footer-content mt-3">
-              <h5 className="fw-bold">Follow Us</h5>
+              <h5 className="fw-bold footer-paragraphs">Follow Us</h5>
               {/* <ul className="list-unstyled">
                 <li>
                   <a href="#">Link 1</a>
@@ -35,7 +39,9 @@ const FooterTemplate = () => {
                 </li>
               </ul> */}
               <div className="social-icons">
-                <p className="mt-5">Follow us on social media.</p>
+                <p className="mt-5 footer-paragraphs" style={{ color: "#fff" }}>
+                  Follow us on social media.
+                </p>
                 <a
                   href="https://www.facebook.com/"
                   rel="noreferrer"

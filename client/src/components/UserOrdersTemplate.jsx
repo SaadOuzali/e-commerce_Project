@@ -72,7 +72,7 @@ const UserOrdersTemplate = () => {
         <div>
           <div className="container" style={{ marginTop: "10%" }}>
             <div className="row">
-              <div className="col-md-12 ps-4 mb-4 d-flex gap-5">
+              <div className="col-md-12 mb-4 d-flex gap-5">
                 <div>
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
@@ -91,12 +91,12 @@ const UserOrdersTemplate = () => {
                 </div>
               </div>
               <div
-                className="row mx-auto my-auto gap-2 mt-5 justify-content-evenly"
-                style={{ width: "90%", height: "100%" }}
+                className="row mx-auto my-auto gap-4 mt-5 justify-content-start"
+                style={{ height: "100%" }}
               >
                 {orders.map((order) => (
                   <div
-                    className="card col-md-4 mb-3"
+                    className="card col-md-4 mb-1"
                     style={{ width: "18rem" }}
                     key={order.id}
                   >
@@ -126,6 +126,150 @@ const UserOrdersTemplate = () => {
                         >
                           View Order
                         </button> */}
+                      </div>
+                    </div>
+                  </div>
+                ))}
+                {orders.map((order) => (
+                  <div
+                    className="card col-md-4 mb-1"
+                    style={{ width: "18rem" }}
+                    key={order.id}
+                  >
+                    {/* <img
+                      src={table_1}
+                      className="card-img-top pt-3 pb-1"
+                      alt="table_1"
+                    /> */}
+                    <div className="card-body">
+                      <div className="d-flex justify-content-start">
+                        <h5 className="card-title fw-bold">
+                          {order.cart_total_price} dhs
+                        </h5>
+                      </div>
+                      <div className="d-flex">
+                        <p className="col-8 d-flex justify-content-start">
+                          {formatDate(order.order_date)}
+                        </p>
+                        <p className="col-4 d-flex justify-content-end">
+                          {order.status}
+                        </p>
+                      </div>
+                      <div className="d-flex flex-row justify-content-between">
+                        {/* <button
+                          className="btn btn-outline-secondary style_button_product d-flex justify-content-start fw-bold"
+                          style={{ borderRadius: "10px" }}
+                        >
+                          View Order
+                        </button> */}
+                      </div>
+                    </div>
+                  </div>
+                ))}
+                {orders.map((order) => (
+                  <div
+                    className="card col-md-4 mb-1"
+                    style={{ width: "18rem" }}
+                    key={order.id}
+                  >
+                    {/* <img
+                      src={table_1}
+                      className="card-img-top pt-3 pb-1"
+                      alt="table_1"
+                    /> */}
+                    <div className="card-body">
+                      <div className="d-flex justify-content-start">
+                        <h5 className="card-title fw-bold">
+                          {order.cart_total_price} dhs
+                        </h5>
+                      </div>
+                      <div className="d-flex">
+                        <p className="col-8 d-flex justify-content-start">
+                          {formatDate(order.order_date)}
+                        </p>
+                        <p className="col-4 d-flex justify-content-end">
+                          {order.status}
+                        </p>
+                      </div>
+                      <div className="d-flex flex-row justify-content-between">
+                        {/* <button
+                          className="btn btn-outline-secondary style_button_product d-flex justify-content-start fw-bold"
+                          style={{ borderRadius: "10px" }}
+                        >
+                          View Order
+                        </button> */}
+                      </div>
+                    </div>
+                  </div>
+                ))}
+                {orders.map((order) => (
+                  <div
+                    className="card col-md-4 mb-1"
+                    style={{ width: "18rem" }}
+                    key={order.id}
+                  >
+                    {/* <img
+                      src={table_1}
+                      className="card-img-top pt-3 pb-1"
+                      alt="table_1"
+                    /> */}
+                    <div className="card-body">
+                      <div className="d-flex justify-content-start">
+                        <h5 className="card-title fw-bold">
+                          {order.cart_total_price} dhs
+                        </h5>
+                      </div>
+                      <div className="d-flex">
+                        <p className="col-8 d-flex justify-content-start">
+                          {formatDate(order.order_date)}
+                        </p>
+                        <p className="col-4 d-flex justify-content-end">
+                          {order.status}
+                        </p>
+                      </div>
+                      <div className="d-flex flex-row justify-content-between">
+                        {/* <button
+                          className="btn btn-outline-secondary style_button_product d-flex justify-content-start fw-bold"
+                          style={{ borderRadius: "10px" }}
+                        >
+                          View Order
+                        </button> */}
+                      </div>
+                    </div>
+                  </div>
+                ))}
+                {orders.map((order) => (
+                  <div
+                    className="card col-md-4 mb-1"
+                    style={{ width: "18rem" }}
+                    key={order.id}
+                  >
+                    {/* <img
+                      src={table_1}
+                      className="card-img-top pt-3 pb-1"
+                      alt="table_1"
+                    /> */}
+                    <div className="card-body">
+                      <div className="d-flex justify-content-start">
+                        <h5 className="card-title fw-bold">
+                          {order.cart_total_price} dhs
+                        </h5>
+                      </div>
+                      <div className="d-flex">
+                        <p className="col-8 d-flex justify-content-start">
+                          {formatDate(order.order_date)}
+                        </p>
+                        <p className="col-4 d-flex justify-content-end">
+                          {order.status}
+                        </p>
+                      </div>
+                      <div className="d-flex flex-row justify-content-between">
+                        <button
+                          className="btn btn-outline-secondary style_button_product d-flex justify-content-start fw-bold"
+                          style={{ borderRadius: "10px" }}
+                        >
+                          View Order
+                        </button>
                       </div>
                     </div>
                   </div>
