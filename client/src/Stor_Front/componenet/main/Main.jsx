@@ -8,19 +8,15 @@ import {
 } from "@mui/material";
 import React from "react";
 import "./toggle.css";
-import img1 from './productImage/trico.png'
-import img2 from './productImage/trico2.png'
-import img3 from './productImage/jeans.png'
-
+import img1 from "./productImage/trico.png";
+import img2 from "./productImage/trico2.png";
+import img3 from "./productImage/jeans.png";
 
 import Section from "./Section";
 
-
-
-
-export default function Main({ theme,data }) {
+export default function Main({ theme, data }) {
   const [alignment, setAlignment] = React.useState("web");
-  
+
   // const [data, setData] = React.useState([
   //   {id:0, title: "Jeans", price: 15,img:img1 },
   //   {id:1, title: "T-Shirt", price: 10,img:img2 },
@@ -39,9 +35,10 @@ export default function Main({ theme,data }) {
   return (
     <Container sx={{ mt: 5 }}>
       <Stack
-        direction={"row"}
-        alignItems={"center"}
+        direction={{ xs: "column", sm: "row" }} // Stack direction changes on small screens
+        alignItems={{ xs: "stretch", sm: "center" }} // Align items stretch to take full width on small screens
         justifyContent={"space-between"}
+        spacing={{ xs: 2, sm: 0 }} // Add spacing between elements on small screens
       >
         <Box>
           <Typography variant="h6">Selected Products</Typography>
@@ -65,7 +62,9 @@ export default function Main({ theme,data }) {
                 bgcolor: theme.palette.bg1.main,
                 color: theme.palette.text.primary,
               }}
-              className="my_button"
+              // className="my_button"
+              className="style_button"
+              style={{ marginRight: "10px" }}
             >
               ALL PRODUCTS
             </ToggleButton>
@@ -76,7 +75,9 @@ export default function Main({ theme,data }) {
                 bgcolor: theme.palette.bg1.main,
                 color: theme.palette.text.primary,
               }}
-              className="my_button"
+              // className="my_button"
+              className="style_button"
+              style={{ marginRight: "10px" }}
             >
               WOMEN CATEGORY
             </ToggleButton>
@@ -87,7 +88,9 @@ export default function Main({ theme,data }) {
                 bgcolor: theme.palette.bg1.main,
                 color: theme.palette.text.primary,
               }}
-              className="my_button"
+              // className="my_button"
+              className="style_button"
+              style={{ marginRight: "10px" }}
             >
               MEN CATEGORY
             </ToggleButton>
@@ -95,7 +98,7 @@ export default function Main({ theme,data }) {
         </Box>
       </Stack>
       <Stack sx={{ marginTop: 8 }}>
-        <Section  theme={theme} />
+        <Section theme={theme} />
       </Stack>
     </Container>
   );

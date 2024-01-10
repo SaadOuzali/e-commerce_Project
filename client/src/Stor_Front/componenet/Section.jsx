@@ -32,7 +32,7 @@ import IconSection from "./IconSection";
 export default function Section() {
   const theme = useTheme();
   return (
-    <Box sx={{ padding: "30px" }}>
+    <Box sx={{ paddingTop: "20px", paddingBottom: "20px" }}>
       <Container
         sx={{
           // mt: 5,
@@ -95,17 +95,64 @@ export default function Section() {
               </Button>
             </Stack>
           </SwiperSlide> */}
+          {/*this code is working but NOT responsive*/}
           <SwiperSlide>
-            <img src={landing_page1} />
+            {/* DECOVIB Title for small screens */}
+            <div className="d-flex flex-column pt-5">
+              <h2
+                className="d-block d-sm-none pt-2 mb-0"
+                style={{ fontWeight: "600" }}
+              >
+                DECOVIB
+              </h2>
+              {/* <h3 className="d-block d-sm-none mb-0">Decoration Home</h3> */}
+              <p
+                style={{
+                  fontSize: "20px",
+                  fontWeight: "600",
+                  color: "#D23F57",
+                }}
+                className="d-block d-sm-none my-0"
+              >
+                EVERY SPACE TELLS A STORY
+              </p>
+              <p
+                style={{ fontSize: "15px", fontWeight: "600", color: "grey" }}
+                className="px-3 d-block d-sm-none mb-0 mt-3 text-start"
+              >
+                At DECOVIB, we believe that your home is more than just a space
+                to live, it is a place where memories are made.
+              </p>
+
+              <div className="d-flex justify-content-center">
+                <button
+                  className="btn button_landing_page d-block d-sm-none mt-4 mb-5"
+                  style={{
+                    borderRadius: "0",
+                    fontSize: "12px",
+                    backgroundColor: "#2b3445",
+                    color: "#fff",
+                    fontWeight: "600",
+                  }}
+                >
+                  Shop Now
+                </button>
+              </div>
+            </div>
+            <img
+              src={landing_page1}
+              alt="image of a sofa in landing page"
+              className="d-none d-sm-block"
+            />
             <Stack
               sx={{
                 position: "absolute",
                 alignItems: "flex-start",
-                left: "40px",
+                left: "5%",
               }}
             >
               <div className="d-flex">
-                <div className="col-5 text-start">
+                <div className="col-5 text-start d-none d-sm-block">
                   <h4 style={{ fontWeight: "600" }}>Decoration Home</h4>
                   <p
                     style={{ fontSize: "12px", fontWeight: "600" }}
@@ -118,46 +165,37 @@ export default function Section() {
               </div>
 
               <button
-                className="btn button_landing_page"
+                className="btn button_landing_page d-none d-sm-block"
                 style={{
                   fontSize: "12px",
                   color: "#fff",
                   fontWeight: "600",
                 }}
               >
-                {/* <p
-                  className="p_landing_page"
-                  style={{
-                    fontSize: "12px",
-                    color: "#fff",
-                    fontWeight: "600",
-                  }}
-                > */}
                 Shop Now
-                {/* </p> */}
               </button>
             </Stack>
             <Stack
               sx={{
                 position: "absolute",
                 alignItems: "flex-end",
-                right: "60px",
+                right: "8%",
               }}
             >
               <p
-                className=" mb-0"
+                className=" mb-0 d-none d-sm-block"
                 style={{ color: "#E8E5DF", fontSize: "100px" }}
               >
                 DE
               </p>
               <p
-                className=" mb-0"
+                className=" mb-0 d-none d-sm-block"
                 style={{ color: "#E8E5DF", fontSize: "100px" }}
               >
                 CO
               </p>
               <p
-                className=" mb-0"
+                className=" mb-0 d-none d-sm-block"
                 style={{ color: "#E8E5DF", fontSize: "86px" }}
               >
                 VIB

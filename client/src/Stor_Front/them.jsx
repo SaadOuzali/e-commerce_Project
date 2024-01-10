@@ -3,20 +3,22 @@ import { createContext, useState, useMemo } from "react";
 import { createTheme } from "@mui/material/styles";
 import { grey } from "@mui/material/colors";
 
-export  const getDesignTokens = (mode) => ({
+export const getDesignTokens = (mode) => ({
   palette: {
     mode,
     ...(mode === "light"
       ? {
           // palette values for light mode
-          search:{
-            main:"#F9F6FC"
+          search: {
+            main: "#e4e4e4",
           },
-          bg:{
-            main:"#F6F6F6"
+          bg: {
+            main: "#F6F6F6",
           },
-          bg1:{
-            main:"#ffffff"
+          bg1: {
+            main: "fff",
+            header2: "#e4e4e4",
+            header3: "#e4e4e49e",
           },
 
           text: {
@@ -35,14 +37,14 @@ export  const getDesignTokens = (mode) => ({
           neutral: {
             main: "#64748B",
           },
-          search:{
-            main:"#252b32"
+          search: {
+            main: "#252b32",
           },
-          bg:{
-            main:"#1D2021"
+          bg: {
+            main: "#1D2021",
           },
-          bg1:{
-            main:"#000000"
+          bg1: {
+            main: "#000000",
           },
           favColor: {
             main: grey[800],

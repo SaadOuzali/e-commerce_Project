@@ -142,10 +142,9 @@ export default function Header2() {
   };
 
   return (
-    <Container sx={{ my: 3, display: "flex" }}>
-      <Stack alignItems={"center"}>
-        <ShoppingCartIcon />
-        <Typography variant="body2">DECOVIB</Typography>
+    <Container sx={{ display: "flex", bgcolor: theme.palette.bg1.header2 }}>
+      <Stack alignItems={"center"} justifyContent={"center"}>
+        <h3 className="fw-bold">DECOVIB</h3>
       </Stack>
 
       {/* <Box sx={{ flexGrow: 1 }}></Box> */}
@@ -216,9 +215,9 @@ export default function Header2() {
       </Search> */}
 
       <Box sx={{ flexGrow: 1 }}></Box>
-      <NavLink to={"/home/customer/profile"}>
+      {/* <NavLink to={"/home/customer/profile"}>
         <p>Hello</p>
-      </NavLink>
+      </NavLink> */}
       <Stack direction={"row"} alignItems={"center"}>
         {/* modal form */}
         <IconButton>

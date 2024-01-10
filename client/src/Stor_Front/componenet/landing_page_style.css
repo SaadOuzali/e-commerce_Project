@@ -17,7 +17,7 @@
 } */
 .button_landing_page {
   background-color: #18415d;
-  border-radius: 50px;
+  border-radius: 0 !important;
   height: 20px;
   border-color: #18415d;
   color: rgb(232, 229, 223);
@@ -29,17 +29,18 @@
   background-size: 100% 200%;
   transition: background-position 0.7s;
   width: 100px;
-  /* font-size: 12px;
-  color: white;
-  font-weight: 600; */
 }
 .button_landing_page:hover {
+  border-radius: 0;
   background-color: #fff !important;
   color: #18415d !important;
   background-position: 0 100%;
   border-color: #18415d;
-  transition: 0.3s;
+  transition: 0.5s;
 }
-.p_landing_page:hover {
-  color: rgb(43 52 69) !important;
+.button_prd_landing_page {
+  border-radius: 0 !important;
+}
+.button_prd_landing_page:hover {
+  transition: 0.5s;
 }

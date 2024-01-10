@@ -87,123 +87,11 @@ export default function Section({ theme }) {
         gap={4}
       >
         {data.length === 0 ? null : (
-          //  data.map((item, index) => {
-          //     return (
-          //       <Card
-          //         sx={{
-          //           maxWidth: 250,
-          //           ":hover ": { scale: "1.15", transition: "0.15s" },
-          //         }}
-          //       >
-          //         <CardMedia
-          //           sx={{ height: 250,width:250 }}
-          //           image={item?.product_img}
-          //           title="green iguana"
-          //         />
-          //         <CardContent
-          //           sx={{
-          //             display: "flex",
-          //             alignItems: "center",
-          //             bgcolor: theme.palette.bg1.main,
-          //             height: 180,
-          //           }}
-          //         >
-          //           <Stack
-          //             width={300}
-          //             alignItems={"center"}
-          //             justifyContent={"space-between"}
-          //           >
-          //             <Typography
-          //               gutterBottom
-          //               variant="h6"
-          //               color={theme.palette.text.primary}
-          //               component="div"
-          //             >
-          //               {item.short_description}
-          //             </Typography>
-          //             <Typography
-          //               gutterBottom
-          //               variant="h6"
-          //               fontWeight={"bold"}
-          //               component="div"
-          //               color={theme.palette.text.primary}
-          //             >
-          //               {formatCurrency(item.price)}
-          //             </Typography>
-          //             <Rating
-          //               readOnly
-          //               sx={{ marginBottom: 2 }}
-          //               name="simple-controlled"
-          //               // bgcolor={theme.palette.text.primary}
-          //               value={value}
-          //               onChange={(event, newValue) => {
-          //                 setValue(newValue);
-          //               }}
-          //             />
-          //             {getCartItemsQuantity(item?.id) === 0 ? (
-          //               <Button
-          //                 size="small"
-          //                 variant="outlined"
-          //                 sx={{ textTransform: "capitalize" }}
-          //                 onClick={() =>
-          //                   increaseProductToCart(
-          //                     item.id,
-          //                     item.product_img,
-          //                     item.price,
-          //                     item.product_name
-          //                   )
-          //                 }
-          //               >
-          //                 <AddShoppingCartIcon fontSize="small" />
-          //                 Add to Cart
-          //               </Button>
-          //             ) : (
-          //               <>
-          //                 <Box>
-          //                   <Button
-          //                     size="small"
-          //                     variant="contained"
-          //                     onClick={() =>
-          //                       increaseProductToCart(
-          //                         item.id,
-          //                         item.product_img,
-          //                         item.price,
-          //                         item.product_name
-          //                       )
-          //                     }
-          //                   >
-          //                     +
-          //                   </Button>
-          //                   <Button> {getCartItemsQuantity(item.id)} </Button>
-          //                   <Button
-          //                     variant="contained"
-          //                     size="small"
-          //                     onClick={() => decreaseItemInCart(item.id)}
-          //                   >
-          //                     -
-          //                   </Button>
-          //                 </Box>
-
-          //                 <Button
-          //                   variant="contained"
-          //                   size="small"
-          //                   sx={{ marginTop: "5px" }}
-          //                   onClick={() => removeItemInCart(item.id)}
-          //                 >
-          //                   Remove
-          //                 </Button>
-          //               </>
-          //             )}
-          //           </Stack>
-          //         </CardContent>
-          //       </Card>
-          //     );
-          //   })
-
           <Swiper
             id="products-swiper"
             style={{ margin: "20 0" }}
             onSwiper={setSwiperRef}
+            initialSlide={1}
             slidesPerView={3}
             centeredSlides={true}
             spaceBetween={30}
@@ -224,38 +112,12 @@ export default function Section({ theme }) {
                       alignItems={"center"}
                       justifyContent={"space-between"}
                     >
-                      <Typography
-                        gutterBottom
-                        variant="h6"
-                        color={theme.palette.text.primary}
-                        component="div"
-                      >
-                        {item.short_description}
-                      </Typography>
-                      <Typography
-                        gutterBottom
-                        variant="h6"
-                        fontWeight={"bold"}
-                        component="div"
-                        color={theme.palette.text.primary}
-                      >
-                        {formatCurrency(item.price)}
-                      </Typography>
-                      <Rating
-                        readOnly
-                        sx={{ marginBottom: 2 }}
-                        name="simple-controlled"
-                        // bgcolor={theme.palette.text.primary}
-                        value={value}
-                        onChange={(event, newValue) => {
-                          setValue(newValue);
-                        }}
-                      />
+                      <h5 className="mt-3">{item.short_description}</h5>
+                      <h6 className="fw-bold">{formatCurrency(item.price)}</h6>
+
                       {getCartItemsQuantity(item?.id) === 0 ? (
-                        <Button
-                          size="small"
-                          variant="outlined"
-                          sx={{ textTransform: "capitalize" }}
+                        <button
+                          className="btn btn-outline-dark button_prd_landing_page"
                           onClick={() =>
                             increaseProductToCart(
                               item.id,
@@ -264,10 +126,10 @@ export default function Section({ theme }) {
                               item.product_name
                             )
                           }
-                          startIcon={<AddShoppingCartIcon fontSize="small" />}
                         >
+                          <AddShoppingCartIcon fontSize="small" />
                           Add to Cart
-                        </Button>
+                        </button>
                       ) : (
                         <>
                           <Box>

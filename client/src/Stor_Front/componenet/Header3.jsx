@@ -80,6 +80,7 @@ export default function Header3() {
           display: "flex",
           alignItems: "center",
           justifyContent: "space-between",
+          bgcolor: theme.palette.bg1.header3,
         }}
       >
         <Button
@@ -94,14 +95,22 @@ export default function Header3() {
             width: "250px",
           }}
         >
-          <WindowIcon />
-          <Typography sx={{ mx: 1, textTransform: "capitalize" }}>
+          <WindowIcon sx={{ color: "#2b3445" }} />
+          <p
+            className="fw-bold"
+            style={{
+              marginLeft: "10px",
+              marginBottom: "0",
+              textTransform: "capitalize",
+              color: "grey",
+            }}
+          >
             Categories
-          </Typography>
+          </p>
           {open ? (
-            <ExpandMoreIcon sx={{ marginLeft: 9 }} />
+            <ExpandMoreIcon sx={{ marginLeft: 12, color: "#2b3445" }} />
           ) : (
-            <KeyboardArrowRightIcon sx={{ marginLeft: 9 }} />
+            <KeyboardArrowRightIcon sx={{ marginLeft: 12, color: "#2b3445" }} />
           )}
         </Button>
         <Menu
@@ -123,8 +132,8 @@ export default function Header3() {
         >
           {categorie.map((cat) => {
             return (
-              <Link to={`/home/${cat.slug}`}>
-                <MenuItem>{cat.category_name}</MenuItem>
+              <Link to={`/home/${cat.slug}`} key={cat.slug}>
+                <p>{cat.category_name}</p>
               </Link>
             );
           })}

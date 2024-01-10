@@ -1,4 +1,11 @@
-import { Box, Container, Divider, Stack, Typography, useTheme } from "@mui/material";
+import {
+  Box,
+  Container,
+  Divider,
+  Stack,
+  Typography,
+  useTheme,
+} from "@mui/material";
 import React from "react";
 import ElectricBoltIcon from "@mui/icons-material/ElectricBolt";
 import AccessAlarmIcon from "@mui/icons-material/AccessAlarm";
@@ -13,7 +20,8 @@ const MyBox = ({ icon, text1, text2 }) => {
         display: "flex",
         flexGrow: 1,
         alignItems: "center",
-        justifyContent: "center",
+        justifyContent: { xs: "start", md: "center" },
+        marginBottom: { xs: "15px", md: "15px", lg: 0 },
         gap: 3,
       }}
     >
@@ -28,15 +36,20 @@ const MyBox = ({ icon, text1, text2 }) => {
   );
 };
 
-export default function IconSection({theme}) {
+export default function IconSection({ theme }) {
   // const [theme, colorMode] = useMode();
 
   return (
-    <Container sx={{mt:1,bgcolor:theme.palette.bg1.main}}>
+    <Container sx={{ mt: 1, bgcolor: theme.palette.bg1.main }}>
       <Stack
-        direction={"row"}
-        sx={{  padding: "30px" }}
-        divider={<Divider orientation="vertical" flexItem />}
+        direction={{ xs: "column", md: "row" }}
+        sx={{ padding: "30px" }}
+        divider={
+          <Divider
+            orientation={{ xs: "horizontal", md: "vertical" }}
+            flexItem
+          />
+        }
       >
         <MyBox
           icon={<ElectricBoltIcon sx={{ fontSize: "40px" }} />}
