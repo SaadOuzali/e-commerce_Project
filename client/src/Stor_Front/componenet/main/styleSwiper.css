@@ -1,15 +1,13 @@
-
-.swiper {
+/* .swiper {
   width: 100%;
   height: 100%;
-}
+} */
 
 #products-swiper .swiper-slide {
   text-align: center;
   font-size: 18px;
-  background: #fff;
+  /* background: #fff; */
   width: 250px !important;
-  /* Center slide text vertically */
   display: flex;
   padding: 20px 10px;
   height: 400px;
@@ -22,4 +20,58 @@
   width: 100%;
   height: 100%;
   object-fit: cover;
+}
+
+.my-custom-slide {
+  background-color: white;
+  /* border-radius: 15px; */
+  transition: all 0.6s;
+}
+
+.my-custom-slide:hover {
+  background-color: #dddfe1;
+  border-radius: 15px;
+  /* border: 1px solid #222; */
+  cursor: pointer;
+}
+
+.swiper-button-prev,
+.swiper-button-next {
+  color: #000;
+}
+
+.swiper-button-prev:hover,
+.swiper-button-next:hover {
+  color: grey;
+}
+
+.quantity-button {
+  background-color: #f0f0f0;
+  color: #333;
+  border: none;
+  padding: 5px 10px;
+  margin: 0 5px;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.quantity-button:hover {
+  background-color: #99a9c7;
+}
+
+.quantity-display {
+  border: 1px solid #ddd;
+  padding: 5px 10px;
+  border-radius: 5px;
+}
+
+.remove-button {
+  background-color: #ff4d4f;
+  color: white;
+  border: none;
+  padding: 5px 10px;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
 }

@@ -20,6 +20,12 @@ import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 import SearchIcon from "@mui/icons-material/Search";
 import { styled, alpha } from "@mui/material/styles";
 import PersonIcon from "@mui/icons-material/Person";
+import FavoriteIcon from "@mui/icons-material/Favorite";
+import ListAltIcon from "@mui/icons-material/ListAlt";
+import ReceiptIcon from "@mui/icons-material/Receipt";
+import LocalShippingIcon from "@mui/icons-material/LocalShipping";
+import AssignmentIcon from "@mui/icons-material/Assignment";
+
 import Badge from "@mui/material/Badge";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import ModalTemplate from "./ModalTemplate";
@@ -52,32 +58,32 @@ const Search = styled("div")(({ theme }) => ({
   },
 }));
 
-const SearchIconWrapper = styled("div")(({ theme }) => ({
-  padding: theme.spacing(0, 2),
-  height: "100%",
-  position: "absolute",
-  pointerEvents: "none",
-  display: "flex",
-  alignItems: "center",
-  justifyContent: "center",
-}));
+// const SearchIconWrapper = styled("div")(({ theme }) => ({
+//   padding: theme.spacing(0, 2),
+//   height: "100%",
+//   position: "absolute",
+//   pointerEvents: "none",
+//   display: "flex",
+//   alignItems: "center",
+//   justifyContent: "center",
+// }));
 
-const StyledInputBase = styled(InputBase)(({ theme }) => ({
-  color: "inherit",
-  width: "100%",
-  "& .MuiInputBase-input": {
-    padding: theme.spacing(1, 1, 1, 0),
-    // vertical padding + font size from searchIcon
-    paddingLeft: `calc(1em + ${theme.spacing(4)})`,
-    transition: theme.transitions.create("width"),
-    [theme.breakpoints.up("sm")]: {
-      width: "12ch",
-      "&:focus": {
-        width: "20ch",
-      },
-    },
-  },
-}));
+// const StyledInputBase = styled(InputBase)(({ theme }) => ({
+//   color: "inherit",
+//   width: "100%",
+//   "& .MuiInputBase-input": {
+//     padding: theme.spacing(1, 1, 1, 0),
+//     // vertical padding + font size from searchIcon
+//     paddingLeft: `calc(1em + ${theme.spacing(4)})`,
+//     transition: theme.transitions.create("width"),
+//     [theme.breakpoints.up("sm")]: {
+//       width: "12ch",
+//       "&:focus": {
+//         width: "20ch",
+//       },
+//     },
+//   },
+// }));
 
 const StyledBadge = styled(Badge)(({ theme }) => ({
   "& .MuiBadge-badge": {
@@ -142,77 +148,24 @@ export default function Header2() {
   };
 
   return (
-    <Container sx={{ display: "flex", bgcolor: theme.palette.bg1.header2 }}>
+    <Container
+      sx={{
+        display: "flex",
+        bgcolor: theme.palette.bg1.header2,
+        maxWidth: {
+          xs: "100%",
+          sm: "100%",
+          md: "100%",
+          lg: "100%",
+          xl: "100%",
+        },
+        marginLeft: "0",
+        marginRight: "0",
+      }}
+    >
       <Stack alignItems={"center"} justifyContent={"center"}>
         <h3 className="fw-bold">DECOVIB</h3>
       </Stack>
-
-      {/* <Box sx={{ flexGrow: 1 }}></Box> */}
-      {/* <Search
-        sx={{
-          borderRadius: "22px",
-          display: "flex",
-          flexGrow: 2,
-          padding: "0px",
-        }}
-      >
-        <SearchIconWrapper>
-          <SearchIcon />
-        </SearchIconWrapper>
-        <StyledInputBase
-          placeholder="Search…"
-          inputProps={{ "aria-label": "search" }}
-        />
-
-        <div>
-          <List
-            component="nav"
-            aria-label="Device settings"
-            sx={{
-              width: "160px",
-              height: "50px",
-              bgcolor: theme.palette.search.main,
-              borderBottomRightRadius: "22px",
-              borderTopRightRadius: "22px",
-              p: "0",
-            }}
-          >
-            <ListItem
-              button
-              id="lock-button"
-              aria-haspopup="listbox"
-              aria-controls="lock-menu"
-              aria-label="when device is locked"
-              aria-expanded={open ? "true" : undefined}
-              onClick={handleClickListItem}
-            >
-              <ListItemText secondary={options[0]} />
-              <ExpandMoreIcon sx={{ fontSize: "16px" }} />
-            </ListItem>
-          </List>
-          <Menu
-            id="lock-menu"
-            anchorEl={anchorEl}
-            open={open}
-            onClose={handleClose}
-            MenuListProps={{
-              "aria-labelledby": "lock-button",
-              role: "listbox",
-            }}
-          >
-            {options.map((option, index) => (
-              <MenuItem
-                sx={{ fontSize: "12px" }}
-                key={option}
-                selected={index === selectedIndex}
-                onClick={(event) => handleMenuItemClick(event, index)}
-              >
-                {option}
-              </MenuItem>
-            ))}
-          </Menu>
-        </div>
-      </Search> */}
 
       <Box sx={{ flexGrow: 1 }}></Box>
       {/* <NavLink to={"/home/customer/profile"}>
@@ -238,8 +191,18 @@ export default function Header2() {
               theme={theme}
             />
           </TemplateModal> */}
-          <NavLink to={"/home/customer/profile"}>
+          <NavLink to={"/home/customer/profile/information"}>
             <PersonIcon sx={{ fontSize: "30px" }} />
+          </NavLink>
+        </IconButton>
+        <IconButton>
+          <NavLink to={"/home/customer/profile/favorites"}>
+            <FavoriteIcon sx={{ fontSize: "30px" }} />
+          </NavLink>
+        </IconButton>
+        <IconButton className="me-5">
+          <NavLink to={"/home/customer/profile/orders"}>
+            <ListAltIcon sx={{ fontSize: "30px" }} />
           </NavLink>
         </IconButton>
 
@@ -265,7 +228,7 @@ export default function Header2() {
 
             <Divider />
 
-            <Stack>
+            <Stack className="px-4">
               {cartItems.map((item) => (
                 <Shoppingcart {...item} />
               ))}
@@ -273,11 +236,11 @@ export default function Header2() {
             {cartItems.length === 0 ? null : (
               <>
                 <Stack direction={"row"} spacing={7.5} alignItems={"center"}>
-                  <Typography variant="h6">Totale price : </Typography>
-                  <Typography variant="h6">
+                  <h6 className="fw-bold ms-4">Total price : </h6>
+                  <h6 className="fw-bold" style={{ color: "#a9a9a9" }}>
                     {" "}
                     {formatCurrency(TotalPrice)}{" "}
-                  </Typography>
+                  </h6>
                 </Stack>
 
                 <Box display={"flex"} justifyContent={"center"}>

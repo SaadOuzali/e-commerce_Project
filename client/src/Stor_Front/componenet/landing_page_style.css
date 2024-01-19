@@ -44,3 +44,18 @@
 .button_prd_landing_page:hover {
   transition: 0.5s;
 }
+
+.container2 {
+  scale: 0.8;
+  opacity: 0;
+  animation: fade-in linear forwards;
+  animation-timeline: view();
+  animation-range: entry;
+}
+
+@keyframes fade-in {
+  to {
+    scale: 1;
+    opacity: 1;
+  }
+}

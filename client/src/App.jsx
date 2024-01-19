@@ -94,7 +94,7 @@ function App() {
                 <Route path="piechart" element={<PieChart />} />
                 <Route path="product/edit" element={<EditProduct />} />
               </Route>
-              <Route path="/dasboard" element={<Dashboard />} />
+              {/* <Route path="/dasboard" element={<Dashboard />} /> */}
               <Route path="/users/login" element={<AdminLogin />} />
               {/* <Route path='/pagination' element={<Pagination/>} /> */}
               <Route path="/pagination" element={<Pagination />}>
@@ -107,8 +107,19 @@ function App() {
               {/* <Route path="/payment" element={<Payment/>} /> */}
               <Route path="/home" element={<Parent />}>
                 <Route path="customer" element={<PrivateRouteCustomer />}>
-                  <Route path="profile" element={<UserInfosTemplate />} />
+                  <Route
+                    path="profile/information"
+                    element={<UserInfosTemplate />}
+                  />
                   <Route path="payment" element={<Payment />} />
+                  <Route
+                    path="profile/orders"
+                    element={<UserOrdersTemplate />}
+                  />
+                  <Route
+                    path="profile/favorites"
+                    element={<UserFavoritesTemplate />}
+                  />
                 </Route>
                 <Route index element={<Child />} />
                 <Route path="login" element={<LoginTemplate />} />
@@ -125,15 +136,6 @@ function App() {
                   />
                 </Route>
 
-                <Route
-                  path="profile/information"
-                  element={<UserInfosTemplate />}
-                />
-                <Route
-                  path="profile/favorites"
-                  element={<UserFavoritesTemplate />}
-                />
-                <Route path="profile/orders" element={<UserOrdersTemplate />} />
                 <Route path="loading" element={<Loading />} />
               </Route>
               <Route path="/*" element={<PageNotFound />} />

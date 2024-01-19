@@ -29,6 +29,7 @@ import Section from "./Section";
 import { Outlet } from "react-router-dom";
 import { useContext } from "react";
 import Footer from "./Footer";
+import { ScrollContext } from "./ScrollContext";
 
 const arr = [
   { type: "email", label: "Email" },
@@ -40,35 +41,40 @@ const btn = { title: "Loginnn" };
 export const Customercontexte = createContext({});
 
 export default function Parent() {
-  const [customer,setCustomer]=useState({customerData:null,iscustConnected:false});
+  const [customer, setCustomer] = useState({
+    customerData: null,
+    iscustConnected: false,
+  });
   const [openmdl, setOpenmdl] = useState(false);
-//   const [theme, colorMode] = useMode();
-const {theme}=useContext(ColorModeContext)
- 
+  const [sectionRef, setSectionRef] = useState({ current: null });
+  //   const [theme, colorMode] = useMode();
+  const { theme } = useContext(ColorModeContext);
+
   return (
     <>
-
       <CartShoppingprovider>
-        < Customercontexte.Provider  value={{customer,setCustomer}} >
-        <ThemeProvider theme={theme}>
-          <CssBaseline />
-          <Header1 />
-          <Header2  />
-          <Header3 />
-        </ThemeProvider>
-        {/* <Box bgcolor={theme.palette.bg.main}>
+        <Customercontexte.Provider value={{ customer, setCustomer }}>
+          <ScrollContext.Provider value={{ sectionRef, setSectionRef }}>
+            <ThemeProvider theme={theme}>
+              <CssBaseline />
+              <Header1 />
+              <Header2 />
+              <Header3 />
+            </ThemeProvider>
+            {/* <Box bgcolor={theme.palette.bg.main}>
         <Section />
         <IconSection theme={theme} />
         <Main theme={theme} data={data} />
       </Box> */}
-        {/* < Footer /> */}
-        {/* <ModalTemplate fields={arr} btn={btn}/> */}
-        {/* < TemplateModal icon={< PersonIcon/>} openmdl={openmdl} setOpenmdl={setOpenmdl} >
+            {/* < Footer /> */}
+            {/* <ModalTemplate fields={arr} btn={btn}/> */}
+            {/* < TemplateModal icon={< PersonIcon/>} openmdl={openmdl} setOpenmdl={setOpenmdl} >
         <TemplateFields fields={arr}  />
      </TemplateModal> */}
-        <Outlet />
+            <Outlet />
 
-        <Footer />
+            <Footer />
+          </ScrollContext.Provider>
         </Customercontexte.Provider>
       </CartShoppingprovider>
     </>

@@ -28,6 +28,7 @@ import DropdownMenu from "./DropdownMenu";
 import { Link } from "react-router-dom";
 import CategoriesDisplay from "../../components/CategoriesDisplay";
 import { Shoppigncartcontexte } from "./contexte/CartShoppingContexte";
+import "./categories_styles.css";
 
 const categories = ["Sports", "Electronic"];
 
@@ -81,6 +82,15 @@ export default function Header3() {
           alignItems: "center",
           justifyContent: "space-between",
           bgcolor: theme.palette.bg1.header3,
+          maxWidth: {
+            xs: "100%",
+            sm: "100%",
+            md: "100%",
+            lg: "100%",
+            xl: "100%",
+          },
+          marginLeft: "0",
+          marginRight: "0",
         }}
       >
         <Button
@@ -93,6 +103,8 @@ export default function Header3() {
             bgcolor: theme.palette.search.main,
             color: theme.palette.text.secondary,
             width: "250px",
+            marginTop: "5px",
+            marginBottom: "5px",
           }}
         >
           <WindowIcon sx={{ color: "#2b3445" }} />
@@ -123,8 +135,9 @@ export default function Header3() {
           }}
           sx={{
             ".MuiPaper-root": {
+              marginTop: "5px",
               width: 250,
-              bgcolor: theme.palette.search.main,
+              bgcolor: "#fff",
               color: theme.palette.text.secondary,
               // display:"none"
             },
@@ -133,13 +146,28 @@ export default function Header3() {
           {categorie.map((cat) => {
             return (
               <Link to={`/home/${cat.slug}`} key={cat.slug}>
-                <p>{cat.category_name}</p>
+                <p
+                  className="categoriesSelected"
+                  style={{
+                    marginBottom: "0",
+                    paddingLeft: "15px",
+                    paddingBottom: "10px",
+                    paddingTop: "10px",
+                    textTransform: "capitalize",
+                    color: "#2b3445",
+                    // fontWeight: "bold",
+                    fontSize: "14px",
+                  }}
+                >
+                  {cat.category_name}
+                </p>
               </Link>
             );
           })}
         </Menu>
 
-        <TemporaryDrawer />
+        {/* <TemporaryDrawer /> */}
+        {/* <p>Hello Here</p> */}
       </Container>
 
       {/* <Box>

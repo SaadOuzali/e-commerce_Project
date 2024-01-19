@@ -6,7 +6,7 @@ import {
   Stack,
   Typography,
 } from "@mui/material";
-import { useContext, useEffect, useState } from "react";
+import { useContext, useEffect, useRef, useState } from "react";
 import AddShoppingCartIcon from "@mui/icons-material/AddShoppingCart";
 import formatCurrency from "../../formatCurrency";
 import { Shoppigncartcontexte } from "../contexte/CartShoppingContexte";
@@ -18,6 +18,7 @@ import "swiper/css";
 import "swiper/css/pagination";
 import "swiper/css/navigation";
 import "./styleSwiper.css";
+import { ScrollContext } from "../ScrollContext";
 
 export default function Section({ theme }) {
   const [swiperRef, setSwiperRef] = useState(null);
@@ -26,6 +27,12 @@ export default function Section({ theme }) {
   const [data, setData] = useState([]);
   const [value, setValue] = useState(4);
   const shopCtx = useContext(Shoppigncartcontexte);
+  const ref = useRef(null);
+  const { setSectionRef } = useContext(ScrollContext);
+
+  useEffect(() => {
+    setSectionRef(ref);
+  }, [setSectionRef]);
 
   if (!shopCtx) throw new Error("Shop context is required");
 
@@ -79,102 +86,128 @@ export default function Section({ theme }) {
   }, []);
 
   return (
-    <Container>
-      <Stack
-        direction={"row"}
-        flexWrap={"wrap"}
-        // justifyContent={"space-between"}
-        gap={4}
-      >
-        {data.length === 0 ? null : (
-          <Swiper
-            id="products-swiper"
-            style={{ margin: "20 0" }}
-            onSwiper={setSwiperRef}
-            initialSlide={1}
-            slidesPerView={3}
-            centeredSlides={true}
-            spaceBetween={30}
-            pagination={{
-              type: "fraction",
-            }}
-            navigation={true}
-            modules={[Pagination, Navigation]}
-            className="mySwiper"
-          >
-            {data.map((item) => {
-              return (
-                <SwiperSlide key={item.id}>
-                  <Stack width={"100%"}>
-                    <img src={item.product_img} />
-                    <Stack
-                      // width={"100%"}
-                      alignItems={"center"}
-                      justifyContent={"space-between"}
-                    >
-                      <h5 className="mt-3">{item.short_description}</h5>
-                      <h6 className="fw-bold">{formatCurrency(item.price)}</h6>
-
-                      {getCartItemsQuantity(item?.id) === 0 ? (
-                        <button
-                          className="btn btn-outline-dark button_prd_landing_page"
-                          onClick={() =>
-                            increaseProductToCart(
-                              item.id,
-                              item.product_img,
-                              item.price,
-                              item.product_name
-                            )
-                          }
-                        >
-                          <AddShoppingCartIcon fontSize="small" />
-                          Add to Cart
-                        </button>
-                      ) : (
-                        <>
-                          <Box>
-                            <Button
-                              size="small"
-                              variant="contained"
-                              onClick={() =>
-                                increaseProductToCart(
-                                  item.id,
-                                  item.product_img,
-                                  item.price,
-                                  item.product_name
-                                )
-                              }
-                            >
-                              +
-                            </Button>
-                            <Button> {getCartItemsQuantity(item.id)} </Button>
-                            <Button
-                              variant="contained"
-                              size="small"
-                              onClick={() => decreaseItemInCart(item.id)}
-                            >
-                              -
-                            </Button>
-                          </Box>
-
-                          <Button
-                            variant="contained"
-                            size="small"
-                            sx={{ marginTop: "5px" }}
-                            onClick={() => removeItemInCart(item.id)}
+    <>
+      <div className="mb-4">
+        <h3 className="text-center fw-bold">
+          Inviting Exploration and Discovery
+        </h3>
+        <h5 className="text-center mx-5 px-5">
+          Sit. Feel the warmth. Embrace the calm. And enjoy the journey to
+          making your space a true embodiment of your dreams.
+        </h5>
+      </div>
+      <Container ref={ref} className="container2">
+        <Stack
+          direction={"row"}
+          flexWrap={"wrap"}
+          // justifyContent={"space-between"}
+          gap={4}
+        >
+          {data.length === 0 ? null : (
+            <Swiper
+              id="products-swiper"
+              style={{ margin: "20 0" }}
+              onSwiper={setSwiperRef}
+              initialSlide={1}
+              slidesPerView={3}
+              centeredSlides={true}
+              spaceBetween={30}
+              pagination={{
+                type: "fraction",
+              }}
+              navigation={true}
+              modules={[Pagination, Navigation]}
+              className="mySwiper"
+            >
+              {data.map((item) => {
+                return (
+                  <SwiperSlide className="my-custom-slide mb-5" key={item.id}>
+                    <Stack width={"100%"}>
+                      <img src={item.product_img} />
+                      <Stack
+                        // width={"100%"}
+                        alignItems={"center"}
+                        justifyContent={"space-between"}
+                      >
+                        <h5 className="mt-3">{item.product_name}</h5>
+                        <h6 className="fw-bold">
+                          {formatCurrency(item.price)}
+                        </h6>
+                        {getCartItemsQuantity(item?.id) === 0 ? (
+                          <button
+                            className=" mt-3"
+                            style={{
+                              backgroundColor: "#000",
+                              borderColor: "white",
+                              color: "white",
+                              padding: "8px 32px",
+                              textAlign: "center",
+                              textDecoration: "none",
+                              display: "inline-block",
+                              fontSize: "14px",
+                              cursor: "pointer",
+                              borderRadius: "10px",
+                              transition: "all 0.3s ease 0s",
+                            }}
+                            onClick={() =>
+                              increaseProductToCart(
+                                item.id,
+                                item.product_img,
+                                item.price,
+                                item.product_name
+                              )
+                            }
                           >
-                            Remove
-                          </Button>
-                        </>
-                      )}
+                            <AddShoppingCartIcon
+                              fontSize="small"
+                              sx={{ paddingRight: "8px" }}
+                            />
+                            Add to Cart
+                          </button>
+                        ) : (
+                          <div className="mt-3">
+                            <Box>
+                              <button
+                                className="quantity-button increase-button"
+                                onClick={() =>
+                                  increaseProductToCart(
+                                    item.id,
+                                    item.product_img,
+                                    item.price,
+                                    item.product_name
+                                  )
+                                }
+                              >
+                                +
+                              </button>
+                              <button className="quantity-display">
+                                {getCartItemsQuantity(item.id)}
+                              </button>
+                              <button
+                                className="quantity-button decrease-button"
+                                onClick={() => decreaseItemInCart(item.id)}
+                              >
+                                -
+                              </button>
+                            </Box>
+                            <button
+                              style={{ width: "75%" }}
+                              className="remove-button mt-1"
+                              onClick={() => removeItemInCart(item.id)}
+                            >
+                              x
+                            </button>
+                          </div>
+                        )}
+                      </Stack>
                     </Stack>
-                  </Stack>
-                </SwiperSlide>
-              );
-            })}
-          </Swiper>
-        )}
-      </Stack>
-    </Container>
+                  </SwiperSlide>
+                );
+              })}
+            </Swiper>
+          )}
+        </Stack>
+      </Container>
+    </>
   );
 }
