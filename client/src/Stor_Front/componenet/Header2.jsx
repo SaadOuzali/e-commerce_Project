@@ -105,6 +105,7 @@ const btn = { title: "Login" };
 export default function Header2() {
   const [openmdl, setOpenmdl] = React.useState(false);
   const theme = useTheme();
+  console.log(theme.palette.section1);
   const [anchorEl, setAnchorEl] = React.useState(null);
   const [selectedIndex, setSelectedIndex] = React.useState(1);
   const [isdraweropen, setIsdraweropen] = React.useState(false);
@@ -151,7 +152,7 @@ export default function Header2() {
     <Container
       sx={{
         display: "flex",
-        bgcolor: theme.palette.bg1.header2,
+        bgcolor: theme.palette.header2.bgcolor,
         maxWidth: {
           xs: "100%",
           sm: "100%",
@@ -164,7 +165,9 @@ export default function Header2() {
       }}
     >
       <Stack alignItems={"center"} justifyContent={"center"}>
-        <h3 className="fw-bold">DECOVIB</h3>
+        <h3 className="fw-bold" style={{ color: theme.palette.header2.logo }}>
+          DECOVIB
+        </h3>
       </Stack>
 
       <Box sx={{ flexGrow: 1 }}></Box>
@@ -192,24 +195,32 @@ export default function Header2() {
             />
           </TemplateModal> */}
           <NavLink to={"/home/customer/profile/information"}>
-            <PersonIcon sx={{ fontSize: "30px" }} />
+            <PersonIcon
+              sx={{ fontSize: "30px", color: theme.palette.header2.icons }}
+            />
           </NavLink>
         </IconButton>
         <IconButton>
           <NavLink to={"/home/customer/profile/favorites"}>
-            <FavoriteIcon sx={{ fontSize: "30px" }} />
+            <FavoriteIcon
+              sx={{ fontSize: "30px", color: theme.palette.header2.icons }}
+            />
           </NavLink>
         </IconButton>
         <IconButton className="me-5">
           <NavLink to={"/home/customer/profile/orders"}>
-            <ListAltIcon sx={{ fontSize: "30px" }} />
+            <ListAltIcon
+              sx={{ fontSize: "30px", color: theme.palette.header2.icons }}
+            />
           </NavLink>
         </IconButton>
 
         {/* cart shopping icon */}
         <IconButton aria-label="cart" onClick={() => setIsdraweropen(true)}>
           <StyledBadge badgeContent={numberofproducts} color="primary">
-            <ShoppingCartIcon sx={{ fontSize: "28px" }} />
+            <ShoppingCartIcon
+              sx={{ fontSize: "28px", color: theme.palette.header2.icons }}
+            />
           </StyledBadge>
         </IconButton>
 

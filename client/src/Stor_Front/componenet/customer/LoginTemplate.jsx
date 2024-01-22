@@ -33,7 +33,7 @@ const LoginTemplate = () => {
               iscustConnected: true,
             };
           });
-          navigate("/home/customer/profile");
+          navigate("/home/customer/profile/information");
           // console.log(response.data.data.first_name);
           toast.success(
             `Login success. Welcome ${response.data.data.first_name}!`

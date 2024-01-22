@@ -31,6 +31,56 @@ export const getDesignTokens = (mode) => ({
           favColor: {
             main: grey[300],
           },
+          header2: {
+            bgcolor: "#e4e4e4", //theme.palette.header2.bgcolor
+            icons: "rgb(105 105 105)", //theme.palette.header2.icons
+            logo: "#2B3445", //theme.palette.header2.logo
+          },
+          header3: {
+            bgcolor: "#edededdb",
+            categoriesBox: "#e4e4e4", //theme.palette.header3.categoriesBox
+            categoriesText: "grey", //theme.palette.header3.categoriesText
+            categoriesIcon: "#2b3445", //theme.palette.header3.categoriesIcon
+            categoriesBoxSelected: "white", //theme.palette.header3.categoriesBoxSelected
+            categoriesSelectedText: "rgb(43, 52, 69)", //theme.palette.header3.categoriesSelectedText
+            categoriesSelectedTextHover: "whitesmoke", //theme.palette.header3.categoriesSelectedTextHover
+          },
+          section1: {
+            leftSide: "#16181a", //theme.palette.section1.leftSide
+            rightSide: "#e8e5df", //theme.palette.section1.rightSide
+          },
+          iconSection: {
+            icons: "#364050", //theme.palette.iconSection.icons
+            bgcolorPink: "#e8dfd8", //theme.palette.iconSection.bgcolorPink
+            text: "black", //theme.palette.iconSection.text
+            title: "#2b3445", //theme.palette.iconSection.title
+            buttonBG: "rgb(115, 46, 75)", //theme.palette.iconSection.buttonBG
+            buttonText: "whitesmoke", //theme.palette.iconSection.buttonText
+            buttonBorder: "rgb(115, 46, 75)", //theme.palette.iconSection.buttonBorder
+          },
+          section4: {
+            title: "#dd631c", //theme.palette.section4.title
+            subtitle: "black", //theme.palette.section4.subtitle
+            box1: {
+              title: "rgb(81 81 80)", //theme.palette.section4.box1.title
+              subtitleBG: "rgb(189, 188, 187)", //theme.palette.section4.box1.subtitleBG
+            },
+            box2: {
+              title: "rgb(157 69 41)", //theme.palette.section4.box2.title
+              subtitleBG: "rgb(230, 172, 126)", //theme.palette.section4.box2.subtitleBG
+            },
+            box3: {
+              title: "rgb(109 91 64)", //theme.palette.section4.box3.title
+              subtitleBG: "rgb(231, 190, 127)", //theme.palette.section4.box3.subtitleBG
+            },
+            box4: {
+              title: "rgb(181 80 122)", //theme.palette.section4.box4.title
+              subtitleBG: "rgb(237, 206, 219)", //theme.palette.section4.box4.subtitleBG
+            },
+          },
+          sectionprd: {
+            bgcolor: "white", //theme.palette.sectionprd.bgcolor
+          },
         }
       : {
           // palette values for dark mode
@@ -51,6 +101,56 @@ export const getDesignTokens = (mode) => ({
           },
           text: {
             primary: "#fff",
+          },
+          header2: {
+            bgcolor: "#1f232b", //theme.palette.header2.bgcolor
+            icons: "#e8e5df", //theme.palette.header2.icons
+            logo: "#e8e5df", //theme.palette.header2.logo
+          },
+          header3: {
+            bgcolor: "#16181a",
+            categoriesBox: "#1f262c", //theme.palette.header3.categoriesBox
+            categoriesText: "#e8e5df", //theme.palette.header3.categoriesText
+            categoriesIcon: "#e8e5df", //theme.palette.header3.categoriesIcon
+            categoriesBoxSelected: "#e8e5df", //theme.palette.header3.categoriesBoxSelected
+            categoriesSelectedText: "rgb(43, 52, 69)", //theme.palette.header3.categoriesSelectedText
+            categoriesSelectedTextHover: "whitesmoke", //theme.palette.header3.categoriesSelectedTextHover
+          },
+          section1: {
+            leftSide: "rgb(24 63 94)", //theme.palette.section1.leftSide
+            rightSide: "#16181a", //theme.palette.section1.rightSide
+          },
+          iconSection: {
+            icons: "#183f5e", //theme.palette.iconSection.icons
+            bgcolorPink: "#000", //theme.palette.iconSection.bgcolorPink
+            text: "whitesmoke", //theme.palette.iconSection.text
+            title: "#a5446f", //theme.palette.iconSection.title
+            buttonBG: "black", //theme.palette.iconSection.buttonBG
+            buttonText: "whitesmoke", //theme.palette.iconSection.buttonText
+            buttonBorder: "#a84571", //theme.palette.iconSection.buttonBorder
+          },
+          section4: {
+            title: "#dd631c", //theme.palette.section4.title
+            subtitle: "white", //theme.palette.section4.subtitle
+            box1: {
+              title: "rgb(81 81 80)", //theme.palette.section4.box1.title
+              subtitleBG: "rgb(81 81 80)", //theme.palette.section4.box1.subtitleBG
+            },
+            box2: {
+              title: "rgb(157 69 41)", //theme.palette.section4.box2.title
+              subtitleBG: "rgb(157 69 41)", //theme.palette.section4.box2.subtitleBG
+            },
+            box3: {
+              title: "rgb(109 91 64)", //theme.palette.section4.box3.title
+              subtitleBG: "rgb(109 91 64)", //theme.palette.section4.box3.subtitleBG
+            },
+            box4: {
+              title: "rgb(181 80 122)", //theme.palette.section4.box4.title
+              subtitleBG: "rgb(181 80 122)", //theme.palette.section4.box4.subtitleBG
+            },
+          },
+          sectionprd: {
+            bgcolor: "black", //theme.palette.sectionprd.bgcolor
           },
         }),
   },

@@ -28,7 +28,7 @@ import AttachMoneyIcon from "@mui/icons-material/AttachMoney";
 import FormatListBulletedIcon from "@mui/icons-material/FormatListBulleted";
 import AddIcon from "@mui/icons-material/Add";
 import EditIcon from "@mui/icons-material/Edit";
-import '../../styles/main.css'
+import "../../styles/main.css";
 // import InboxIcon from '@mui/icons-material/MoveToInbox';
 import MailIcon from "@mui/icons-material/Mail";
 import TopBar from "./TopBar";
@@ -39,9 +39,9 @@ import Drawer from "../mui/user/Drawer";
 import usercontext from "../../context/AuthContext";
 import DrawerHeader from "../mui/user/DrawerHeader";
 import { Avatar, Stack } from "@mui/material";
-import BarChartIcon from '@mui/icons-material/BarChart';
-import PieChartIcon from '@mui/icons-material/PieChart';
-import CategoryIcon from '@mui/icons-material/Category';
+import BarChartIcon from "@mui/icons-material/BarChart";
+import PieChartIcon from "@mui/icons-material/PieChart";
+import CategoryIcon from "@mui/icons-material/Category";
 
 // import '../../App.css'
 
@@ -96,41 +96,42 @@ export default function AsideBar({ open, setOpen, theme }) {
               height: open ? 60 : 30,
               border: "3px solid green",
               mb: 2,
-              transition:"1s"
+              transition: "1s",
             }}
           />
-          <Typography sx={{ fontSize: open ? 18 : 0,transition:"1s" }}>
-            {user.userdata.Data.user_name}{" "}
+          <Typography sx={{ fontSize: open ? 18 : 0, transition: "1s" }}>
+            {user?.userdata?.Data?.user_name}{" "}
           </Typography>
-          <Typography sx={{ fontSize: open ? 18 : 0,transition:"1s" }} color="primary">
-            {user.userdata.Data.role}
+          <Typography
+            sx={{ fontSize: open ? 18 : 0, transition: "1s" }}
+            color="primary"
+          >
+            {user?.userdata?.Data?.role}
           </Typography>
         </Stack>
 
         <Divider />
         <List>
-          
-
           {/* Homme  */}
-            <NavLink to={"/"}>
-          <ListItemButton>
-            <ListItemIcon>
-              <DashboardIcon style={{ color: "#000" }} fontSize="large" />
-            </ListItemIcon>
+          <NavLink to={"/"}>
+            <ListItemButton>
+              <ListItemIcon>
+                <DashboardIcon style={{ color: "#000" }} fontSize="large" />
+              </ListItemIcon>
               <ListItemText primary="Dashboard" />
-          </ListItemButton>
+            </ListItemButton>
           </NavLink>
 
           {/* users */}
-            <NavLink to="/users">
-          <ListItemButton onClick={handleClick}>
-            <ListItemIcon>
-              <PersonIcon style={{ color: "#000" }} fontSize="large" />
-            </ListItemIcon>
+          <NavLink to="/users">
+            <ListItemButton onClick={handleClick}>
+              <ListItemIcon>
+                <PersonIcon style={{ color: "#000" }} fontSize="large" />
+              </ListItemIcon>
               <ListItemText primary="Users" />
-            {/* {Open ? <ExpandLess /> : <ExpandMore />} */}
-          </ListItemButton>
-            </NavLink>
+              {/* {Open ? <ExpandLess /> : <ExpandMore />} */}
+            </ListItemButton>
+          </NavLink>
 
           {/* <Collapse in={Open} timeout="auto" unmountOnExit>
           <List component="div" disablePadding>
@@ -154,8 +155,8 @@ export default function AsideBar({ open, setOpen, theme }) {
         </Collapse> */}
 
           {/* products */}
-          <NavLink to={"product"} >
-            <ListItemButton >
+          <NavLink to={"product"}>
+            <ListItemButton>
               <ListItemIcon>
                 <ProductionQuantityLimitsIcon
                   style={{ color: "#000" }}
@@ -166,55 +167,47 @@ export default function AsideBar({ open, setOpen, theme }) {
               {/* {prod ? <ExpandLess /> : <ExpandMore />} */}
             </ListItemButton>
           </NavLink>
-          
-          
-          
+
           <NavLink to={"orders"}>
-          <ListItemButton onClick={handleClick3}>
-            
-            <ListItemIcon>
-              <AttachMoneyIcon style={{ color: "#000" }} fontSize="large" />
-            </ListItemIcon>
-            <ListItemText primary="Orders" />
-            {/* {order ? <ExpandLess /> : <ExpandMore />} */}
-          </ListItemButton>
+            <ListItemButton onClick={handleClick3}>
+              <ListItemIcon>
+                <AttachMoneyIcon style={{ color: "#000" }} fontSize="large" />
+              </ListItemIcon>
+              <ListItemText primary="Orders" />
+              {/* {order ? <ExpandLess /> : <ExpandMore />} */}
+            </ListItemButton>
           </NavLink>
 
-
-          
-            <NavLink to={"/subcategory"}>
-          <ListItemButton>
-            <ListItemIcon>
-              <CategoryIcon style={{ color: "#000" }} fontSize="large" />
-            </ListItemIcon>
+          <NavLink to={"/subcategory"}>
+            <ListItemButton>
+              <ListItemIcon>
+                <CategoryIcon style={{ color: "#000" }} fontSize="large" />
+              </ListItemIcon>
               <ListItemText primary="SubCategories" />
-          </ListItemButton>
-            </NavLink>
-        
-         
-          
+            </ListItemButton>
+          </NavLink>
         </List>
         <Divider />
-        <Box >
-            <NavLink to={"/barchart"}>
-        <ListItemButton >
-            <ListItemIcon>
-              <BarChartIcon style={{ color: "#000" }} fontSize="large" />
-            </ListItemIcon>
+        <Box>
+          <NavLink to={"/barchart"}>
+            <ListItemButton>
+              <ListItemIcon>
+                <BarChartIcon style={{ color: "#000" }} fontSize="large" />
+              </ListItemIcon>
               <ListItemText primary="Bar Chart" />
-          </ListItemButton>
-            </NavLink>
+            </ListItemButton>
+          </NavLink>
         </Box>
 
         <Box>
-            <NavLink to={"piechart"}>
-          <ListItemButton>
-            <ListItemIcon>
-              <PieChartIcon style={{ color: "#000" }} fontSize="large" />
-            </ListItemIcon>
+          <NavLink to={"piechart"}>
+            <ListItemButton>
+              <ListItemIcon>
+                <PieChartIcon style={{ color: "#000" }} fontSize="large" />
+              </ListItemIcon>
               <ListItemText primary="Pie Char" />
-          </ListItemButton>
-            </NavLink>
+            </ListItemButton>
+          </NavLink>
         </Box>
         <Box>
           <ListItemButton>
@@ -231,17 +224,12 @@ export default function AsideBar({ open, setOpen, theme }) {
             <ListItemIcon>
               <DashboardIcon style={{ color: "#000" }} fontSize="large" />
             </ListItemIcon>
-            <NavLink to={"/nkjjl"} >
+            <NavLink to={"/nkjjl"}>
               <ListItemText primary="Dashboard" />
             </NavLink>
           </ListItemButton>
         </Box>
-
-        
-        
       </Drawer>
-      
-      
     </>
   );
 }

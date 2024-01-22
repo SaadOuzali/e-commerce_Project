@@ -119,7 +119,7 @@ const ProductList = () => {
             toast.error("session expired please logain again");
             navigate("/users/login");
           }
-        }else{
+        } else {
           console.log("Error deleting: ", err);
         }
       });
@@ -135,11 +135,11 @@ const ProductList = () => {
       } catch (error) {
         if (error instanceof AxiosError) {
           if (error.response.status === 401) {
-            toast.error("session expired please logain again");
+            toast.error("session expired please login again");
             navigate("/users/login");
           }
-        }else{
-          console.log("Error deleting: ", err);
+        } else {
+          console.log("Error deleting: ", error);
         }
       }
     };

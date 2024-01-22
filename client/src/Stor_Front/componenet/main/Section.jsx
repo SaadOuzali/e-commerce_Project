@@ -121,7 +121,13 @@ export default function Section({ theme }) {
             >
               {data.map((item) => {
                 return (
-                  <SwiperSlide className="my-custom-slide mb-5" key={item.id}>
+                  <SwiperSlide
+                    style={{
+                      backgroundColor: theme.palette.sectionprd.bgcolor,
+                    }}
+                    className="my-custom-slide mb-5"
+                    key={item.id}
+                  >
                     <Stack width={"100%"}>
                       <img src={item.product_img} />
                       <Stack

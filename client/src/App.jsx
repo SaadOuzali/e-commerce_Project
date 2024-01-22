@@ -94,7 +94,7 @@ function App() {
                 <Route path="piechart" element={<PieChart />} />
                 <Route path="product/edit" element={<EditProduct />} />
               </Route>
-              {/* <Route path="/dasboard" element={<Dashboard />} /> */}
+              <Route path="/dasboard" element={<Dashboard />} />
               <Route path="/users/login" element={<AdminLogin />} />
               {/* <Route path='/pagination' element={<Pagination/>} /> */}
               <Route path="/pagination" element={<Pagination />}>

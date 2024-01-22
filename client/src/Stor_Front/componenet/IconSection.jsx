@@ -65,25 +65,53 @@ export default function IconSection({ theme }) {
         >
           <MyBox
             icon={
-              <ElectricBoltIcon sx={{ fontSize: "40px", padding: "8px" }} />
+              <ElectricBoltIcon
+                sx={{
+                  fontSize: "40px",
+                  padding: "8px",
+                  color: theme.palette.iconSection.icons,
+                }}
+              />
             }
             text1={"Fast Delivery"}
             text2={"Start from 10dhs"}
           />
           <MyBox
             icon={
-              <WorkspacePremiumIcon sx={{ fontSize: "40px", padding: "8px" }} />
+              <WorkspacePremiumIcon
+                sx={{
+                  fontSize: "40px",
+                  padding: "8px",
+                  color: theme.palette.iconSection.icons,
+                }}
+              />
             }
             text1={"Money Guarantee"}
             text2={"7 Days Back"}
           />
           <MyBox
-            icon={<AccessAlarmIcon sx={{ fontSize: "40px", padding: "8px" }} />}
+            icon={
+              <AccessAlarmIcon
+                sx={{
+                  fontSize: "40px",
+                  padding: "8px",
+                  color: theme.palette.iconSection.icons,
+                }}
+              />
+            }
             text1={"365 Days"}
             text2={"For free return"}
           />
           <MyBox
-            icon={<PaymentIcon sx={{ fontSize: "40px", padding: "8px" }} />}
+            icon={
+              <PaymentIcon
+                sx={{
+                  fontSize: "40px",
+                  padding: "8px",
+                  color: theme.palette.iconSection.icons,
+                }}
+              />
+            }
             text1={"Payment"}
             text2={"Secure systeme"}
           />
@@ -95,7 +123,7 @@ export default function IconSection({ theme }) {
           display: "flex",
           justifyContent: "end",
           alignItems: "center",
-          bgcolor: "#E8DFD8",
+          bgcolor: theme.palette.iconSection.bgcolorPink,
           gap: 2,
           maxWidth: {
             xs: "100%",
@@ -131,11 +159,18 @@ export default function IconSection({ theme }) {
                 style={{
                   fontWeight: "600",
                   fontSize: { xs: "1.5rem", md: "inherit" },
+                  color: theme.palette.iconSection.title,
                 }}
               >
                 Simplify your home furniture
               </h3>
-              <p style={{ fontSize: "15px", color: "black" }} className="mt-3">
+              <p
+                style={{
+                  fontSize: "15px",
+                  color: theme.palette.iconSection.text,
+                }}
+                className="mt-3"
+              >
                 Explore the art of fine living with our exclusive furniture
                 collections. Each piece is a blend of comfort, design, and
                 durability, meant to bring a new definition of elegance to your
@@ -144,9 +179,9 @@ export default function IconSection({ theme }) {
               <button
                 className="mt-md-5 mt-3 "
                 style={{
-                  backgroundColor: "rgb(115 46 75)",
-                  borderColor: "white",
-                  color: "white",
+                  backgroundColor: theme.palette.iconSection.buttonBG,
+                  borderColor: theme.palette.iconSection.buttonBorder,
+                  color: theme.palette.iconSection.buttonText,
                   padding: "8px 32px",
                   textAlign: "center",
                   textDecoration: "none",

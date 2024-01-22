@@ -60,6 +60,9 @@ export default function Parent() {
               <Header1 />
               <Header2 />
               <Header3 />
+              <Outlet />
+
+              <Footer />
             </ThemeProvider>
             {/* <Box bgcolor={theme.palette.bg.main}>
         <Section />
@@ -71,9 +74,6 @@ export default function Parent() {
             {/* < TemplateModal icon={< PersonIcon/>} openmdl={openmdl} setOpenmdl={setOpenmdl} >
         <TemplateFields fields={arr}  />
      </TemplateModal> */}
-            <Outlet />
-
-            <Footer />
           </ScrollContext.Provider>
         </Customercontexte.Provider>
       </CartShoppingprovider>

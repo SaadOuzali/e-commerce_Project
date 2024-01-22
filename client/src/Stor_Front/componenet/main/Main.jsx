@@ -44,10 +44,18 @@ export default function Main({ theme, data }) {
   return (
     <>
       <div className="mt-5 px-md-0 px-5">
-        <h3 className="fw-bold text-center">
+        <h3
+          className="fw-bold text-center"
+          style={{ color: theme.palette.section4.title }}
+        >
           Creating a Narrative of Home and Harmony
         </h3>
-        <h3 className="text-center">Offering Reassurance and Reliability</h3>
+        <h3
+          className="text-center"
+          style={{ color: theme.palette.section4.subtitle }}
+        >
+          Offering Reassurance and Reliability
+        </h3>
       </div>
       <div className="d-flex flex-wrap gap-3 my-md-5 mx-4 container2">
         <div
@@ -67,12 +75,17 @@ export default function Main({ theme, data }) {
               onMouseLeave={() => setImageSrc1(blackSwivel)}
             />
           </div>
-          <p className="text-center fw-bold mt-1 mb-1">Indulge</p>
+          <p
+            className="text-center fw-bold mt-1 mb-1"
+            style={{ color: theme.palette.section4.box1.title }}
+          >
+            Indulge
+          </p>
           <div
             className="mx-auto mb-3"
             style={{
               borderRadius: "50px",
-              backgroundColor: "rgb(189 188 187)",
+              backgroundColor: theme.palette.section4.box1.subtitleBG,
               width: "160px",
               height: "30px",
             }}
@@ -97,12 +110,17 @@ export default function Main({ theme, data }) {
               onMouseLeave={() => setImageSrc2(marronclairSwivel)}
             />
           </div>
-          <p className="text-center fw-bold mt-1 mb-1">Imagine</p>
+          <p
+            className="text-center fw-bold mt-1 mb-1"
+            style={{ color: theme.palette.section4.box2.title }}
+          >
+            Imagine
+          </p>
           <div
             className="mx-auto mb-3"
             style={{
               borderRadius: "50px",
-              backgroundColor: "rgb(230 172 126)",
+              backgroundColor: theme.palette.section4.box2.subtitleBG,
               width: "160px",
               height: "30px",
             }}
@@ -128,12 +146,17 @@ export default function Main({ theme, data }) {
               onMouseLeave={() => setImageSrc3(marronSwivel)}
             />
           </div>
-          <p className="text-center fw-bold mt-1 mb-1">Cherish</p>
+          <p
+            className="text-center fw-bold mt-1 mb-1"
+            style={{ color: theme.palette.section4.box3.title }}
+          >
+            Cherish
+          </p>
           <div
             className="mx-auto mb-3"
             style={{
               borderRadius: "50px",
-              backgroundColor: "rgb(231 190 127)",
+              backgroundColor: theme.palette.section4.box3.subtitleBG,
               width: "160px",
               height: "30px",
             }}
@@ -158,12 +181,17 @@ export default function Main({ theme, data }) {
               onMouseLeave={() => setImageSrc4(redSwivel)}
             />
           </div>
-          <p className="text-center fw-bold mt-1 mb-1">Personalize</p>
+          <p
+            className="text-center fw-bold mt-1 mb-1"
+            style={{ color: theme.palette.section4.box4.title }}
+          >
+            Personalize
+          </p>
           <div
             className="mx-auto mb-3"
             style={{
               borderRadius: "50px",
-              backgroundColor: "rgb(237 206 219)",
+              backgroundColor: theme.palette.section4.box4.subtitleBG,
               width: "160px",
               height: "30px",
             }}

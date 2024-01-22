@@ -81,7 +81,7 @@ export default function Header3() {
           display: "flex",
           alignItems: "center",
           justifyContent: "space-between",
-          bgcolor: theme.palette.bg1.header3,
+          bgcolor: theme.palette.header3.bgcolor,
           maxWidth: {
             xs: "100%",
             sm: "100%",
@@ -100,29 +100,39 @@ export default function Header3() {
           aria-expanded={open ? "true" : undefined}
           onClick={handleClick}
           sx={{
-            bgcolor: theme.palette.search.main,
-            color: theme.palette.text.secondary,
+            bgcolor: theme.palette.header3.categoriesBox,
+            color: theme.palette.header3.categoriesText,
             width: "250px",
             marginTop: "5px",
             marginBottom: "5px",
           }}
         >
-          <WindowIcon sx={{ color: "#2b3445" }} />
+          <WindowIcon sx={{ color: theme.palette.header3.categoriesIcon }} />
           <p
             className="fw-bold"
             style={{
               marginLeft: "10px",
               marginBottom: "0",
               textTransform: "capitalize",
-              color: "grey",
+              color: theme.palette.header3.categoriesText,
             }}
           >
             Categories
           </p>
           {open ? (
-            <ExpandMoreIcon sx={{ marginLeft: 12, color: "#2b3445" }} />
+            <ExpandMoreIcon
+              sx={{
+                marginLeft: 12,
+                color: theme.palette.header3.categoriesIcon,
+              }}
+            />
           ) : (
-            <KeyboardArrowRightIcon sx={{ marginLeft: 12, color: "#2b3445" }} />
+            <KeyboardArrowRightIcon
+              sx={{
+                marginLeft: 12,
+                color: theme.palette.header3.categoriesIcon,
+              }}
+            />
           )}
         </Button>
         <Menu
@@ -137,8 +147,8 @@ export default function Header3() {
             ".MuiPaper-root": {
               marginTop: "5px",
               width: 250,
-              bgcolor: "#fff",
-              color: theme.palette.text.secondary,
+              bgcolor: theme.palette.header3.categoriesBoxSelected,
+              color: theme.palette.header3.categoriesSelectedText,
               // display:"none"
             },
           }}
@@ -154,7 +164,7 @@ export default function Header3() {
                     paddingBottom: "10px",
                     paddingTop: "10px",
                     textTransform: "capitalize",
-                    color: "#2b3445",
+                    color: theme.palette.header3.categoriesSelectedText,
                     // fontWeight: "bold",
                     fontSize: "14px",
                   }}

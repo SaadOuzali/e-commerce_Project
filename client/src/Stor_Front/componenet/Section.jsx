@@ -5,8 +5,8 @@ import {
   // Grid,
   Stack,
   // Typography,
-  useTheme,
 } from "@mui/material";
+import { useTheme } from "@mui/material/styles";
 import { useContext } from "react";
 // import img from "../../images/solde2.png";
 // import landing_page2 from "../../images/landing_page2.jpeg";
@@ -38,6 +38,7 @@ import { ScrollContext } from "./ScrollContext";
 
 export default function Section() {
   const theme = useTheme();
+  console.log(theme.palette.section1);
   const { sectionRef } = useContext(ScrollContext);
   const scrollToSection = () => {
     if (sectionRef.current) {
@@ -136,9 +137,20 @@ export default function Section() {
             >
               <div className="d-flex">
                 <div className="col-5 text-start d-none d-sm-block">
-                  <h3 style={{ fontWeight: "600" }}>Decoration Home</h3>
+                  <h3
+                    style={{
+                      fontWeight: "600",
+                      color: theme.palette.section1.leftSide,
+                    }}
+                  >
+                    Decoration Home
+                  </h3>
                   <p
-                    style={{ fontSize: "15px", fontWeight: "600" }}
+                    style={{
+                      fontSize: "15px",
+                      fontWeight: "600",
+                      color: theme.palette.section1.leftSide,
+                    }}
                     className="mt-3"
                   >
                     At DECOVIB, we believe that your home is more than just a
@@ -171,19 +183,28 @@ export default function Section() {
             >
               <p
                 className=" mb-0 d-none d-sm-block"
-                style={{ color: "#E8E5DF", fontSize: "130px" }}
+                style={{
+                  color: theme.palette.section1.rightSide,
+                  fontSize: "130px",
+                }}
               >
                 DE
               </p>
               <p
                 className=" mb-0 d-none d-sm-block"
-                style={{ color: "#E8E5DF", fontSize: "130px" }}
+                style={{
+                  color: theme.palette.section1.rightSide,
+                  fontSize: "130px",
+                }}
               >
                 CO
               </p>
               <p
                 className=" mb-0 d-none d-sm-block"
-                style={{ color: "#E8E5DF", fontSize: "112px" }}
+                style={{
+                  color: theme.palette.section1.rightSide,
+                  fontSize: "112px",
+                }}
               >
                 VIB
               </p>
@@ -232,7 +253,13 @@ export default function Section() {
                     className="d-block d-sm-none"
                   />
                   <div className="text-center">
-                    <p className="fw-bold" style={{ fontSize: "15px" }}>
+                    <p
+                      className="fw-bold"
+                      style={{
+                        fontSize: "15px",
+                        color: theme.palette.section1.leftSide,
+                      }}
+                    >
                       Vibe with Style
                     </p>
                   </div>
@@ -249,7 +276,13 @@ export default function Section() {
                     className="d-block d-sm-none"
                   />
                   <div className="text-center">
-                    <p className="fw-bold" style={{ fontSize: "15px" }}>
+                    <p
+                      className="fw-bold"
+                      style={{
+                        fontSize: "15px",
+                        color: theme.palette.section1.leftSide,
+                      }}
+                    >
                       Live in Elegance
                     </p>
                   </div>
@@ -268,7 +301,13 @@ export default function Section() {
                     className="d-block d-sm-none"
                   />
                   <div className="text-center">
-                    <p className="fw-bold" style={{ fontSize: "15px" }}>
+                    <p
+                      className="fw-bold"
+                      style={{
+                        fontSize: "15px",
+                        color: theme.palette.section1.leftSide,
+                      }}
+                    >
                       Crafting Vibes
                     </p>
                   </div>
@@ -285,7 +324,13 @@ export default function Section() {
                     className="d-block d-sm-none"
                   />
                   <div className="text-center">
-                    <p className="fw-bold" style={{ fontSize: "15px" }}>
+                    <p
+                      className="fw-bold"
+                      style={{
+                        fontSize: "15px",
+                        color: theme.palette.section1.leftSide,
+                      }}
+                    >
                       Creating Homes
                     </p>
                   </div>
@@ -318,7 +363,13 @@ export default function Section() {
                       className="d-none d-sm-block"
                     />
                     <div className="text-center">
-                      <p className="fw-bold" style={{ fontSize: "15px" }}>
+                      <p
+                        className="fw-bold"
+                        style={{
+                          fontSize: "15px",
+                          color: theme.palette.section1.leftSide,
+                        }}
+                      >
                         Vibe with Style
                       </p>
                     </div>
@@ -335,7 +386,13 @@ export default function Section() {
                       className="d-none d-sm-block"
                     />
                     <div className="text-center">
-                      <p className="fw-bold" style={{ fontSize: "15px" }}>
+                      <p
+                        className="fw-bold"
+                        style={{
+                          fontSize: "15px",
+                          color: theme.palette.section1.leftSide,
+                        }}
+                      >
                         Live in Elegance
                       </p>
                     </div>
@@ -352,7 +409,13 @@ export default function Section() {
                       className="d-none d-sm-block"
                     />
                     <div className="text-center">
-                      <p className="fw-bold" style={{ fontSize: "15px" }}>
+                      <p
+                        className="fw-bold"
+                        style={{
+                          fontSize: "15px",
+                          color: theme.palette.section1.leftSide,
+                        }}
+                      >
                         Crafting Vibes
                       </p>
                     </div>
@@ -369,7 +432,13 @@ export default function Section() {
                       className="d-none d-sm-block"
                     />
                     <div className="text-center">
-                      <p className="fw-bold" style={{ fontSize: "15px" }}>
+                      <p
+                        className="fw-bold"
+                        style={{
+                          fontSize: "15px",
+                          color: theme.palette.section1.leftSide,
+                        }}
+                      >
                         Creating Homes
                       </p>
                     </div>
@@ -391,7 +460,11 @@ export default function Section() {
             >
               <p
                 className=" mb-0 d-none d-sm-block "
-                style={{ fontSize: "28px", fontWeight: "bold" }}
+                style={{
+                  fontSize: "28px",
+                  fontWeight: "bold",
+                  color: theme.palette.section1.leftSide,
+                }}
               >
                 Where every room
               </p>

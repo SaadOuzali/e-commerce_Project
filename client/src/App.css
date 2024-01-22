@@ -43,15 +43,13 @@
 
 a {
   text-decoration: none !important;
-  color: inherit !important;
 }
 
 a.active > div {
-  background-color: #eaeaea !important;
+  /* background-color: #eaeaea !important; */
 }
 
 .active {
-  /* color: brown; */
   font-weight: bold;
 }
 

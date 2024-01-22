@@ -23,13 +23,13 @@
 }
 
 .my-custom-slide {
-  background-color: white;
+  /* background-color: white; */
   /* border-radius: 15px; */
   transition: all 0.6s;
 }
 
 .my-custom-slide:hover {
-  background-color: #dddfe1;
+  background-color: #9898b742 !important;
   border-radius: 15px;
   /* border: 1px solid #222; */
   cursor: pointer;
