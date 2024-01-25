@@ -223,11 +223,11 @@ customerRouter.patch(
   updateCustomerDataController
 );
 
-//delete DONE EXCEPT privileges : customer
 customerRouter.delete(
-  "/delete",
-  verifyJWT,
-  verifyRefreshToken,
+  "/:_id",
+  CheckJWT,
+  refreshAccToken,
+  admin_OR_manager,
   deleteCustomer,
   deleteCustomerController
 );

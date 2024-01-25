@@ -9,7 +9,7 @@ import usercontext from "./context/AuthContext";
 import PrivateRoute from "./components/PrivateRoute";
 import Pagination from "./components/Pagination";
 import AddProduct from "./components/productcomponent/CreateProductModal";
-import AllProducts from "./components/productcomponent/ProductList";
+// import AllProducts from "./components/productcomponent/ProductList";
 import EditProduct from "./components/productcomponent/EditProduct";
 import Navbar from "./components/user/Navbar";
 import Home from "./components/user/Home";
@@ -26,6 +26,7 @@ import Parent from "./Stor_Front/componenet/Parent";
 import { ColorModeContext, useMode } from "./Stor_Front/them";
 import Child from "./Stor_Front/componenet/Child";
 import ProductList from "./components/productcomponent/ProductList";
+import CustomerList from "./components/customercomponent/CustomerList";
 import CategoryTemplate from "./Stor_Front/componenet/CategoryTemplate";
 // import "bootstrap/dist/css/bootstrap.css";
 import SubCategoryTemplate from "./Stor_Front/componenet/SubCategoryTemplate";
@@ -44,6 +45,7 @@ import UserFavoritesTemplate from "./components/UserFavoritesTemplate";
 import UserOrdersTemplate from "./components/UserOrdersTemplate";
 import Loading from "./components/Loading";
 import PageNotFound from "./components/NotFoundPage";
+import EditCustomer from "./components/customercomponent/EditCustomer";
 
 // import Home from './components/Home'
 function App() {
@@ -90,9 +92,11 @@ function App() {
                 <Route path="orders" element={<Orders />} />
                 <Route path="singleorder/:id" element={<SingleOrder />} />
                 <Route path="product" element={<ProductList />} />
+                <Route path="customer" element={<CustomerList />} />
                 <Route path="barchart" element={<Barchart />} />
                 <Route path="piechart" element={<PieChart />} />
                 <Route path="product/edit" element={<EditProduct />} />
+                <Route path="customer/edit" element={<EditCustomer />} />
               </Route>
               <Route path="/dasboard" element={<Dashboard />} />
               <Route path="/users/login" element={<AdminLogin />} />
@@ -105,7 +109,9 @@ function App() {
               <Route path="/registre" element={<Registre />} />
               {/* <Route path="/drawer" element={<Drawer />} /> */}
               {/* <Route path="/payment" element={<Payment/>} /> */}
-              <Route path="products" element={<ProductList />} />
+
+              {/* <Route path="products" element={<ProductList />} />
+              <Route path="customers" element={<CustomerList />} /> */}
 
               <Route path="/home" element={<Parent />}>
                 <Route path="customer" element={<PrivateRouteCustomer />}>

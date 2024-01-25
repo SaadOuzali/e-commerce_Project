@@ -23,10 +23,6 @@ const {
 } = require("../controllers/productController");
 const productsRouter = Router();
 
-
-
-
-
 //create a products
 productsRouter.post(
   "/",
@@ -72,19 +68,19 @@ productsRouter.post(
   //     .withMessage("field must a Mongo Id  value"),
   // ],
   // ValidatFields,
-  upload.single("product_img"),async (req,res,next)=>{
-
-    const img=Buffer.from(req.file.buffer).toString("base64");
-    let dataUrl="data:"+req.file.mimetype+";base64,"+img;
+  upload.single("product_img"),
+  async (req, res, next) => {
+    const img = Buffer.from(req.file.buffer).toString("base64");
+    let dataUrl = "data:" + req.file.mimetype + ";base64," + img;
     try {
-      const uploadimg=await cloudinary_Upload_Img(dataUrl);
+      const uploadimg = await cloudinary_Upload_Img(dataUrl);
       // console.log(uploadimg);
-      req.image=uploadimg.url;
-      next()
+      req.image = uploadimg.url;
+      next();
     } catch (error) {
-      const err=error.message;
-      err.status=500
-      next(err)
+      const err = error.message;
+      err.status = 500;
+      next(err);
     }
   },
   create_product_controller
@@ -133,10 +129,8 @@ productsRouter.get(
   find_product_byId_controller
 );
 
-
-
 // find product bu slug
-productsRouter.get("/:slug",get_products_by_slug_controller)
+productsRouter.get("/:slug", get_products_by_slug_controller);
 
 //update a product
 productsRouter.patch(
@@ -171,11 +165,6 @@ productsRouter.delete(
   ValidatFields,
   delete_product_controller
 );
-
-
-
-
-
 
 //route to upload img
 // productsRouter.post(

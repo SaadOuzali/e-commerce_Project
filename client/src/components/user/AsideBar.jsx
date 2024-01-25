@@ -16,6 +16,8 @@ import ListItem from "@mui/material/ListItem";
 import ListItemButton from "@mui/material/ListItemButton";
 import ListItemIcon from "@mui/material/ListItemIcon";
 import ListItemText from "@mui/material/ListItemText";
+import AccountBoxIcon from "@mui/icons-material/AccountBox";
+import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import InboxIcon from "@mui/icons-material/MoveToInbox";
 import SendIcon from "@mui/icons-material/Send";
 import ExpandLess from "@mui/icons-material/ExpandLess";
@@ -23,8 +25,11 @@ import ExpandMore from "@mui/icons-material/ExpandMore";
 import StarBorder from "@mui/icons-material/StarBorder";
 import ProductionQuantityLimitsIcon from "@mui/icons-material/ProductionQuantityLimits";
 import DashboardIcon from "@mui/icons-material/Dashboard";
+import LocalMallIcon from "@mui/icons-material/LocalMall";
 import PersonIcon from "@mui/icons-material/Person";
 import AttachMoneyIcon from "@mui/icons-material/AttachMoney";
+import ShoppingBagIcon from "@mui/icons-material/ShoppingBag";
+import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 import FormatListBulletedIcon from "@mui/icons-material/FormatListBulleted";
 import AddIcon from "@mui/icons-material/Add";
 import EditIcon from "@mui/icons-material/Edit";
@@ -116,7 +121,10 @@ export default function AsideBar({ open, setOpen, theme }) {
           <NavLink to={"/"}>
             <ListItemButton>
               <ListItemIcon>
-                <DashboardIcon style={{ color: "#000" }} fontSize="large" />
+                <DashboardIcon
+                  style={{ color: "rgb(14 3 45)" }}
+                  fontSize="large"
+                />
               </ListItemIcon>
               <ListItemText primary="Dashboard" />
             </ListItemButton>
@@ -126,7 +134,10 @@ export default function AsideBar({ open, setOpen, theme }) {
           <NavLink to="/users">
             <ListItemButton onClick={handleClick}>
               <ListItemIcon>
-                <PersonIcon style={{ color: "#000" }} fontSize="large" />
+                <AccountBoxIcon
+                  style={{ color: "rgb(14 3 45)" }}
+                  fontSize="large"
+                />
               </ListItemIcon>
               <ListItemText primary="Users" />
               {/* {Open ? <ExpandLess /> : <ExpandMore />} */}
@@ -155,11 +166,24 @@ export default function AsideBar({ open, setOpen, theme }) {
         </Collapse> */}
 
           {/* products */}
+          <Box>
+            <NavLink to={"customer"}>
+              <ListItemButton>
+                <ListItemIcon>
+                  <AccountCircleIcon
+                    style={{ color: "rgb(14 3 45)" }}
+                    fontSize="large"
+                  />
+                </ListItemIcon>
+                <ListItemText primary="Customer" />
+              </ListItemButton>
+            </NavLink>
+          </Box>
           <NavLink to={"product"}>
             <ListItemButton>
               <ListItemIcon>
-                <ProductionQuantityLimitsIcon
-                  style={{ color: "#000" }}
+                <ShoppingCartIcon
+                  style={{ color: "rgb(14 3 45)" }}
                   fontSize="large"
                 />
               </ListItemIcon>
@@ -171,7 +195,10 @@ export default function AsideBar({ open, setOpen, theme }) {
           <NavLink to={"orders"}>
             <ListItemButton onClick={handleClick3}>
               <ListItemIcon>
-                <AttachMoneyIcon style={{ color: "#000" }} fontSize="large" />
+                <LocalMallIcon
+                  style={{ color: "rgb(14 3 45)" }}
+                  fontSize="large"
+                />
               </ListItemIcon>
               <ListItemText primary="Orders" />
               {/* {order ? <ExpandLess /> : <ExpandMore />} */}
@@ -181,7 +208,10 @@ export default function AsideBar({ open, setOpen, theme }) {
           <NavLink to={"/subcategory"}>
             <ListItemButton>
               <ListItemIcon>
-                <CategoryIcon style={{ color: "#000" }} fontSize="large" />
+                <ShoppingBagIcon
+                  style={{ color: "rgb(14 3 45)" }}
+                  fontSize="large"
+                />
               </ListItemIcon>
               <ListItemText primary="SubCategories" />
             </ListItemButton>
@@ -192,7 +222,10 @@ export default function AsideBar({ open, setOpen, theme }) {
           <NavLink to={"/barchart"}>
             <ListItemButton>
               <ListItemIcon>
-                <BarChartIcon style={{ color: "#000" }} fontSize="large" />
+                <BarChartIcon
+                  style={{ color: "rgb(14 3 45)" }}
+                  fontSize="large"
+                />
               </ListItemIcon>
               <ListItemText primary="Bar Chart" />
             </ListItemButton>
@@ -203,13 +236,16 @@ export default function AsideBar({ open, setOpen, theme }) {
           <NavLink to={"piechart"}>
             <ListItemButton>
               <ListItemIcon>
-                <PieChartIcon style={{ color: "#000" }} fontSize="large" />
+                <PieChartIcon
+                  style={{ color: "rgb(14 3 45)" }}
+                  fontSize="large"
+                />
               </ListItemIcon>
               <ListItemText primary="Pie Char" />
             </ListItemButton>
           </NavLink>
         </Box>
-        <Box>
+        {/* <Box>
           <ListItemButton>
             <ListItemIcon>
               <DashboardIcon style={{ color: "#000" }} fontSize="large" />
@@ -228,7 +264,7 @@ export default function AsideBar({ open, setOpen, theme }) {
               <ListItemText primary="Dashboard" />
             </NavLink>
           </ListItemButton>
-        </Box>
+        </Box> */}
       </Drawer>
     </>
   );

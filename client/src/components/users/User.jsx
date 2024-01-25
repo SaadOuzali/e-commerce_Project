@@ -6,6 +6,7 @@ import React, {
   useState,
 } from "react";
 import { DataGrid } from "@mui/x-data-grid";
+import AddIcon from "@mui/icons-material/Add";
 import request from "../axios";
 import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
@@ -76,11 +77,11 @@ export default function DataTable() {
                     size="small"
                     variant="text"
                     color="info"
-                    endIcon={<EditIcon />}
+                    endIcon={<EditIcon style={{ fontSize: "1.5rem" }} />}
                     // onClick={()=>handleDelete2(celldata)}
                   >
                     <ModalEdit
-                      name={"Edit"}
+                      // name={"Edit"}
                       data={{
                         first_name: row.first_name,
                         last_name: row.last_name,
@@ -97,10 +98,10 @@ export default function DataTable() {
                       size="small"
                       variant="text"
                       color="error"
-                      endIcon={<DeleteIcon />}
+                      endIcon={<DeleteIcon style={{ fontSize: "1.5rem" }} />}
                       onClick={() => handleDelete(row)}
                     >
-                      Delete
+                      {/* Delete */}
                     </Button>
                   )}
                 </>
@@ -154,23 +155,51 @@ export default function DataTable() {
 
   return (
     <>
-    <Stack direction={"row"} justifyContent={"center"}>
-      <Typography variant="h4">USERS</Typography>
-    </Stack>
+      <Stack direction={"row"} justifyContent={"center"}>
+        <h2 className="product-heading">USERS</h2>
+      </Stack>
       {user.userdata.Data.role == "admin" && (
         <Button
           variant="contained"
-          color="inherit"
-          sx={{ marginBottom: "30px" }}
+          // color="inherit"
+          sx={{
+            marginLeft: "20px",
+            marginBottom: "20px",
+            backgroundColor: "#43a047",
+            padding: "10px 20px",
+            borderRadius: "4px",
+            textTransform: "none",
+            "&:hover": {
+              backgroundColor: "#43a047", // darker shade on hover
+            },
+            "&:active": {
+              backgroundColor: "#388e3c", // darker color on click
+            },
+            "& .MuiButton-endIcon": {
+              marginLeft: "8px", // Space between text and icon
+            },
+          }}
+          endIcon={<AddIcon />}
         >
-          <Modaluser name={"Create New User"} />
+          Create New User
         </Button>
       )}
-      <Box sx={{ height: 400, width: '100%' }}>
+      <Box sx={{ height: 400, width: "100%" }}>
         <Stack direction="row" sx={{ marginBottom: "10px" }}>
           <input
             placeholder="search"
-            style={{ width: "400px", padding: "12px", borderRadius: "15px" }}
+            style={{
+              width: "400px",
+              padding: "12px",
+              borderRadius: "15px",
+              border: "1px solid #ccc",
+              boxShadow: "0 2px 5px rgba(0, 0, 0, 0.1)",
+              fontFamily: "Arial, sans-serif",
+              fontSize: "16px",
+              transition:
+                "border-color 0.2s ease-in-out, box-shadow 0.2s ease-in-out",
+              outline: "none",
+            }}
             onChange={({ target }) => setSearch(target.value)}
           />
         </Stack>
@@ -186,6 +215,46 @@ export default function DataTable() {
         disableRowSelectionOnClick /> */}
 
         <DataGrid
+          sx={{
+            // height: 400,
+            border: 0,
+            margin: "20px",
+            "& .MuiDataGrid-columnHeaders": {
+              backgroundColor: "#d1dde1",
+              borderRadius: "12px",
+              "& .MuiDataGrid-columnHeaderTitle": {
+                fontWeight: "bold", // titles bold
+              },
+            },
+            "& .MuiDataGrid-row": {
+              backgroundColor: "#f5f5f5",
+              borderRadius: "12px",
+              "& .MuiDataGrid-cell": {
+                borderBottom: "none",
+              },
+              "&:hover": {
+                backgroundColor: "#9696c3", // Change this color to your preferred hover color
+              },
+              "&:nth-of-type(odd)": {
+                backgroundColor: "#bdc4e3", // Slightly different shade for zebra striping
+                "&:hover": {
+                  backgroundColor: "#9696c3", // Change this color to your preferred hover color
+                },
+              },
+            },
+            "& .MuiDataGrid-row.Mui-selected, & .MuiDataGrid-row.Mui-selected:hover":
+              {
+                backgroundColor: "#9696c3", // Active row color
+              },
+            "& .MuiDataGrid-virtualScrollerRenderZone": {
+              "& .MuiDataGrid-row": {
+                marginBottom: "10px", // Adds space between rows
+                "&:last-child": {
+                  marginBottom: 0,
+                },
+              },
+            },
+          }}
           rows={mappeduser}
           columns={columns}
           initialState={{
