@@ -105,7 +105,7 @@ const btn = { title: "Login" };
 export default function Header2() {
   const [openmdl, setOpenmdl] = React.useState(false);
   const theme = useTheme();
-  console.log(theme.palette.section1);
+  // console.log(theme.palette.section1);
   const [anchorEl, setAnchorEl] = React.useState(null);
   const [selectedIndex, setSelectedIndex] = React.useState(1);
   const [isdraweropen, setIsdraweropen] = React.useState(false);

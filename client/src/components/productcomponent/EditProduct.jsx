@@ -45,11 +45,14 @@ const EditProduct = ({
     left: "50%",
     transform: "translate(-50%, -50%)",
     width: 400,
-    bgcolor: "background.paper",
-    border: "2px solid #000",
+    // bgcolor: "background.paper",
+    // border: "2px solid #000",
+    bgcolor: "whitesmoke",
     boxShadow: 24,
     p: 4,
-    color: "black",
+    color: "#13123c",
+    borderRadius: "24px",
+    borderColor: "transparent",
   };
   return (
     <Modal
@@ -59,7 +62,13 @@ const EditProduct = ({
       aria-describedby="modal-modal-description"
     >
       <Box sx={style}>
-        <Typography id="modal-modal-title" variant="h6" component="h2">
+        <Typography
+          id="modal-modal-title"
+          variant="h6"
+          component="h2"
+          style={{ fontFamily: "Montserrat" }}
+          className="fw-bold"
+        >
           Products
         </Typography>
         <Typography id="modal-modal-description" sx={{ mt: 2 }}>
@@ -155,6 +164,25 @@ const EditProduct = ({
                   variant="contained"
                   endIcon={<EditIcon />}
                   onClick={() => handleEditButton()}
+                  sx={{
+                    backgroundColor: "#13123c",
+                    padding: "10px 20px",
+                    margin: "5px",
+                    borderRadius: "5px",
+                    textTransform: "none", // Prevents uppercase transformation
+                    "&:hover": {
+                      backgroundColor: "#0f0f2f", // darker color on hover
+                    },
+                    "&:active": {
+                      backgroundColor: "#0d0d1f", // darker color on active/click
+                    },
+                    "&:focus": {
+                      // Optional
+                    },
+                    "& .MuiButton-endIcon": {
+                      marginLeft: "8px", // space between text and icon
+                    },
+                  }}
                 >
                   Edit
                 </Button>

@@ -28,21 +28,21 @@ const theme = createTheme();
 const Search = styled("div")(({ theme }) => ({
   position: "relative",
   borderRadius: theme.shape.borderRadius,
-  backgroundColor: alpha(theme.palette.common.white, 0.15),
+  backgroundColor: "#f2f2f2",
   "&:hover": {
-    backgroundColor: alpha(theme.palette.common.white, 0.25),
+    backgroundColor: "#e6e6e6",
   },
-  marginRight: theme.spacing(2),
+  marginRight: "16px",
   marginLeft: 0,
   width: "100%",
   [theme.breakpoints.up("sm")]: {
-    marginLeft: theme.spacing(3),
+    marginLeft: "24px",
     width: "auto",
   },
 }));
 
 const SearchIconWrapper = styled("div")(({ theme }) => ({
-  padding: theme.spacing(0, 2),
+  padding: "0 16px",
   height: "100%",
   position: "absolute",
   pointerEvents: "none",
@@ -52,22 +52,25 @@ const SearchIconWrapper = styled("div")(({ theme }) => ({
 }));
 
 const StyledInputBase = styled(InputBase)(({ theme }) => ({
-  color: "inherit",
+  color: "black",
   "& .MuiInputBase-input": {
-    padding: theme.spacing(1, 1, 1, 0),
+    padding: "8px 8px 8px 0",
     // vertical padding + font size from searchIcon
     paddingLeft: `calc(1em + ${theme.spacing(4)})`,
     transition: theme.transitions.create("width"),
     width: "100%",
-    [theme.breakpoints.up("md")]: {
+    "@media (min-width: 768px)": {
+      // Adjust for different breakpoints if needed
       width: "20ch",
+      "&:focus": {
+        width: "30ch", // Expands more on focus
+      },
     },
   },
 }));
 
 const ProductList = () => {
   const [products, setProducts] = useState([]);
-  //   const [products, setProducts] = useState([]);
   const [searchTerm, setSearchTerm] = useState("");
   const navigate = useNavigate();
   const [isDetailsOpen, setIsDetailsOpen] = useState(false);
@@ -116,7 +119,7 @@ const ProductList = () => {
       .catch((err) => {
         if (err instanceof AxiosError) {
           if (err.response.status === 401) {
-            toast.error("session expired please logain again");
+            toast.error("session expired please login again");
             navigate("/users/login");
           }
         } else {
@@ -159,7 +162,7 @@ const ProductList = () => {
       } catch (error) {
         if (error instanceof AxiosError) {
           if (error.response.status === 401) {
-            toast.error("session expired please logain again");
+            toast.error("session expired please login again");
             navigate("/users/login");
           }
         } else {
@@ -174,23 +177,47 @@ const ProductList = () => {
 
   const columns = useMemo(() => {
     return [
-      { field: "_id", headerName: "ID", width: 250 },
+      { field: "_id", headerName: "ID", flex: 0.5, minWidth: 100 },
       {
         field: "product_name",
         headerName: "Product Name",
         type: "string",
-        width: 300,
+        flex: 1, // more flexible as names can be longer
+        minWidth: 150,
       },
-      { field: "sku", headerName: "SKU", type: "string", width: 300 },
-      { field: "active", headerName: "active", type: "boolean", width: 200 },
-      { field: "price", headerName: "Price", type: "number", width: 200 },
+      {
+        field: "sku",
+        headerName: "SKU",
+        type: "string",
+        flex: 0.5,
+        minWidth: 100,
+      },
+      {
+        field: "active",
+        headerName: "active",
+        type: "boolean",
+        flex: 0.3,
+        minWidth: 80,
+      },
+      {
+        field: "price",
+        headerName: "Price",
+        type: "number",
+        flex: 0.3,
+        minWidth: 80,
+      },
       {
         field: "details",
         headerName: "Details",
         sortable: false,
-        width: 100,
+        width: 70,
         renderCell: (params) => (
-          <IconButton aria-label="details" color="primary" className="buttons">
+          <IconButton
+            aria-label="details"
+            color="primary"
+            className="buttons"
+            style={{ color: "#1d075f" }}
+          >
             <VisibilityIcon
               onClick={() => handleOpenDetailsModal(params.row)}
             />
@@ -201,12 +228,13 @@ const ProductList = () => {
         field: "edit",
         headerName: "Edit",
         sortable: false,
-        width: 100,
+        width: 70,
         renderCell: (params) => (
           <IconButton
             aria-label="edit"
             color="primary"
             className="buttons buttonEdit"
+            style={{ color: "#1d075f" }}
           >
             <EditIcon onClick={() => handleOpenEditModal(params.row)} />
           </IconButton>
@@ -216,14 +244,18 @@ const ProductList = () => {
         field: "delete",
         headerName: "Delete",
         sortable: false,
-        width: 100,
+        width: 70,
         renderCell: (params) => (
           <IconButton
             aria-label="delete"
             color="secondary"
             className="buttons buttonDelete"
+            style={{ color: "#e60023", margin: "5px" }}
           >
-            <DeleteIcon onClick={() => handleDeleteProduct(params.row)} />
+            <DeleteIcon
+              style={{ fontSize: "1.5rem" }}
+              onClick={() => handleDeleteProduct(params.row)}
+            />
           </IconButton>
         ),
       },
@@ -231,11 +263,27 @@ const ProductList = () => {
   }, []);
 
   return (
-    <>
+    <div style={{ backgroundColor: "#d1dde1" }}>
       <h2 className="product-heading">PRODUCTS</h2>
       <Button
         onClick={handleOpenCreateModal}
-        sx={{ marginLeft: "20px", marginBottom: "20px" }}
+        sx={{
+          marginLeft: "20px",
+          marginBottom: "20px",
+          backgroundColor: "#43a047",
+          padding: "10px 20px",
+          borderRadius: "4px",
+          textTransform: "none",
+          "&:hover": {
+            backgroundColor: "#43a047", // darker shade on hover
+          },
+          "&:active": {
+            backgroundColor: "#388e3c", // darker color on click
+          },
+          "& .MuiButton-endIcon": {
+            marginLeft: "8px", // Space between text and icon
+          },
+        }}
         variant="contained"
         endIcon={<AddIcon />}
       >
@@ -256,12 +304,50 @@ const ProductList = () => {
       </ThemeProvider>
       <div className="data-grid-container">
         <DataGrid
-          sx={{ margin: "20px" }}
+          // autoHeight
+          sx={{
+            // height: 400,
+            border: 0,
+            margin: "20px",
+            "& .MuiDataGrid-columnHeaders": {
+              backgroundColor: "#d1dde1",
+              borderRadius: "12px",
+              "& .MuiDataGrid-columnHeaderTitle": {
+                fontWeight: "bold", // titles bold
+              },
+            },
+            "& .MuiDataGrid-row": {
+              backgroundColor: "#f5f5f5",
+              borderRadius: "12px",
+              "& .MuiDataGrid-cell": {
+                borderBottom: "none",
+              },
+              "&:hover": {
+                backgroundColor: "#9696c3", // Change this color to your preferred hover color
+              },
+              "&:nth-of-type(odd)": {
+                backgroundColor: "#bdc4e3", // Slightly different shade for zebra striping
+                "&:hover": {
+                  backgroundColor: "#9696c3", // Change this color to your preferred hover color
+                },
+              },
+            },
+            "& .MuiDataGrid-row.Mui-selected, & .MuiDataGrid-row.Mui-selected:hover":
+              {
+                backgroundColor: "#9696c3", // Active row color
+              },
+            "& .MuiDataGrid-virtualScrollerRenderZone": {
+              "& .MuiDataGrid-row": {
+                marginBottom: "10px", // Adds space between rows
+                "&:last-child": {
+                  marginBottom: 0,
+                },
+              },
+            },
+          }}
           rows={products}
           columns={columns}
           pageSize={10}
-          //   rowsPerPageOptions={[5, 10, 20]}
-          //   checkboxSelection
         />
       </div>
       <ProductDetails
@@ -283,7 +369,7 @@ const ProductList = () => {
         setIsCreateOpen={setIsCreateOpen}
         setProducts={setProducts}
       />
-    </>
+    </div>
   );
 };
 

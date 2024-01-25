@@ -21,8 +21,8 @@ export default function PrivateRoute() {
     const checkToken = async () => {
       if (!user.userdata.isConnected) {
         try {
+          console.log("hiii");
           const { data, status } = await request.post("v1/users/token");
-
           console.log("status", status);
 
           if (data?.status == "success") {
@@ -33,10 +33,12 @@ export default function PrivateRoute() {
             });
           }
         } catch ({ response }) {
+          console.log(response);
           if (response.status == 401) {
-            toast.error("session expired please logain again");
+            toast.error("session expired please login again");
             console.log("error", response);
             navigate("/users/login", { state: { path: location.pathname } });
+            console.log(response);
           }
         }
       }
@@ -51,7 +53,7 @@ export default function PrivateRoute() {
         <Box sx={{ display: "flex" }}>
           <CssBaseline />
 
-          <Bar open={open} setOpen={setOpen} />
+          {/* <Bar open={open} setOpen={setOpen} /> */}
 
           <AsideBar open={open} setOpen={setOpen} theme={theme} />
 
@@ -63,6 +65,7 @@ export default function PrivateRoute() {
               width: !open
                 ? "calc(100% - calc(64px + 1px))"
                 : "calc(100% - 240px)",
+              backgroundColor: "#d1dde1",
             }}
           >
             <DrawerHeader theme={theme} />

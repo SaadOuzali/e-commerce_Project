@@ -79,11 +79,14 @@ export default function Section() {
             {/* DECOVIB Title for small screens */}
             <div
               className="d-flex flex-column pt-5"
-              style={{ backgroundColor: "#bdbcb8" }}
+              style={{ backgroundColor: theme.palette.section1.smallScreen.bg }}
             >
               <h2
                 className="d-block d-sm-none pt-2 mb-0"
-                style={{ fontWeight: "600" }}
+                style={{
+                  fontWeight: "600",
+                  color: theme.palette.section1.smallScreen.title,
+                }}
               >
                 DECOVIB
               </h2>
@@ -91,14 +94,18 @@ export default function Section() {
                 style={{
                   fontSize: "20px",
                   fontWeight: "600",
-                  color: "#D23F57",
+                  color: theme.palette.section1.smallScreen.subtitle,
                 }}
                 className="d-block d-sm-none my-0"
               >
                 EVERY SPACE TELLS A STORY
               </p>
               <p
-                style={{ fontSize: "15px", fontWeight: "600", color: "grey" }}
+                style={{
+                  fontSize: "15px",
+                  fontWeight: "600",
+                  color: theme.palette.section1.smallScreen.paragraph,
+                }}
                 className="px-3 d-block d-sm-none mb-0 mt-3 text-start"
               >
                 At DECOVIB, we believe that your home is more than just a space

@@ -48,6 +48,12 @@ export const getDesignTokens = (mode) => ({
           section1: {
             leftSide: "#16181a", //theme.palette.section1.leftSide
             rightSide: "#e8e5df", //theme.palette.section1.rightSide
+            smallScreen: {
+              title: "rgb(43 52 69)", //theme.palette.section1.smallScreen.title
+              subtitle: "rgb(210, 63, 87)", //theme.palette.section1.smallScreen.subtitle
+              paragraph: "grey", //theme.palette.section1.smallScreen.paragraph
+              bg: "rgb(189, 188, 184)", //theme.palette.section1.smallScreen.bg
+            },
           },
           iconSection: {
             icons: "#364050", //theme.palette.iconSection.icons
@@ -119,6 +125,12 @@ export const getDesignTokens = (mode) => ({
           section1: {
             leftSide: "rgb(24 63 94)", //theme.palette.section1.leftSide
             rightSide: "#16181a", //theme.palette.section1.rightSide
+            smallScreen: {
+              title: "#e8e5df", //theme.palette.section1.smallScreen.title
+              subtitle: "rgb(210, 63, 87)", //theme.palette.section1.smallScreen.subtitle
+              paragraph: "grey", //theme.palette.section1.smallScreen.paragraph
+              bg: "black", //theme.palette.section1.smallScreen.bg
+            },
           },
           iconSection: {
             icons: "#183f5e", //theme.palette.iconSection.icons

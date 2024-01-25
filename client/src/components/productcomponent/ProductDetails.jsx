@@ -10,11 +10,15 @@ const ProductDetails = ({ product, open, handleClose }) => {
     left: "50%",
     transform: "translate(-50%, -50%)",
     width: 400,
-    bgcolor: "background.paper",
+    // bgcolor: "background.paper",
+    bgcolor: "#13123c",
     border: "2px solid #000",
     boxShadow: 24,
     p: 4,
-    color: "black",
+    color: "whitesmoke",
+    borderRadius: "24px",
+    borderColor: "transparent",
+    // fontFamily: "Montserrat, sans-serif !important",
   };
   return (
     <Modal
@@ -24,17 +28,41 @@ const ProductDetails = ({ product, open, handleClose }) => {
       aria-describedby="modal-modal-description"
     >
       <Box sx={style}>
-        <Typography id="modal-modal-title" variant="h6" component="h2">
+        <Typography
+          className="fw-bold"
+          id="modal-modal-title"
+          variant="h6"
+          component="h2"
+          style={{ fontFamily: "Montserrat, sans-serif" }}
+        >
           Products Details
         </Typography>
-        <Typography id="modal-modal-description" sx={{ mt: 2 }}>
-          <p>Product Name: {product?.product_name}</p>
-          <p>SKU: {product?.sku}</p>
-          <p>Long Description: {product?.long_description}</p>
-          <p>Short Description: {product?.short_description}</p>
-          <p>Active Status: {product?.active ? "Active" : "Inactive"}</p>
-          <p>Quantity: {product?.quantity}</p>
-          <p>Price: {product?.price}</p>
+        <Typography
+          id="modal-modal-description"
+          sx={{ mt: 2 }}
+          style={{ fontFamily: "Montserrat, sans-serif", fontSize: "14px" }}
+        >
+          <p>
+            <b>Product Name :</b> {product?.product_name}
+          </p>
+          <p>
+            <b>SKU :</b> {product?.sku}
+          </p>
+          <p>
+            <b>Long Description :</b> {product?.long_description}
+          </p>
+          <p>
+            <b>Short Description :</b> {product?.short_description}
+          </p>
+          <p>
+            <b>Active Status :</b> {product?.active ? "Active" : "Inactive"}
+          </p>
+          <p>
+            <b>Quantity :</b> {product?.quantity}
+          </p>
+          <p>
+            <b>Price :</b> {product?.price}
+          </p>
         </Typography>
       </Box>
     </Modal>

@@ -1,6 +1,16 @@
 import Modal from "@mui/material/Modal";
 import Box from "@mui/material/Box";
-import { Button, Chip, FormControl, Grid, InputLabel, MenuItem, Select, TextField, Typography } from "@mui/material";
+import {
+  Button,
+  Chip,
+  FormControl,
+  Grid,
+  InputLabel,
+  MenuItem,
+  Select,
+  TextField,
+  Typography,
+} from "@mui/material";
 import PropTypes from "prop-types";
 import { useCallback, useEffect, useState } from "react";
 import axios, { AxiosError } from "axios";
@@ -23,7 +33,6 @@ const VisuallyHiddenInput = styled("input")({
   width: 1,
 });
 
-
 // my component
 const CreateProductModal = ({
   open,
@@ -32,7 +41,7 @@ const CreateProductModal = ({
   setProducts,
 }) => {
   const Navigate = useNavigate();
-  const [slugsubcategory,setSlugsubcategory]=useState([])
+  const [slugsubcategory, setSlugsubcategory] = useState([]);
   const [createProductModal, setCreateProductModal] = useState({
     product_name: "",
     sku: "",
@@ -49,17 +58,15 @@ const CreateProductModal = ({
 
   // to handle creation of poducts
   const handleCreateButton = useCallback(() => {
-    
     request
       .post("/v1/products/", createProductModal, {
         headers: { "Content-Type": "multipart/form-data" },
       })
       .then((data) => {
         console.log("Product created: ", data.data);
-        if(data.status === 201){
-          
+        if (data.status === 201) {
           toast.success("product created successfully");
-           setProducts((prev) => [...prev, { ...data.data.data }]);
+          setProducts((prev) => [...prev, { ...data.data.data }]);
           setIsCreateOpen(false);
         }
       })
@@ -70,8 +77,6 @@ const CreateProductModal = ({
         // 2- AxiosError: {message: ""}
         // TypeError
 
-
-
         if (err instanceof AxiosError) {
           Navigate("/users/login");
           toast.error(err.response.data?.message ?? "Couldn't create product");
@@ -81,42 +86,47 @@ const CreateProductModal = ({
   }, [createProductModal]);
 
   // to handle changes
-  const handleInputChange = useCallback((e) => {
-    const { name, value } = e.target;
-    console.log("Name of the input: ", name);
-    setCreateProductModal((prev) => ({
-      ...prev,
-      [name]: value,
-    }));
-  },[createProductModal]);
-
+  const handleInputChange = useCallback(
+    (e) => {
+      const { name, value } = e.target;
+      console.log("Name of the input: ", name);
+      setCreateProductModal((prev) => ({
+        ...prev,
+        [name]: value,
+      }));
+    },
+    [createProductModal]
+  );
 
   // to fetch all subcategorie
-  useEffect(()=>{
-    const fetchcategory=async ()=>{
+  useEffect(() => {
+    const fetchcategory = async () => {
       try {
-        const data=await request('/v1/subcategories/all');
-        
-        if(data.status === 200){
-            setSlugsubcategory(data.data.data)
+        const data = await request("/v1/subcategories/all");
+
+        if (data.status === 200) {
+          setSlugsubcategory(data.data.data);
         }
       } catch (error) {
         console.log(error);
       }
-    }
-    fetchcategory()
-  },[])
+    };
+    fetchcategory();
+  }, []);
   const style = {
     position: "absolute",
     top: "50%",
     left: "50%",
     transform: "translate(-50%, -50%)",
     width: 400,
-    bgcolor: "background.paper",
-    border: "2px solid #000",
+    // bgcolor: "background.paper",
+    bgcolor: "whitesmoke",
+    // border: "2px solid #000",
     boxShadow: 24,
     p: 4,
-    color: "black",
+    color: "#13123c",
+    borderRadius: "24px",
+    borderColor: "transparent",
   };
 
   return (
@@ -127,7 +137,13 @@ const CreateProductModal = ({
       aria-describedby="modal-modal-description"
     >
       <Box sx={style}>
-        <Typography id="modal-modal-title" variant="h6" component="h2">
+        <Typography
+          id="modal-modal-title"
+          variant="h6"
+          component="h2"
+          style={{ fontFamily: "Montserrat" }}
+          className="fw-bold"
+        >
           Products
         </Typography>
         <Typography id="modal-modal-description" sx={{ mt: 2 }}>
@@ -152,7 +168,7 @@ const CreateProductModal = ({
                   name="sku"
                   onChange={handleInputChange}
                 />
-                 <TextField
+                <TextField
                   label="SKU"
                   variant="outlined"
                   hidden
@@ -221,6 +237,26 @@ const CreateProductModal = ({
                     component="label"
                     variant="outlined"
                     startIcon={<CloudUploadIcon />}
+                    sx={{
+                      color: "whitesmoke",
+                      backgroundColor: "#13123c",
+                      padding: "10px 20px",
+                      margin: "5px",
+                      borderRadius: "5px",
+                      textTransform: "none", // Prevents uppercase transformation
+                      "&:hover": {
+                        backgroundColor: "#0f0f2f", // darker color on hover
+                      },
+                      "&:active": {
+                        backgroundColor: "#0d0d1f", // darker color on active/click
+                      },
+                      "&:focus": {
+                        // Optional
+                      },
+                      "& .MuiButton-endIcon": {
+                        marginLeft: "8px", // space between text and icon
+                      },
+                    }}
                   >
                     Upload file
                     <VisuallyHiddenInput
@@ -238,7 +274,9 @@ const CreateProductModal = ({
               </Grid>
               <Grid item xs={12} sm={12}>
                 <FormControl sx={{ m: 1, minWidth: 120 }} size="small">
-                  <InputLabel id="demo-select-small-label">subcategory</InputLabel>
+                  <InputLabel id="demo-select-small-label">
+                    subcategory
+                  </InputLabel>
                   <Select
                     name="slug"
                     labelId="demo-select-small-label"
@@ -247,21 +285,40 @@ const CreateProductModal = ({
                     label="subcategory"
                     onChange={handleInputChange}
                   >
-                    {slugsubcategory.length ===0 ? null 
-                    :
-                    slugsubcategory.map((sub)=>{
-                        return <MenuItem value={sub.slug}>{sub.subcategory_name}</MenuItem>
-                    })
-                      
-                      }
-                    
-                    
+                    {slugsubcategory.length === 0
+                      ? null
+                      : slugsubcategory.map((sub) => {
+                          return (
+                            <MenuItem value={sub.slug}>
+                              {sub.subcategory_name}
+                            </MenuItem>
+                          );
+                        })}
                   </Select>
                 </FormControl>
                 <Button
                   variant="contained"
                   onClick={handleCreateButton}
                   endIcon={<AddIcon />}
+                  sx={{
+                    backgroundColor: "#13123c",
+                    padding: "10px 20px",
+                    margin: "5px",
+                    borderRadius: "5px",
+                    textTransform: "none", // Prevents uppercase transformation
+                    "&:hover": {
+                      backgroundColor: "#0f0f2f", // darker color on hover
+                    },
+                    "&:active": {
+                      backgroundColor: "#0d0d1f", // darker color on active/click
+                    },
+                    "&:focus": {
+                      // Optional
+                    },
+                    "& .MuiButton-endIcon": {
+                      marginLeft: "8px", // space between text and icon
+                    },
+                  }}
                 >
                   Create
                 </Button>

@@ -105,6 +105,8 @@ function App() {
               <Route path="/registre" element={<Registre />} />
               {/* <Route path="/drawer" element={<Drawer />} /> */}
               {/* <Route path="/payment" element={<Payment/>} /> */}
+              <Route path="products" element={<ProductList />} />
+
               <Route path="/home" element={<Parent />}>
                 <Route path="customer" element={<PrivateRouteCustomer />}>
                   <Route
