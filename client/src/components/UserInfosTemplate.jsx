@@ -4,6 +4,7 @@ import "../styles/profile_style.css";
 // import { mainAxiosInstance } from "../config/api";
 import { toast } from "react-toastify";
 import request from "./axios";
+import { Link } from "react-router-dom";
 
 const UserInfosTemplate = () => {
   const [customer, setCustomer] = useState({});
@@ -73,6 +74,13 @@ const UserInfosTemplate = () => {
               <h5 className="fw-bold">
                 {customer.first_name} {customer.last_name}
               </h5>
+              <Link
+                style={{ color: "black" }}
+                to="/home"
+                className="pb-3 underlineLink"
+              >
+                Home
+              </Link>
             </div>
           </div>
           <div className="col-md-12 row gap-3 m-auto">

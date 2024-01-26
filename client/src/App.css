@@ -44,6 +44,10 @@
 a {
   text-decoration: none !important;
 }
+.underlineLink {
+  text-decoration: underline !important;
+  text-underline-offset: 3px;
+}
 
 a.active > div {
   /* background-color: #eaeaea !important; */

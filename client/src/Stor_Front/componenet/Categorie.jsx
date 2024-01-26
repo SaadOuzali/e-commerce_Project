@@ -1,5 +1,5 @@
 import React, { createContext, useContext, useEffect, useState } from "react";
-import { Outlet, useLocation, useParams } from "react-router-dom";
+import { Link, Outlet, useLocation, useParams } from "react-router-dom";
 import request from "../../components/axios";
 import "./categories_styles.css";
 import { Shoppigncartcontexte } from "./contexte/CartShoppingContexte";
@@ -59,7 +59,14 @@ export default function Categorie() {
   return (
     <categorieContexte.Provider value={{ categorie, products }}>
       <div className="style_category_header">
-        <h1 className="p-5">{categorie?.categorie?.category_name}</h1>
+        <h1 className="pt-5">{categorie?.categorie?.category_name}</h1>
+        <Link
+          style={{ color: "whitesmoke" }}
+          to="/home"
+          className="pb-3 underlineLink"
+        >
+          Home
+        </Link>
       </div>
       <Outlet />
     </categorieContexte.Provider>

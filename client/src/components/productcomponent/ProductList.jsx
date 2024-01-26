@@ -268,6 +268,8 @@ const ProductList = () => {
       <Button
         onClick={handleOpenCreateModal}
         sx={{
+          fontFamily: "Montserrat",
+          fontWeight: "bold",
           marginLeft: "20px",
           marginBottom: "20px",
           backgroundColor: "#43a047",
@@ -307,6 +309,7 @@ const ProductList = () => {
           // autoHeight
           sx={{
             // height: 400,
+            fontFamily: "Montserrat",
             border: 0,
             margin: "20px",
             "& .MuiDataGrid-columnHeaders": {

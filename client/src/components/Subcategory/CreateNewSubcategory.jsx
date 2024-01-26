@@ -32,7 +32,7 @@ const VisuallyHiddenInput = styled("input")({
 });
 
 export default function CreateNewSubcategory() {
-  const navigate=useNavigate()
+  const navigate = useNavigate();
   const [categories, setCategories] = useState([]);
 
   const [createsubcategory, setCreatesubcategory] = useState({
@@ -40,8 +40,8 @@ export default function CreateNewSubcategory() {
     subcategory_name: "",
     active: false,
   });
-console.log(createsubcategory);
-// to fetch categories
+  console.log(createsubcategory);
+  // to fetch categories
   useEffect(() => {
     const getCategories = async () => {
       try {
@@ -56,28 +56,22 @@ console.log(createsubcategory);
     getCategories();
   }, []);
 
-
-// to handle creation of subcategories
+  // to handle creation of subcategories
   const handleCreate = useCallback(async () => {
     try {
       const data = await request.post("/v1/subcategories/", createsubcategory);
-      if(data.status === 201){
-        toast.success('subcategory created successfully')
+      if (data.status === 201) {
+        toast.success("subcategory created successfully");
       }
     } catch (error) {
-      if(error instanceof AxiosError){
+      if (error instanceof AxiosError) {
         if (error.response.status == 401) {
-          toast.error("session expired please logain again");
+          toast.error("session expired please login again");
           navigate("/users/login");
         }
       }
     }
   }, []);
-
-
-
-
-
 
   return (
     <Stack spacing={15}>
@@ -117,9 +111,11 @@ console.log(createsubcategory);
             id="standard-basic"
             value={createsubcategory.subcategory_name}
             label="New Subcategory"
-            onChange={(e)=>setCreatesubcategory((prev)=>{
-              return {...prev,subcategory_name:e.target.value}
-            })}
+            onChange={(e) =>
+              setCreatesubcategory((prev) => {
+                return { ...prev, subcategory_name: e.target.value };
+              })
+            }
             helperText="enter a subcategory"
           />
 
@@ -129,9 +125,11 @@ console.log(createsubcategory);
               control={
                 <Switch
                   checked={createsubcategory.active}
-                  onChange={(e) => setCreatesubcategory((prev)=>{
-                    return {...prev,active :e.target.checked}
-                  })}
+                  onChange={(e) =>
+                    setCreatesubcategory((prev) => {
+                      return { ...prev, active: e.target.checked };
+                    })
+                  }
                 />
               }
             />

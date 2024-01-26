@@ -193,7 +193,7 @@ export default function Orders() {
             borderRadius: "15px",
             border: "1px solid #ccc",
             boxShadow: "0 2px 5px rgba(0, 0, 0, 0.1)",
-            fontFamily: "Arial, sans-serif",
+            fontFamily: "Montserrat, sans-serif",
             fontSize: "16px",
             transition:
               "border-color 0.2s ease-in-out, box-shadow 0.2s ease-in-out",
@@ -212,6 +212,7 @@ export default function Orders() {
         <DataGrid
           sx={{
             // height: 400,
+            fontFamily: "Montserrat",
             border: 0,
             margin: "20px",
             "& .MuiDataGrid-columnHeaders": {

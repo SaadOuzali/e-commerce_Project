@@ -2,10 +2,10 @@
 const Subcategorie = require("../models/Subcategorie");
 // Import the Categorie model
 const Category = require("../models/Categories");
-const {v4}=require('uuid')
+const { v4 } = require("uuid");
 
 // Function to create a new subcategory
-const createSubcategory = async (req, res) => {
+const createSubcategory = async (req, res, next) => {
   const { subcategory_name, active = false, category_id } = req.body;
 
   try {
@@ -21,30 +21,26 @@ const createSubcategory = async (req, res) => {
     // }
 
     // Create the new subcategory
-    const id=v4()
-    const slug=`${subcategory_name}_${id}`
+    const id = v4();
+    const slug = `${subcategory_name}_${id}`;
     const newSubcategory = await Subcategorie.create({
       subcategory_name,
       active,
       category_id,
       id,
-      slug
+      slug,
     });
 
     return res.status(201).json({
       message: "Subcategory created successfully",
-      data: newSubcategory
+      data: newSubcategory,
     });
   } catch (error) {
-    const err=new Error(error.message);
-    err.status=500
-   next(err)
+    const err = new Error(error.message);
+    err.status = 500;
+    next(err);
   }
 };
-
-
-
-
 
 // Controller function to list all subcategories
 async function listSubcategories(req, res) {
@@ -67,12 +63,11 @@ async function listSubcategories(req, res) {
       return res.json([]);
     }
 
-    return res.status(200).json({status:"sucess" ,data: subcategories });
-    
+    return res.status(200).json({ status: "sucess", data: subcategories });
   } catch (error) {
-    const err=new Error(error.message);
-    err.status=500;
-    next(err)
+    const err = new Error(error.message);
+    err.status = 500;
+    next(err);
   }
 }
 
@@ -85,7 +80,7 @@ async function searchSubcategories(req, res) {
   try {
     // Get subcategories relative to the search query value and limit to 10 per page
     subcategories = await Subcategorie.find({
-      subcategoryName: { $regex: new RegExp(query, "i") } // Case-insensitive search
+      subcategoryName: { $regex: new RegExp(query, "i") }, // Case-insensitive search
     })
       .limit(limit)
       .skip((page - 1) * limit)
@@ -124,7 +119,7 @@ async function getSubcategoryById(req, res) {
     // Prepare the response object with subcategory details and category name
     const response = {
       status: 200,
-      data: subcategory
+      data: subcategory,
     };
 
     return res.status(200).json(response);
@@ -142,8 +137,8 @@ function updateSubcategory(req, res) {
 
   // Perform the update operation (this is a hypothetical function)
   Subcategorie.updateOne({ _id: id }, req.body, {
-    new: true
-  }).then(response => {
+    new: true,
+  }).then((response) => {
     if (response) {
       return res
         .status(200)
@@ -158,7 +153,7 @@ const deleteSubcategory = (req, res) => {
   const subcategoryId = req.params.id;
 
   Subcategorie.deleteOne({ _id: subcategoryId })
-    .then(response => {
+    .then((response) => {
       if (response.deletedCount)
         return res
           .status(200)
@@ -166,28 +161,26 @@ const deleteSubcategory = (req, res) => {
 
       res.status(400).send({ message: "Subcategory not deleted" });
     })
-    .catch(err => {
+    .catch((err) => {
       console.log(err);
       res.status(500).send({ message: "Something went wrong" });
-
     });
 };
 
-
 // to faetch all subcategory
-const fetch_category_controller=async(req,res,next)=>{
+const fetch_category_controller = async (req, res, next) => {
   try {
-    const findsubcategory=await Subcategorie.find();
+    const findsubcategory = await Subcategorie.find();
     res.status(200).json({
-      status:"success",
-      data:findsubcategory
-    })
+      status: "success",
+      data: findsubcategory,
+    });
   } catch (error) {
-    const err=new Error(error.message);
-    err.status=500;
-    next(err)
+    const err = new Error(error.message);
+    err.status = 500;
+    next(err);
   }
-}
+};
 
 module.exports = {
   createSubcategory,
@@ -196,5 +189,5 @@ module.exports = {
   getSubcategoryById,
   updateSubcategory,
   deleteSubcategory,
-  fetch_category_controller
+  fetch_category_controller,
 };

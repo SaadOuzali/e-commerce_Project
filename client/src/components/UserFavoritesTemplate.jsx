@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 // import table_1 from "./table_1.png";
 // import { mainAxiosInstance } from "../config/api";
 import request from "./axios";
+import { Link } from "react-router-dom";
 const UserFavoritesTemplate = () => {
   const [customer, setCustomer] = useState({});
   const [products, setProducts] = useState([]);
@@ -57,6 +58,13 @@ const UserFavoritesTemplate = () => {
                 <h5 className="fw-bold">
                   {customer.first_name} {customer.last_name}
                 </h5>
+                <Link
+                  style={{ color: "black" }}
+                  to="/home"
+                  className="pb-3 underlineLink"
+                >
+                  Home
+                </Link>
               </div>
             </div>
             <div

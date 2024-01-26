@@ -125,7 +125,7 @@ const CustomerList = () => {
         setCustomers(responseData.data || []);
       } catch (error) {
         if (error instanceof AxiosError) {
-          if (error.response?.status === 401) {
+          if (error.response.status === 401) {
             toast.error("session expired please login again");
             navigate("/users/login");
           }
@@ -285,6 +285,7 @@ const CustomerList = () => {
           // autoHeight
           sx={{
             // height: 400,
+            fontFamily: "Montserrat",
             border: 0,
             margin: "20px",
             "& .MuiDataGrid-columnHeaders": {

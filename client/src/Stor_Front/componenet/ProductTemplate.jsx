@@ -70,6 +70,14 @@ const ProductTemplate = () => {
                       className="text-start"
                       style={{ fontWeight: "300", color: "#858484" }}
                     >
+                      {prd.short_description}
+                    </p>
+                  </div>
+                  <div className="d-flex justify-content-start">
+                    <p
+                      className="text-start"
+                      style={{ fontWeight: "300", color: "#858484" }}
+                    >
                       {prd.long_description}
                     </p>
                   </div>

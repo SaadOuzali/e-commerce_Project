@@ -3,10 +3,25 @@ import { useCallback, useEffect, useState } from "react";
 // import { mainAxiosInstance } from "../config/api";
 import { toast } from "react-toastify";
 import request from "./axios";
+import { Link } from "react-router-dom";
+import OrderDetailsModal from "./OrderDetailsModal";
 
 const UserOrdersTemplate = () => {
   const [customer, setCustomer] = useState({});
   const [orders, setOrders] = useState([]);
+  const [isDetailsOpen, setIsDetailsOpen] = useState(false);
+  const [selectedOrder, setSelectedOrder] = useState([]);
+
+  const handleOpenDetailsModal = (order) => {
+    console.log("details order ");
+    setSelectedOrder(order);
+    setIsDetailsOpen(true);
+  };
+
+  const handleCloseDetailsModal = () => {
+    setIsDetailsOpen(false);
+  };
+
   useEffect(() => {
     const fetchCustomer = async () => {
       try {
@@ -88,6 +103,13 @@ const UserOrdersTemplate = () => {
                   <h5 className="fw-bold">
                     {customer.first_name} {customer.last_name}
                   </h5>
+                  <Link
+                    style={{ color: "black" }}
+                    to="/home"
+                    className="pb-3 underlineLink"
+                  >
+                    Home
+                  </Link>
                 </div>
               </div>
               <div
@@ -120,153 +142,10 @@ const UserOrdersTemplate = () => {
                         </p>
                       </div>
                       <div className="d-flex flex-row justify-content-between">
-                        {/* <button
-                          className="btn btn-outline-secondary style_button_product d-flex justify-content-start fw-bold"
-                          style={{ borderRadius: "10px" }}
-                        >
-                          View Order
-                        </button> */}
-                      </div>
-                    </div>
-                  </div>
-                ))}
-                {orders.map((order) => (
-                  <div
-                    className="card col-md-4 mb-1"
-                    style={{ width: "18rem" }}
-                    key={order.id}
-                  >
-                    {/* <img
-                      src={table_1}
-                      className="card-img-top pt-3 pb-1"
-                      alt="table_1"
-                    /> */}
-                    <div className="card-body">
-                      <div className="d-flex justify-content-start">
-                        <h5 className="card-title fw-bold">
-                          {order.cart_total_price} dhs
-                        </h5>
-                      </div>
-                      <div className="d-flex">
-                        <p className="col-8 d-flex justify-content-start">
-                          {formatDate(order.order_date)}
-                        </p>
-                        <p className="col-4 d-flex justify-content-end">
-                          {order.status}
-                        </p>
-                      </div>
-                      <div className="d-flex flex-row justify-content-between">
-                        {/* <button
-                          className="btn btn-outline-secondary style_button_product d-flex justify-content-start fw-bold"
-                          style={{ borderRadius: "10px" }}
-                        >
-                          View Order
-                        </button> */}
-                      </div>
-                    </div>
-                  </div>
-                ))}
-                {orders.map((order) => (
-                  <div
-                    className="card col-md-4 mb-1"
-                    style={{ width: "18rem" }}
-                    key={order.id}
-                  >
-                    {/* <img
-                      src={table_1}
-                      className="card-img-top pt-3 pb-1"
-                      alt="table_1"
-                    /> */}
-                    <div className="card-body">
-                      <div className="d-flex justify-content-start">
-                        <h5 className="card-title fw-bold">
-                          {order.cart_total_price} dhs
-                        </h5>
-                      </div>
-                      <div className="d-flex">
-                        <p className="col-8 d-flex justify-content-start">
-                          {formatDate(order.order_date)}
-                        </p>
-                        <p className="col-4 d-flex justify-content-end">
-                          {order.status}
-                        </p>
-                      </div>
-                      <div className="d-flex flex-row justify-content-between">
-                        {/* <button
-                          className="btn btn-outline-secondary style_button_product d-flex justify-content-start fw-bold"
-                          style={{ borderRadius: "10px" }}
-                        >
-                          View Order
-                        </button> */}
-                      </div>
-                    </div>
-                  </div>
-                ))}
-                {orders.map((order) => (
-                  <div
-                    className="card col-md-4 mb-1"
-                    style={{ width: "18rem" }}
-                    key={order.id}
-                  >
-                    {/* <img
-                      src={table_1}
-                      className="card-img-top pt-3 pb-1"
-                      alt="table_1"
-                    /> */}
-                    <div className="card-body">
-                      <div className="d-flex justify-content-start">
-                        <h5 className="card-title fw-bold">
-                          {order.cart_total_price} dhs
-                        </h5>
-                      </div>
-                      <div className="d-flex">
-                        <p className="col-8 d-flex justify-content-start">
-                          {formatDate(order.order_date)}
-                        </p>
-                        <p className="col-4 d-flex justify-content-end">
-                          {order.status}
-                        </p>
-                      </div>
-                      <div className="d-flex flex-row justify-content-between">
-                        {/* <button
-                          className="btn btn-outline-secondary style_button_product d-flex justify-content-start fw-bold"
-                          style={{ borderRadius: "10px" }}
-                        >
-                          View Order
-                        </button> */}
-                      </div>
-                    </div>
-                  </div>
-                ))}
-                {orders.map((order) => (
-                  <div
-                    className="card col-md-4 mb-1"
-                    style={{ width: "18rem" }}
-                    key={order.id}
-                  >
-                    {/* <img
-                      src={table_1}
-                      className="card-img-top pt-3 pb-1"
-                      alt="table_1"
-                    /> */}
-                    <div className="card-body">
-                      <div className="d-flex justify-content-start">
-                        <h5 className="card-title fw-bold">
-                          {order.cart_total_price} dhs
-                        </h5>
-                      </div>
-                      <div className="d-flex">
-                        <p className="col-8 d-flex justify-content-start">
-                          {formatDate(order.order_date)}
-                        </p>
-                        <p className="col-4 d-flex justify-content-end">
-                          {order.status}
-                        </p>
-                      </div>
-                      <div className="d-flex flex-row justify-content-between">
                         <button
                           className="btn btn-outline-secondary style_button_product d-flex justify-content-start fw-bold"
                           style={{ borderRadius: "10px" }}
+                          onClick={() => handleOpenDetailsModal(order)}
                         >
                           View Order
                         </button>
@@ -279,6 +158,11 @@ const UserOrdersTemplate = () => {
           </div>
         </div>
       </div>
+      <OrderDetailsModal
+        order={selectedOrder}
+        open={isDetailsOpen}
+        handleClose={handleCloseDetailsModal}
+      />
     </>
   );
 };
