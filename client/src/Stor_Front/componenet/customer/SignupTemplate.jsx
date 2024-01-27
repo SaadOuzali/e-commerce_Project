@@ -7,7 +7,6 @@ import { toast } from "react-toastify";
 import axios, { AxiosError } from "axios";
 import request from "../../../components/axios";
 
-
 const SignupTemplate = () => {
   const navigate = useNavigate();
   const [firstName, setFirstName] = useState("");
@@ -15,39 +14,39 @@ const SignupTemplate = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
-  const handleSignup =useCallback( async (event) => {
-    event.preventDefault();
-    try {
-      const response = await request.post(
-        "/v1/customers/",
-        {
+  const handleSignup = useCallback(
+    async (event) => {
+      event.preventDefault();
+      try {
+        const response = await request.post("/v1/customers/", {
           first_name: firstName,
           last_name: lastName,
           email,
           password,
-        }
-      );
+        });
 
-      if (response.status === 200 || response.status === 201) {
-        toast.success("Signup successful!");
-        navigate("/login");
-      } else {
-        toast.error("Unexpected response status");
-      }
-    } catch (error) {
-      console.log(error);
-      if(error instanceof AxiosError){
+        if (response.status === 200 || response.status === 201) {
+          toast.success("Signup successful!");
+          navigate("/home/login");
+        } else {
+          toast.error("Unexpected response status");
+        }
+      } catch (error) {
+        console.log(error);
+        if (error instanceof AxiosError) {
           if (error.response.status === 400) {
-              toast.error(error.response.data.message || "Signup failed");
-          }else if(error.response.status === 401){
-              toast.error(error.response.data.message || "Signup failed");
+            toast.error(error.response.data.message || "Signup failed");
+          } else if (error.response.status === 401) {
+            toast.error(error.response.data.message || "Signup failed");
           }
-      } else {
-        // TypeError
-        toast.error("Error: " + error.message);
+        } else {
+          // TypeError
+          toast.error("Error: " + error.message);
+        }
       }
-    }
-  },[firstName,lastName,email,password]);
+    },
+    [firstName, lastName, email, password]
+  );
 
   return (
     <>
@@ -79,7 +78,7 @@ const SignupTemplate = () => {
                   <div className="mt-5 text-center d-flex align-items-center mb-2 justify-content-center">
                     <button
                       className="white_button fw-bold"
-                      onClick={() => navigate("/login")}
+                      onClick={() => navigate("/home/login")}
                     >
                       SIGN IN
                     </button>

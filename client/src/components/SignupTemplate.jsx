@@ -9,6 +9,7 @@ import axios from "axios";
 // import TableImage from "./table_2.png";
 // import WallArtImage from "./wall_art.png";
 
+//NOT THIS ONE
 const SignupTemplate = () => {
   const navigate = useNavigate();
   const [firstName, setFirstName] = useState("");
@@ -32,7 +33,7 @@ const SignupTemplate = () => {
 
       if (response.status === 200 || response.status === 201) {
         toast.success("Signup successful!");
-        navigate("/login");
+        navigate("/home/login");
       } else {
         toast.error("Unexpected response status");
       }
@@ -75,7 +76,7 @@ const SignupTemplate = () => {
                   <div className="mt-5 text-center d-flex align-items-center mb-2 justify-content-center">
                     <button
                       className="white_button fw-bold"
-                      onClick={() => navigate("/login")}
+                      onClick={() => navigate("/home/login")}
                     >
                       SIGN IN
                     </button>

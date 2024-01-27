@@ -170,21 +170,22 @@ customerRouter.get(
       }
       if (customer.valid_account) {
         console.log("account already validated");
-        res.status(400).json({ message: "account already validated" });
-        return;
+        return res.redirect(
+          `http://localhost:5173/home/email-verification-already_validated?status=already_validated&message=This account has already been validated.`
+        );
       }
       const updatedCustomer = await Customer.updateOne(
         { _id: customer._id },
         { valid_account: true }
       );
       if (updatedCustomer.modifiedCount == 0) {
-        res.status(422).json({ message: "Customer not found" });
-        return;
+        return res.redirect(
+          `http://localhost:5173/home/email-verification-failure?status=failure&message=Customer not found`
+        );
       }
-      res.status(200).json({
-        status: "success",
-        message: "your compte validated successfully",
-      });
+      return res.redirect(
+        `http://localhost:5173/home/email-verification-success?status=success`
+      );
     } catch (error) {
       const err = new Error("invalid token");
       err.status = 401;

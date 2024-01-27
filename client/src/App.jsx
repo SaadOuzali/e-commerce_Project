@@ -132,7 +132,18 @@ function App() {
                 <Route index element={<Child />} />
                 <Route path="login" element={<LoginTemplate />} />
 
-                <Route path="validate_account" element={<VerifyEmail />} />
+                <Route
+                  path="email-verification-success"
+                  element={<VerifyEmail />}
+                />
+                <Route
+                  path="email-verification-failure"
+                  element={<VerifyEmail />}
+                />
+                <Route
+                  path="email-verification-already_validated"
+                  element={<VerifyEmail />}
+                />
                 <Route path="signup" element={<SignupTemplate />} />
                 {/* <Route path="payment" element={<Payment/>} /> */}
                 <Route path=":slug" element={<Categorie />}>
