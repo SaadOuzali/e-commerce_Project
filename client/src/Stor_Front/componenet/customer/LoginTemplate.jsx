@@ -43,11 +43,11 @@ const LoginTemplate = () => {
         console.log(error);
         if (error instanceof AxiosError) {
           if (error.response.status === 400) {
-            toast.error(error.response.data.message || "Logain failed");
+            toast.error(error.response.data.message || "Login failed");
           } else if (error.response.status === 401) {
-            toast.error(error.response.data.message || "Logain failed");
+            toast.error(error.response.data.message || "Login failed");
           } else if (error.response.status === 404) {
-            toast.error(error.response.data.message || "Logain failed");
+            toast.error(error.response.data.message || "Login failed");
           }
         } else {
           toast.error("Error: " + error.message);

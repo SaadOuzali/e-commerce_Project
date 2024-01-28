@@ -6,6 +6,7 @@ import { useCallback } from "react";
 import axios from "axios";
 import EditIcon from "@mui/icons-material/Edit";
 import { toast } from "react-toastify";
+import request from "../axios";
 
 const EditCustomer = ({
   customer,
@@ -22,16 +23,17 @@ const EditCustomer = ({
     }));
   };
   const handleEditButton = useCallback(() => {
-    const id = customer._id;
-    delete customer._id;
-    axios
-      .patch("http://localhost:3000/v1/customers/" + id, customer)
+    const id = customer.id;
+    console.log(id);
+    // delete customer._id;
+    request
+      .put("/v1/customers/" + id, customer)
       .then(({ data }) => {
         const newCustomer = data.data;
-
+        console.log("data:  ", data);
         setIsEditOpen(false);
         setCustomers((prev) =>
-          prev.map((prd) => (prd._id === id ? newCustomer : prd))
+          prev.map((cust) => (cust.id === id ? newCustomer : cust))
         );
         console.log(data.data);
         toast.success(data?.message ?? "YAAAAAAY edited!!!!");

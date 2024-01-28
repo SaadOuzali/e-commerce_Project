@@ -34,7 +34,7 @@ const style = {
 export default function ModalEdit({ name, data, _id, setUsers }) {
   const user = React.useContext(usercontext);
   const navigate = useNavigate();
-  
+
   const [edituser, setEdituser] = React.useState({
     first_name: data.first_name,
     last_name: data.last_name,
@@ -45,7 +45,7 @@ export default function ModalEdit({ name, data, _id, setUsers }) {
     role: data.role,
   });
   //   console.log('data',data);
-    // console.log("edituser", edituser);
+  // console.log("edituser", edituser);
   const handleChange = ({ target }) => {
     setEdituser((prev) => {
       return { ...prev, role: target.value };
@@ -65,17 +65,16 @@ export default function ModalEdit({ name, data, _id, setUsers }) {
       if (data?.status === "success") {
         toast.success("user updated successfully");
         console.log(data.data);
-        setUsers((prev)=>{
-          return prev.map((prev)=>{
-            return prev.id === data.data.id ? data.data : prev
-          })
-        })
-       
+        setUsers((prev) => {
+          return prev.map((prev) => {
+            return prev.id === data.data.id ? data.data : prev;
+          });
+        });
       }
     } catch ({ response }) {
       console.log("fhadiiiiiii", response);
       if (response.status == 401) {
-        toast.error("session expired please logain again");
+        toast.error("session expired please login again");
         console.log("error", response);
         navigate("/users/login");
       }
@@ -167,9 +166,11 @@ export default function ModalEdit({ name, data, _id, setUsers }) {
                 control={
                   <Switch
                     checked={edituser.active}
-                    onChange={({target}) => setEdituser((prev)=>{
-                        return {...prev,active :target.checked}
-                    })}
+                    onChange={({ target }) =>
+                      setEdituser((prev) => {
+                        return { ...prev, active: target.checked };
+                      })
+                    }
                   />
                 }
                 label="Active"

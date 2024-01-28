@@ -134,6 +134,7 @@ const ProductList = () => {
         const response = await request.get("/v1/products/");
         const responseData = response.data;
         console.log("Fetched Products: ", responseData);
+        toast.success("Products listed successfully");
         setProducts(responseData.data || []);
       } catch (error) {
         if (error instanceof AxiosError) {

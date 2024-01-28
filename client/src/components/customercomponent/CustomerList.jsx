@@ -122,6 +122,7 @@ const CustomerList = () => {
         const response = await request.get("/v1/customers/");
         const responseData = response.data;
         console.log("Fetched Customers: ", responseData);
+        toast.success("Customers listed successfully");
         setCustomers(responseData.data || []);
       } catch (error) {
         if (error instanceof AxiosError) {

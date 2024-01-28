@@ -118,15 +118,15 @@ async function listOrders(req, res, next) {
       itemsTotal: order.cart_total_price, // Assuming cart_total_price represents itemsTotal
       count: order.order_items.length,
       customer: {
-        id: order.customer_id._id,
-        first_name: order.customer_id.first_name,
-        last_name: order.customer_id.last_name,
+        id: order.customer_id?._id,
+        first_name: order.customer_id?.first_name,
+        last_name: order.customer_id?.last_name,
       },
     }));
     req.orders = ordersData;
     next();
   } catch (err) {
-    console.log("ERROR UGH: ", err);
+    console.error("ERROR UGH: ", err);
     res.status(500).json({ message: "SERVER ERROR UGH" });
   }
 }

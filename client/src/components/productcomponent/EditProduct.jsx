@@ -6,6 +6,7 @@ import { useCallback } from "react";
 import axios from "axios";
 import EditIcon from "@mui/icons-material/Edit";
 import { toast } from "react-toastify";
+import request from "../axios";
 
 const EditProduct = ({
   product,
@@ -23,11 +24,12 @@ const EditProduct = ({
   };
   const handleEditButton = useCallback(() => {
     const id = product._id;
-    delete product._id;
-    axios
-      .patch("http://localhost:3000/v1/products/" + id, product)
+    // delete product._id;
+    request
+      .patch("/v1/products/" + id, product)
       .then(({ data }) => {
         const newProduct = data.data;
+        console.log("data: ", data);
 
         setIsEditOpen(false);
         setProducts((prev) =>

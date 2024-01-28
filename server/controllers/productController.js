@@ -119,6 +119,7 @@ async function update_product_controller(req, res, next) {
     res.status(200).json({
       status: "success",
       message: "product updated successfully",
+      data: updateproduct,
     });
   } catch (error) {
     const err = new Error(error.message);

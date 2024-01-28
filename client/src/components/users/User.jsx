@@ -41,7 +41,7 @@ export default function DataTable() {
       // }
     } catch ({ response }) {
       if (response.status == 401) {
-        toast.error("session expired please logain again");
+        toast.error("session expired please login again");
         console.log("error", response);
         navigate("/users/login");
       }
@@ -118,9 +118,10 @@ export default function DataTable() {
         const { data } = await request.get("/v1/users/");
         setUsers(data.data);
         console.log(data.data);
+        toast.success("Users listed successfully");
       } catch ({ response }) {
         if (response.status == 401) {
-          toast.error("session expired please logain again");
+          toast.error("session expired please login again");
           navigate("/users/login");
         }
         console.log("hna error", response);
@@ -140,7 +141,7 @@ export default function DataTable() {
         }
       } catch ({ response }) {
         if (response.status == 401) {
-          toast.error("session expired please logain again");
+          toast.error("session expired please login again");
           console.log("error", response);
           navigate("/users/login");
         }

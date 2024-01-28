@@ -132,15 +132,19 @@ export default function Orders() {
   const mappedorders = React.useMemo(() => {
     return orders.length > 0
       ? orders
-          .filter((order) =>
-            order.customer.first_name
-              .toLowerCase()
-              .includes(search.toLowerCase())
-          )
+          .filter((order) => {
+            return (
+              order.customer &&
+              order.customer.first_name &&
+              order.customer.first_name
+                .toLowerCase()
+                .includes(search.toLowerCase())
+            );
+          })
           .map((order) => {
             return {
               id: order.id,
-              customer_name: order.customer.first_name,
+              customer_name: order.customer ? order.customer.first_name : "",
               date: order.order_date,
               status: order.status,
             };
@@ -168,9 +172,10 @@ export default function Orders() {
           setOrders(data.data);
         }
         // console.log(data.data);
+        toast.success("Orders listed successfully");
       } catch ({ response }) {
         if (response.status == 401) {
-          toast.error("session expired please logain again");
+          toast.error("session expired please login again");
           navigate("/users/login");
         }
       }

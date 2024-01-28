@@ -29,7 +29,7 @@ export default function SingleOrder() {
         }
       } catch ({ response }) {
         if (response.status == 401) {
-          toast.error("session expired please logain again");
+          toast.error("session expired please login again");
           navigate("/users/login", { state: { path: "hello" } });
         }
       }

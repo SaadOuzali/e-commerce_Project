@@ -7,7 +7,8 @@ async function updateCustomer(req, res, next) {
     const customerData = req.body;
     const customer = await Customer.findOneAndUpdate(
       { id: customerId },
-      customerData
+      customerData,
+      { new: true }
     );
     if (!customer) {
       const err = new Error("Customer not found");

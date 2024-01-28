@@ -31,8 +31,8 @@ const style = {
   p: 4,
 };
 
-export default function ModalUpdateOrder({id}) {
-  const navigate =useNavigate()
+export default function ModalUpdateOrder({ id }) {
+  const navigate = useNavigate();
   const [signup, setSignup] = React.useState({
     first_name: "",
     last_name: "",
@@ -49,22 +49,21 @@ export default function ModalUpdateOrder({id}) {
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
 
-  const handleEdit=async (id)=>{
-   
+  const handleEdit = async (id) => {
     try {
-      const {data}=await request.put(`/v1/orders`);
-        if(data.status ===  "success"){
-          toast.success('order created successfully');
-          navigate('orders')
-        }
-    } catch ({response}) {
+      const { data } = await request.put(`/v1/orders`);
+      if (data.status === "success") {
+        toast.success("order created successfully");
+        navigate("orders");
+      }
+    } catch ({ response }) {
       if (response.status == 401) {
-        toast.error("session expired please logain again");
+        toast.error("session expired please login again");
         console.log("errorrrrrr§§§", response);
         navigate("/users/login");
       }
     }
-  }
+  };
 
   return (
     <div>
@@ -117,9 +116,11 @@ export default function ModalUpdateOrder({id}) {
                 required
                 type="email"
                 value={signup.email}
-                onChange={({ target }) => setSignup((prev)=>{
-                  return {...prev,email:target.value}
-                })}
+                onChange={({ target }) =>
+                  setSignup((prev) => {
+                    return { ...prev, email: target.value };
+                  })
+                }
               />
               <TextField
                 label="password"
@@ -127,16 +128,17 @@ export default function ModalUpdateOrder({id}) {
                 required
                 type="password"
                 value={signup.password}
-                onChange={({ target }) => setSignup((prev)=>{
-                  return {...prev,password:target.value}
-                })}
+                onChange={({ target }) =>
+                  setSignup((prev) => {
+                    return { ...prev, password: target.value };
+                  })
+                }
               />
-               <FormControl fullWidth>
+              <FormControl fullWidth>
                 <InputLabel id="demo-simple-select-label">Status</InputLabel>
                 <Select
                   labelId="demo-simple-select-label"
                   id="demo-simple-select"
-                  
                   value={signup.role}
                   label="Role"
                   onChange={({ target }) =>
@@ -155,15 +157,19 @@ export default function ModalUpdateOrder({id}) {
                 control={
                   <Switch
                     checked={signup.active}
-                    onChange={({target}) => setSignup((prev)=>{
-                        return {...prev,active :target.checked}
-                    })}
+                    onChange={({ target }) =>
+                      setSignup((prev) => {
+                        return { ...prev, active: target.checked };
+                      })
+                    }
                   />
                 }
                 label="Active"
               />
             </Stack>
-            <Button variant="contained" onClick={()=>handleEdit(id)}>save</Button>
+            <Button variant="contained" onClick={() => handleEdit(id)}>
+              save
+            </Button>
           </Stack>
         </Box>
       </Modal>

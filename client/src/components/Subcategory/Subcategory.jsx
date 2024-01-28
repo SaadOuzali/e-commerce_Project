@@ -34,7 +34,7 @@ export default function Subcategory() {
     } catch (error) {
       if (error instanceof AxiosError) {
         if (error.response.status == 401) {
-          toast.error("session expired please logain again");
+          toast.error("session expired please login again");
           console.log("error", response);
           navigate("/users/login");
         }
@@ -50,6 +50,7 @@ export default function Subcategory() {
         if (data.status === 200) {
           setSubcategory(data.data.data);
         }
+        toast.success("Subcategories listed successfully");
       } catch (error) {
         console.log(error);
       }
