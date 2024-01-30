@@ -75,14 +75,14 @@ export default function AsideBar({ open, setOpen, theme }) {
   };
 
   const handleDrawerClose = () => {
-    setOpen(false);
+    setOpen((prev)=>!prev);
   };
   return (
     <>
       <Drawer theme={theme} variant="permanent" open={open}>
         <DrawerHeader theme={theme}>
           <IconButton onClick={handleDrawerClose}>
-            {theme.direction === "rtl" ? (
+            {!open ? (
               <ChevronRightIcon />
             ) : (
               <ChevronLeftIcon />

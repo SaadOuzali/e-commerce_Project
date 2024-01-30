@@ -33,7 +33,7 @@ const refreshAccToken = async (req, res, next) => {
       const { _id } = userdata;
 
       const newAccToken = sign({ _id: userdata._id }, process.env.JWT_SECRET, {
-        expiresIn: "2h",
+        expiresIn: "20s",
       });
 
       res.cookie("accessToken", newAccToken, {
@@ -166,7 +166,7 @@ function GenerateJWT(req, res, next) {
       { _id: req.session.user._id },
       process.env.JWT_REFRESH_SECRET,
       {
-        expiresIn: "180s",
+        expiresIn: "120s",
       }
     );
 
@@ -198,6 +198,7 @@ function GenerateJWT(req, res, next) {
     next(err);
   }
 }
+
 
 function admin_OR_manager(req, res, next) {
   console.log("hnaaanannanna");

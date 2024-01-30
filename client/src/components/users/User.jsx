@@ -31,14 +31,11 @@ export default function DataTable() {
     const { _id } = row;
     console.log(_id);
     try {
-      const { _id } = row;
-      console.log(_id);
-      const id = "6004a2e031b65381d7d7cdd3";
-
-      // const { data } = await request.delete(`/v1/users/${id}`);
-      // if (data?.status == "success") {
-      //   toast.success("user deleted successfully");
-      // }
+      const { _id } = row;    
+      const { data } = await request.delete(`/v1/users/${id}`);
+      if (data?.status == "success") {
+        toast.success("user deleted successfully");
+      }
     } catch ({ response }) {
       if (response.status == 401) {
         toast.error("session expired please login again");
@@ -184,7 +181,9 @@ export default function DataTable() {
           }}
           endIcon={<AddIcon />}
         >
-          Create New User
+           
+        <Modaluser name={"Create New User"} />
+      
         </Button>
       )}
       <Box sx={{ height: 400, width: "100%" }}>

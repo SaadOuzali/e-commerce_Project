@@ -132,13 +132,14 @@ async function getSubcategoryById(req, res) {
 }
 
 // Update subcategory data controller function
-function updateSubcategory(req, res) {
+async function updateSubcategory(req, res) {
   const { id } = req.params; // Getting subcategory ID from path parameter
 
   // Perform the update operation (this is a hypothetical function)
-  Subcategorie.updateOne({ _id: id }, req.body, {
+  Subcategorie.findOneAndUpdate({ _id: id }, req.body, {
     new: true,
-  }).then((response) => {
+  }).
+  then((response) => {
     if (response) {
       return res
         .status(200)
@@ -146,6 +147,14 @@ function updateSubcategory(req, res) {
     }
     return res.status(500).json({ message: "Subcategory not updated" });
   });
+
+  // try {
+  //   const updatesub=await Subcategorie.updateOne({ _id: id }, req.body, {
+  //     new: true});
+  //     if(!updatesub)
+  // } catch (error) {
+    
+  // }
 }
 
 // Controller function to delete subcategory by ID

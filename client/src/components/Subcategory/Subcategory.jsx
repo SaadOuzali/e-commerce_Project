@@ -11,17 +11,7 @@ import request from "../axios";
 import { AxiosError } from "axios";
 import { toast } from "react-toastify";
 
-const rows = [
-  { id: 1, lastName: "Snow", firstName: "Jon", age: 14 },
-  { id: 2, lastName: "Lannister", firstName: "Cersei", age: 31 },
-  { id: 3, lastName: "Lannister", firstName: "Jaime", age: 31 },
-  { id: 4, lastName: "Stark", firstName: "Arya", age: 11 },
-  { id: 5, lastName: "Targaryen", firstName: "Daenerys", age: null },
-  { id: 6, lastName: "Melisandre", firstName: null, age: 150 },
-  { id: 7, lastName: "Clifford", firstName: "Ferrara", age: 44 },
-  { id: 8, lastName: "Frances", firstName: "Rossini", age: 36 },
-  { id: 9, lastName: "Roxie", firstName: "Harvey", age: 65 },
-];
+
 
 export default function Subcategory() {
   const navigate = useNavigate();
@@ -70,14 +60,16 @@ export default function Subcategory() {
         headerAlign: "center",
         renderCell: ({ row }) => (
           <Stack direction={"row"} spacing={2}>
-            <ModalEditSub row={row} />
+            <ModalEditSub row={row}  setSubcategory={setSubcategory} />
 
             <Button
               variant="text"
               color="error"
               endIcon={<DeleteIcon />}
               onClick={() => handleDelete(row._id)}
-            ></Button>
+            >
+              Delete
+            </Button>
           </Stack>
         ),
       },
@@ -181,7 +173,7 @@ export default function Subcategory() {
           initialState={{
             pagination: {
               paginationModel: {
-                pageSize: 10,
+                pageSize: 100,
               },
             },
           }}
@@ -189,11 +181,11 @@ export default function Subcategory() {
           checkboxSelection
           disableRowSelectionOnClick
         />
-        <Pagination
+        {/* <Pagination
           onClick={() => console.log()}
           count={10}
           color="secondary"
-        />
+        /> */}
       </Box>
     </Stack>
   );
